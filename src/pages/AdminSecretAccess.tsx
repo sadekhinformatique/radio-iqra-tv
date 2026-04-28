@@ -106,6 +106,7 @@ export default function AdminSecretAccess() {
     primary_color: "#2e7d32",
     secondary_color: "#D4AF37",
     radio_stream_url: "",
+    youtube_api_key: "",
   });
 
   const [uploadFile, setUploadFile] = useState<File | null>(null);
@@ -175,6 +176,7 @@ export default function AdminSecretAccess() {
         primary_color: data.primary_color || "#2e7d32",
         secondary_color: data.secondary_color || "#D4AF37",
         radio_stream_url: data.radio_stream_url || "",
+        youtube_api_key: data.youtube_api_key || "",
       });
     }
   };
@@ -939,6 +941,10 @@ export default function AdminSecretAccess() {
                     <div className="space-y-2">
                       <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Telegram URL</label>
                       <input type="text" value={configFormData.telegram_url} onChange={e => setConfigFormData({...configFormData, telegram_url: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">YouTube API Key (v3)</label>
+                      <input type="password" value={configFormData.youtube_api_key} onChange={e => setConfigFormData({...configFormData, youtube_api_key: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
                     </div>
 
                     {/* Footer */}

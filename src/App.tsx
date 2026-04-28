@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import Coran from "./pages/Coran";
 import Podcasts from "./pages/Podcasts";
 import Conseils from "./pages/Conseils";
+import YouTube from "./pages/YouTube";
 import AdminSecretAccess from "./pages/AdminSecretAccess";
 
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
           <Route path="/coran" element={<Coran />} />
           <Route path="/podcasts" element={<Podcasts />} />
           <Route path="/conseils" element={<Conseils />} />
+          <Route path="/youtube" element={<YouTube />} />
         </Route>
 
         {/* Catch-all route to avoid white page */}

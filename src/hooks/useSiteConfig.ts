@@ -19,6 +19,7 @@ export interface SiteConfig {
   primary_color: string;
   secondary_color: string;
   radio_stream_url: string;
+  youtube_api_key: string;
 }
 
 const DEFAULT_CONFIG: SiteConfig = {
@@ -38,7 +39,8 @@ const DEFAULT_CONFIG: SiteConfig = {
   footer_text: "© 2024 RADIO IQRA TV - La voix du Saint Coran au Burkina Faso",
   primary_color: "#2e7d32",
   secondary_color: "#D4AF37",
-  radio_stream_url: "https://stream.radio.co/s8f8f8f8f8/listen"
+  radio_stream_url: "https://stream.radio.co/s8f8f8f8f8/listen",
+  youtube_api_key: ""
 };
 
 export function useSiteConfig() {
