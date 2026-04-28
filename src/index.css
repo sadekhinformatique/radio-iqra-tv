@@ -5,10 +5,11 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-serif: "Cormorant Garamond", serif;
   
-  --color-iqra-green: #2e7d32;
-  --color-iqra-green-dark: #1b5e20;
-  --color-iqra-gold: #D4AF37;
-  --color-iqra-gold-light: #f1e0a2;
+  /* Fallback colors if JS hasn't loaded them yet */
+  --color-iqra-green: var(--iqra-green, #2e7d32);
+  --color-iqra-green-dark: color-mix(in srgb, var(--iqra-green, #2e7d32), black 20%);
+  --color-iqra-gold: var(--iqra-gold, #D4AF37);
+  --color-iqra-gold-light: color-mix(in srgb, var(--iqra-gold, #D4AF37), white 40%);
 }
 
 @layer base {

@@ -1,7 +1,10 @@
 import { MapPin, Phone, Mail, MessageSquare, Send } from "lucide-react";
 import { motion } from "motion/react";
+import { useSiteConfig } from "../hooks/useSiteConfig";
 
 export default function Contact() {
+  const { config } = useSiteConfig();
+
   return (
     <div className="py-20 px-4 md:px-8 max-w-6xl mx-auto">
       <div className="text-center mb-16">
@@ -17,19 +20,19 @@ export default function Contact() {
           <ContactCard 
             icon={MapPin} 
             title="Notre Siège" 
-            desc="Ouagadougou, Secteur 12, Quartier Gounghin, Burkina Faso"
+            desc={config.address}
             color="bg-iqra-green"
           />
           <ContactCard 
             icon={Phone} 
             title="Appelez-nous" 
-            desc="+226 25 XX XX XX / +226 70 XX XX XX"
+            desc={`${config.primary_phone} ${config.secondary_phone ? '/ ' + config.secondary_phone : ''}`}
             color="bg-iqra-gold"
           />
           <ContactCard 
             icon={Mail} 
             title="Email" 
-            desc="contact@radioiqratv.bf"
+            desc={config.email}
             color="bg-iqra-green"
           />
         </div>

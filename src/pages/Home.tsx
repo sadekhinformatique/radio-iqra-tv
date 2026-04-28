@@ -3,10 +3,12 @@ import { Play, Book, Youtube, Mic2, MessageSquare, ChevronRight, Calendar, User 
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import { useSiteConfig } from "../hooks/useSiteConfig";
 
 export default function Home() {
   const [latestPodcast, setLatestPodcast] = useState<any>(null);
   const [latestArticle, setLatestArticle] = useState<any>(null);
+  const { config } = useSiteConfig();
 
   useEffect(() => {
     async function fetchData() {
@@ -17,6 +19,7 @@ export default function Home() {
         const { data: podcasts } = await supabase
           .from('podcasts')
           .select('*')
+          .order('date', { ascending: false })
           .limit(1);
         
         if (podcasts && podcasts.length > 0) {
@@ -27,6 +30,7 @@ export default function Home() {
         const { data: articles } = await supabase
           .from('articles')
           .select('*')
+          .order('date', { ascending: false })
           .limit(1);
         
         if (articles && articles.length > 0) {
@@ -58,7 +62,7 @@ export default function Home() {
               La Voix du <span className="text-iqra-gold">Saint Coran</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
-              Basée au cœur du Burkina Faso, RADIO IQRA TV est une station islamique 
+              Basée au cœur du Burkina Faso, {config.site_name} est une station islamique 
               dédiée à la diffusion des enseignements authentiques de l'Islam.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
@@ -199,8 +203,8 @@ export default function Home() {
               À Propos de Nous
             </h2>
             <p className="text-lg text-gray-600 leading-relaxed font-serif mb-8">
-              "RADIO IQRA TV – La Voix de saint Coran Basée au cœur du Burkina Faso, 
-              RADIO IQRA TV est une station islamique dédiée à la diffusion des enseignements authentiques de l'Islam, 
+              "{config.site_name} – La Voix de saint Coran Basée au cœur du Burkina Faso, 
+              {config.site_name} est une station islamique dédiée à la diffusion des enseignements authentiques de l'Islam, 
               dans un esprit de paix, de fraternité et d'éducation spirituelle..."
             </p>
             <Link 

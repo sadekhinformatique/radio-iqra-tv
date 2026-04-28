@@ -49,13 +49,14 @@ export default function AdminSecretAccess() {
   const [error, setError] = useState<string | null>(null);
 
   // Tabs
-  const [activeTab, setActiveTab] = useState<"podcasts" | "articles" | "sourates" | "grille">("podcasts");
+  const [activeTab, setActiveTab] = useState<"podcasts" | "articles" | "sourates" | "grille" | "config">("podcasts");
 
   // Dashboard State
   const [podcasts, setPodcasts] = useState<Podcast[]>([]);
   const [articles, setArticles] = useState<Article[]>([]);
   const [sourates, setSourates] = useState<Sourate[]>([]);
   const [grilleItems, setGrilleItems] = useState<GrilleItem[]>([]);
+  const [siteConfig, setSiteConfig] = useState<any>(null);
   
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | number | null>(null);
@@ -87,6 +88,24 @@ export default function AdminSecretAccess() {
     end_time: "09:00",
     title: "",
     description: "",
+  });
+
+  const [configFormData, setConfigFormData] = useState<any>({
+    site_name: "",
+    primary_phone: "",
+    secondary_phone: "",
+    email: "",
+    address: "",
+    facebook_url: "",
+    youtube_url: "",
+    whatsapp_number: "",
+    telegram_url: "",
+    twitter_url: "",
+    instagram_url: "",
+    footer_text: "",
+    primary_color: "#2e7d32",
+    secondary_color: "#D4AF37",
+    radio_stream_url: "",
   });
 
   const [uploadFile, setUploadFile] = useState<File | null>(null);
@@ -124,9 +143,41 @@ export default function AdminSecretAccess() {
       if (activeTab === "podcasts") fetchPodcasts();
       else if (activeTab === "articles") fetchArticles();
       else if (activeTab === "sourates") fetchSourates();
-      else fetchGrille();
+      else if (activeTab === "grille") fetchGrille();
+      else fetchConfig();
     }
   }, [user, activeTab]);
+
+  const fetchConfig = async () => {
+    const { data, error } = await supabase
+      .from('site_config')
+      .select('*')
+      .eq('id', 1)
+      .single();
+    
+    if (error) {
+      console.error("Error fetching config:", error);
+    } else if (data) {
+      setSiteConfig(data);
+      setConfigFormData({
+        site_name: data.site_name || "",
+        primary_phone: data.primary_phone || "",
+        secondary_phone: data.secondary_phone || "",
+        email: data.email || "",
+        address: data.address || "",
+        facebook_url: data.facebook_url || "",
+        youtube_url: data.youtube_url || "",
+        whatsapp_number: data.whatsapp_number || "",
+        telegram_url: data.telegram_url || "",
+        twitter_url: data.twitter_url || "",
+        instagram_url: data.instagram_url || "",
+        footer_text: data.footer_text || "",
+        primary_color: data.primary_color || "#2e7d32",
+        secondary_color: data.secondary_color || "#D4AF37",
+        radio_stream_url: data.radio_stream_url || "",
+      });
+    }
+  };
 
   const fetchPodcasts = async () => {
     const { data, error } = await supabase
@@ -498,6 +549,65 @@ export default function AdminSecretAccess() {
     }
   };
 
+  const handleConfigSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormLoading(true);
+    setStatusMsg({ type: "", text: "" });
+
+    try {
+      const updateData = { ...configFormData, updated_at: new Date().toISOString() };
+      
+      const { error } = await supabase
+        .from('site_config')
+        .update(updateData)
+        .eq('id', 1);
+
+      if (error) throw error;
+      
+      setStatusMsg({ type: "success", text: "Configuration enregistrée !" });
+      fetchConfig();
+    } catch (err: any) {
+      setStatusMsg({ type: "error", text: "Erreur: " + err.message });
+    } finally {
+      setFormLoading(false);
+    }
+  };
+
+  const handleAssetUpload = async (file: File, type: 'logos' | 'favicons') => {
+    if (!file) return;
+    setFormLoading(true);
+    setStatusMsg({ type: "", text: "" });
+
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${type}-${Date.now()}.${fileExt}`;
+      const filePath = `${type}/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('site-assets')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage.from('site-assets').getPublicUrl(filePath);
+      
+      const updateKey = type === 'logos' ? 'logo_url' : 'favicon_url';
+      const { error: dbError } = await supabase
+        .from('site_config')
+        .update({ [updateKey]: publicUrl })
+        .eq('id', 1);
+
+      if (dbError) throw dbError;
+
+      setStatusMsg({ type: "success", text: `${type === 'logos' ? 'Logo' : 'Favicon'} mis à jour !` });
+      fetchConfig();
+    } catch (err: any) {
+      setStatusMsg({ type: "error", text: "Erreur upload: " + err.message });
+    } finally {
+      setFormLoading(false);
+    }
+  };
+
   if (user) {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col p-4 md:p-8">
@@ -512,12 +622,14 @@ export default function AdminSecretAccess() {
             </div>
           </div>
           <div className="flex items-center gap-4">
+            {activeTab !== "config" && (
               <button 
                 onClick={() => setIsFormOpen(true)}
                 className="px-6 py-3 bg-iqra-gold text-iqra-green font-bold rounded-2xl flex items-center gap-2 hover:scale-105 transition-all shadow-lg text-sm"
               >
                 <Plus size={18} /> Nouveau {activeTab === "podcasts" ? "Podcast" : activeTab === "articles" ? "Article" : activeTab === "sourates" ? "Sourate" : "Émission"}
               </button>
+            )}
             <button 
               onClick={handleLogout}
               className="px-4 py-2 text-gray-400 hover:text-red-500 font-bold uppercase tracking-widest text-[10px] transition-colors"
@@ -567,6 +679,16 @@ export default function AdminSecretAccess() {
           >
             <div className="flex items-center gap-2">
               <CalendarRange size={16} /> Grille
+            </div>
+          </button>
+          <button 
+            onClick={() => setActiveTab("config")}
+            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 ${
+              activeTab === "config" ? "border-iqra-gold text-iqra-green" : "border-transparent text-gray-400"
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <Clock size={16} /> Configuration
             </div>
           </button>
         </div>
@@ -697,6 +819,144 @@ export default function AdminSecretAccess() {
                     ))}
                   </tbody>
                 </table>
+              </div>
+            </div>
+          ) : activeTab === "config" ? (
+            <div className="space-y-8 animate-in fade-in duration-500">
+              {/* Assets Section */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 flex flex-col items-center gap-6">
+                   <h3 className="text-xl font-bold text-iqra-green">Logo du site</h3>
+                   <div className="w-48 h-48 bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 overflow-hidden">
+                      {siteConfig?.logo_url ? (
+                        <img src={siteConfig.logo_url} alt="Logo" className="max-w-full max-h-full object-contain" />
+                      ) : (
+                        <ImageIcon size={48} className="text-gray-300" />
+                      )}
+                   </div>
+                   <input 
+                    type="file" 
+                    accept="image/*" 
+                    onChange={e => e.target.files?.[0] && handleAssetUpload(e.target.files[0], 'logos')}
+                    className="hidden" 
+                    id="logo-upload" 
+                   />
+                   <label htmlFor="logo-upload" className="px-6 py-2 bg-iqra-gold text-iqra-green font-bold rounded-xl cursor-pointer hover:bg-iqra-gold/80 transition-colors text-sm">
+                     {formLoading ? "Chargement..." : "Changer le logo"}
+                   </label>
+                </div>
+
+                <div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 flex flex-col items-center gap-6">
+                   <h3 className="text-xl font-bold text-iqra-green">Favicon</h3>
+                   <div className="w-24 h-24 bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 overflow-hidden">
+                      {siteConfig?.favicon_url ? (
+                        <img src={siteConfig.favicon_url} alt="Favicon" className="w-12 h-12 object-contain" />
+                      ) : (
+                        <ImageIcon size={24} className="text-gray-300" />
+                      )}
+                   </div>
+                   <input 
+                    type="file" 
+                    accept="image/x-icon,image/png,image/svg+xml" 
+                    onChange={e => e.target.files?.[0] && handleAssetUpload(e.target.files[0], 'favicons')}
+                    className="hidden" 
+                    id="favicon-upload" 
+                   />
+                   <label htmlFor="favicon-upload" className="px-6 py-2 bg-iqra-gold text-iqra-green font-bold rounded-xl cursor-pointer hover:bg-iqra-gold/80 transition-colors text-sm">
+                     {formLoading ? "Chargement..." : "Changer le favicon"}
+                   </label>
+                </div>
+              </div>
+
+              {/* Main Config Form */}
+              <div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
+                <form onSubmit={handleConfigSubmit} className="space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* General Info */}
+                    <div className="md:col-span-2">
+                       <h3 className="text-sm font-bold text-iqra-gold uppercase tracking-widest mb-4 border-l-4 border-iqra-gold pl-4">Informations Générales</h3>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Nom du site</label>
+                      <input type="text" value={configFormData.site_name} onChange={e => setConfigFormData({...configFormData, site_name: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Stream Radio URL</label>
+                      <input type="text" value={configFormData.radio_stream_url} onChange={e => setConfigFormData({...configFormData, radio_stream_url: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Couleur Primaire</label>
+                      <div className="flex gap-4">
+                        <input type="color" value={configFormData.primary_color} onChange={e => setConfigFormData({...configFormData, primary_color: e.target.value})} className="w-12 h-12 rounded-lg cursor-pointer border-none" />
+                        <input type="text" value={configFormData.primary_color} onChange={e => setConfigFormData({...configFormData, primary_color: e.target.value})} className="flex-grow bg-gray-50 border border-gray-100 rounded-2xl px-4 text-xs font-mono" />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Couleur Secondaire</label>
+                      <div className="flex gap-4">
+                        <input type="color" value={configFormData.secondary_color} onChange={e => setConfigFormData({...configFormData, secondary_color: e.target.value})} className="w-12 h-12 rounded-lg cursor-pointer border-none" />
+                        <input type="text" value={configFormData.secondary_color} onChange={e => setConfigFormData({...configFormData, secondary_color: e.target.value})} className="flex-grow bg-gray-50 border border-gray-100 rounded-2xl px-4 text-xs font-mono" />
+                      </div>
+                    </div>
+
+                    {/* Contact Info */}
+                    <div className="md:col-span-2 pt-4">
+                       <h3 className="text-sm font-bold text-iqra-gold uppercase tracking-widest mb-4 border-l-4 border-iqra-gold pl-4">Coordonnées</h3>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Téléphone Principal</label>
+                      <input type="text" value={configFormData.primary_phone} onChange={e => setConfigFormData({...configFormData, primary_phone: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Téléphone Secondaire</label>
+                      <input type="text" value={configFormData.secondary_phone} onChange={e => setConfigFormData({...configFormData, secondary_phone: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Email</label>
+                      <input type="email" value={configFormData.email} onChange={e => setConfigFormData({...configFormData, email: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Adresse Physique</label>
+                      <input type="text" value={configFormData.address} onChange={e => setConfigFormData({...configFormData, address: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                    </div>
+
+                    {/* Social networks */}
+                    <div className="md:col-span-2 pt-4">
+                       <h3 className="text-sm font-bold text-iqra-gold uppercase tracking-widest mb-4 border-l-4 border-iqra-gold pl-4">Réseaux Sociaux</h3>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Facebook URL</label>
+                      <input type="text" value={configFormData.facebook_url} onChange={e => setConfigFormData({...configFormData, facebook_url: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">YouTube URL</label>
+                      <input type="text" value={configFormData.youtube_url} onChange={e => setConfigFormData({...configFormData, youtube_url: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">WhatsApp (Numéro)</label>
+                      <input type="text" value={configFormData.whatsapp_number} onChange={e => setConfigFormData({...configFormData, whatsapp_number: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Telegram URL</label>
+                      <input type="text" value={configFormData.telegram_url} onChange={e => setConfigFormData({...configFormData, telegram_url: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                    </div>
+
+                    {/* Footer */}
+                    <div className="md:col-span-2 pt-4">
+                       <h3 className="text-sm font-bold text-iqra-gold uppercase tracking-widest mb-4 border-l-4 border-iqra-gold pl-4">Pied de page</h3>
+                    </div>
+                    <div className="md:col-span-2 space-y-2">
+                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Texte du footer</label>
+                      <textarea rows={4} value={configFormData.footer_text} onChange={e => setConfigFormData({...configFormData, footer_text: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all resize-none" />
+                    </div>
+                  </div>
+
+                  <div className="flex justify-end gap-4 p-4 bg-gray-50 rounded-3xl">
+                     <button type="submit" disabled={formLoading} className="px-8 py-4 bg-iqra-green text-white font-bold rounded-2xl shadow-xl hover:bg-iqra-green/90 transition-all flex items-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
+                        {formLoading ? <Loader2 className="animate-spin" size={20} /> : <><Save size={20} /> Enregistrer la configuration</>}
+                     </button>
+                  </div>
+                </form>
               </div>
             </div>
           ) : (

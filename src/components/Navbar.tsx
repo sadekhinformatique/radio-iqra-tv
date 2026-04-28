@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Radio, Youtube, BookOpen, MessageSquare, Mic2, Info, Home } from "lucide-react";
 import { useState } from "react";
+import { useSiteConfig } from "../hooks/useSiteConfig";
 
 const navLinks = [
   { name: "Accueil", path: "/", icon: Home },
@@ -16,6 +17,7 @@ const navLinks = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const { config } = useSiteConfig();
 
   return (
     <nav className="bg-iqra-green text-white shadow-lg sticky top-0 z-40">
@@ -25,13 +27,13 @@ export default function Navbar() {
           <Link to="/" className="flex items-center gap-3 group">
             <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center flex-shrink-0 shadow-lg overflow-hidden border-2 border-iqra-gold group-hover:scale-110 transition-transform">
               <img 
-                src="https://i.pinimg.com/1200x/ac/2a/6e/ac2a6e5b57e6831dc47d7d50d0a95894.jpg" 
-                alt="Logo RADIO IQRA TV" 
-                className="w-full h-full object-cover"
+                src={config.logo_url || "https://i.pinimg.com/1200x/ac/2a/6e/ac2a6e5b57e6831dc47d7d50d0a95894.jpg"} 
+                alt={`Logo ${config.site_name}`} 
+                className="w-full h-full object-contain"
                 referrerPolicy="no-referrer"
               />
             </div>
-            <span className="text-2xl font-bold tracking-tight uppercase">RADIO IQRA TV</span>
+            <span className="text-2xl font-bold tracking-tight uppercase truncate max-w-[200px] md:max-w-none">{config.site_name}</span>
           </Link>
 
           {/* Desktop Nav */}

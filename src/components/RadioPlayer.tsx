@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Play, Pause, Volume2, VolumeX, Radio as RadioIcon } from "lucide-react";
+import { useSiteConfig } from "../hooks/useSiteConfig";
 
 export default function RadioPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -7,9 +8,10 @@ export default function RadioPlayer() {
   const [isMuted, setIsMuted] = useState(false);
   const [volume, setVolume] = useState(0.8);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const { config } = useSiteConfig();
 
   // Flux réel Radio Iqra TV
-  const streamUrl = "https://a10.asurahosting.com:8170/radio.mp3"; 
+  const streamUrl = config.radio_stream_url || "https://a10.asurahosting.com:8170/radio.mp3"; 
 
   const togglePlay = () => {
     if (audioRef.current) {
@@ -29,7 +31,6 @@ export default function RadioPlayer() {
           .catch(e => {
             console.error("Error playing stream:", e);
             setIsLoading(false);
-            // Optionally hint the user about mixed content or browser blocks
           });
       }
     }
@@ -59,7 +60,7 @@ export default function RadioPlayer() {
             <RadioIcon className="text-iqra-green" size={24} />
           </div>
           <div>
-            <h3 className="font-bold text-lg leading-tight uppercase tracking-widest text-[#D4AF37]">Radio Iqra TV</h3>
+            <h3 className="font-bold text-lg leading-tight uppercase tracking-widest text-[#D4AF37]">{config.site_name}</h3>
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
               <p className="text-[10px] text-gray-300 uppercase font-bold tracking-tighter">En Direct • 1.2k Auditeurs</p>
@@ -103,7 +104,7 @@ export default function RadioPlayer() {
         {/* Status */}
         <div className="hidden lg:flex flex-col items-end">
           <span className="text-[10px] font-bold text-iqra-gold uppercase tracking-widest mb-1">Localisation</span>
-          <span className="text-sm font-semibold text-white">Ouagadougou, BF</span>
+          <span className="text-sm font-semibold text-white">{config.address}</span>
         </div>
 
         <audio 

@@ -1,6 +1,9 @@
 import { motion } from "motion/react";
+import { useSiteConfig } from "../hooks/useSiteConfig";
 
 export default function About() {
+  const { config } = useSiteConfig();
+
   return (
     <div className="py-20 px-4 md:px-8 max-w-4xl mx-auto">
       <motion.div
@@ -9,11 +12,11 @@ export default function About() {
         transition={{ duration: 0.5 }}
       >
         <h1 className="text-iqra-gold font-bold uppercase tracking-[0.3em] text-sm mb-4">Notre Histoire</h1>
-        <h2 className="text-4xl md:text-6xl font-serif font-bold text-iqra-green mb-12">RADIO IQRA TV — La Voix du Saint Coran</h2>
+        <h2 className="text-4xl md:text-6xl font-serif font-bold text-iqra-green mb-12">{config.site_name} — La Voix du Saint Coran</h2>
         
         <div className="prose prose-lg text-gray-700 font-serif leading-loose space-y-8">
           <p className="text-xl italic text-iqra-green">
-            "RADIO IQRA TV – La Voix de saint Coran Basée au cœur du Burkina Faso, RADIO IQRA TV est une station islamique dédiée à la diffusion des enseignements authentiques de l'Islam, dans un esprit de paix, de fraternité et d'éducation spirituelle..."
+            "{config.site_name} – La Voix de saint Coran Basée au cœur du Burkina Faso, {config.site_name} est une station islamique dédiée à la diffusion des enseignements authentiques de l'Islam, dans un esprit de paix, de fraternité et d'éducation spirituelle..."
           </p>
           
           <p>
