@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import { MapPin, Phone, Mail, MessageSquare, Send, Loader2, CheckCircle2 } from "lucide-react";
 import { motion } from "motion/react";
-import { useState } from "react";
 import { supabase } from "../lib/supabase";
 import { useSiteConfig } from "../hooks/useSiteConfig";
 

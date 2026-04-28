@@ -62,7 +62,11 @@ export default function RadioPlayer() {
           <div>
             <h3 className="font-bold text-lg leading-tight uppercase tracking-widest text-[#D4AF37]">{config.site_name}</h3>
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+              {config.use_modern_ui ? (
+                <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse flex-shrink-0"></span>
+              ) : (
+                <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+              )}
               <p className="text-[10px] text-gray-300 uppercase font-bold tracking-tighter">En Direct • 1.2k Auditeurs</p>
             </div>
           </div>
@@ -70,25 +74,51 @@ export default function RadioPlayer() {
 
         {/* Controls */}
         <div className="bg-white/10 rounded-2xl p-2 px-6 backdrop-blur-md flex items-center gap-6 shadow-inner border border-white/5">
-          <button 
-            onClick={togglePlay}
-            disabled={isLoading}
-            className={`w-10 h-10 rounded-full bg-iqra-gold text-iqra-green flex items-center justify-center hover:scale-110 transition-transform shadow-lg ${isLoading ? 'opacity-50 cursor-wait' : ''}`}
-            id="play-button"
-          >
-            {isLoading ? (
-              <div className="w-5 h-5 border-2 border-iqra-green border-t-transparent rounded-full animate-spin"></div>
-            ) : isPlaying ? (
-              <Pause size={20} fill="currentColor" />
-            ) : (
-              <Play size={20} fill="currentColor" className="ml-1" />
-            )}
-          </button>
+          {config.use_modern_ui ? (
+             <button 
+               onClick={togglePlay}
+               disabled={isLoading}
+               className={`w-12 h-12 bg-iqra-green text-white rounded-full flex items-center justify-center shadow-lg shadow-iqra-green/20 hover:scale-105 active:scale-95 transition-all ${isLoading ? 'opacity-50 cursor-wait' : ''}`}
+               id="play-button"
+             >
+               {isLoading ? (
+                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+               ) : isPlaying ? (
+                 <Pause size={20} fill="currentColor" />
+               ) : (
+                 <Play size={20} fill="currentColor" className="ml-1" />
+               )}
+             </button>
+          ) : (
+            <button 
+              onClick={togglePlay}
+              disabled={isLoading}
+              className={`w-10 h-10 rounded-full bg-iqra-gold text-iqra-green flex items-center justify-center hover:scale-110 transition-transform shadow-lg ${isLoading ? 'opacity-50 cursor-wait' : ''}`}
+              id="play-button"
+            >
+              {isLoading ? (
+                <div className="w-5 h-5 border-2 border-iqra-green border-t-transparent rounded-full animate-spin"></div>
+              ) : isPlaying ? (
+                <Pause size={20} fill="currentColor" />
+              ) : (
+                <Play size={20} fill="currentColor" className="ml-1" />
+              )}
+            </button>
+          )}
           
           <div className="hidden md:flex items-center gap-3">
-            <button onClick={toggleMute} className="text-iqra-gold-light hover:text-white transition-colors">
-              {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-            </button>
+            {config.use_modern_ui ? (
+              <button 
+                onClick={toggleMute} 
+                className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-iqra-green transition-all"
+              >
+                {isMuted ? <VolumeX size={18} className="text-white" /> : <Volume2 size={18} className="text-white" />}
+              </button>
+            ) : (
+              <button onClick={toggleMute} className="text-iqra-gold-light hover:text-white transition-colors">
+                {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+              </button>
+            )}
             <input 
               type="range" 
               min="0" 

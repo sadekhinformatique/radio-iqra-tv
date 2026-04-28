@@ -20,6 +20,7 @@ export interface SiteConfig {
   secondary_color: string;
   radio_stream_url: string;
   youtube_api_key: string;
+  use_modern_ui: boolean;
 }
 
 const DEFAULT_CONFIG: SiteConfig = {
@@ -40,7 +41,8 @@ const DEFAULT_CONFIG: SiteConfig = {
   primary_color: "#2e7d32",
   secondary_color: "#D4AF37",
   radio_stream_url: "https://stream.radio.co/s8f8f8f8f8/listen",
-  youtube_api_key: ""
+  youtube_api_key: "",
+  use_modern_ui: false
 };
 
 export function useSiteConfig() {
