@@ -1,0 +1,14 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 301 Redirects for admin routes
+  RewriteRule ^admin\.html$ /secret-radio-iqra-xyz [R=301,L]
+  RewriteRule ^secret-radio-iqra-xyz\.html$ /secret-radio-iqra-xyz [R=301,L]
+
+  # Single Page Application routing (React Router)
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
