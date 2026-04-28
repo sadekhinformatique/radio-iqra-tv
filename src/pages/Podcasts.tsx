@@ -1,4 +1,4 @@
-import { Mic2, Play, Calendar, Tag } from "lucide-react";
+import { Mic2, Play, Calendar, Tag, Clock } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import EmptyListPage from "../components/EmptyListPage";
@@ -10,6 +10,7 @@ interface Podcast {
   category: string;
   date: string;
   audio_url: string;
+  duration?: string;
 }
 
 export default function Podcasts() {
@@ -115,6 +116,11 @@ export default function Podcasts() {
                 <span className="text-[10px] text-gray-400 font-medium flex items-center gap-1">
                   <Calendar size={10} /> {new Date(podcast.date).toLocaleDateString()}
                 </span>
+                {podcast.duration && (
+                  <span className="text-[10px] text-gray-400 font-medium flex items-center gap-1">
+                    <Clock size={10} /> {podcast.duration}
+                  </span>
+                )}
               </div>
               <h3 className="text-xl font-bold text-iqra-green group-hover:text-iqra-gold transition-colors line-clamp-2">{podcast.title}</h3>
             </div>

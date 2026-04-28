@@ -1,20 +1,29 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Radio from "./pages/Radio";
-import YouTube from "./pages/YouTube";
 import Contact from "./pages/Contact";
 import Coran from "./pages/Coran";
 import Podcasts from "./pages/Podcasts";
 import Conseils from "./pages/Conseils";
-import AdminSecretAccess from "./pages/AdminSecretAccess";
 import ModernLayout from "./components/modern/ModernLayout";
 import ModernHome from "./pages/modern/ModernHome";
 import ModernListenLive from "./pages/modern/ModernListenLive";
-import LearningProgram from "./pages/LearningProgram";
-import ModernCoranLearning from "./pages/ModernCoranLearning";
 import { useSiteConfig } from "./hooks/useSiteConfig";
+
+// Lazy-loaded heavy pages (code splitting)
+const YouTube = lazy(() => import("./pages/YouTube"));
+const AdminSecretAccess = lazy(() => import("./pages/AdminSecretAccess"));
+const LearningProgram = lazy(() => import("./pages/LearningProgram"));
+const ModernCoranLearning = lazy(() => import("./pages/ModernCoranLearning"));
+
+const PageLoader = () => (
+  <div className="min-h-[60vh] flex items-center justify-center">
+    <div className="w-8 h-8 border-4 border-iqra-green border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
 
 function AppContent() {
   const { config, loading } = useSiteConfig();
@@ -88,7 +97,9 @@ function AppContent() {
 export default function App() {
   return (
     <Router>
-      <AppContent />
+      <Suspense fallback={<PageLoader />}>
+        <AppContent />
+      </Suspense>
     </Router>
   );
 }

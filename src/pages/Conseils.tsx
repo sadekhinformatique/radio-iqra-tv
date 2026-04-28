@@ -183,11 +183,17 @@ export default function Conseils() {
               <div className="overflow-y-auto overflow-x-hidden flex-grow scrollbar-hide">
                 {/* Header Image */}
                 <div className="relative h-[40vh] md:h-[50vh] w-full">
-                  <img 
-                    src={selectedArticle.image_url} 
-                    alt={selectedArticle.title} 
-                    className="w-full h-full object-cover"
-                  />
+                  {selectedArticle.image_url ? (
+                    <img 
+                      src={selectedArticle.image_url} 
+                      alt={selectedArticle.title} 
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-iqra-green/10 to-iqra-gold/10 flex items-center justify-center">
+                      <span className="text-6xl opacity-20">📖</span>
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
                   
                   <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full">

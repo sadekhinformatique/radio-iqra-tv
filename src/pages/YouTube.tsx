@@ -65,7 +65,6 @@ export default function YouTube() {
   };
 
   useEffect(() => {
-    const channelId = extractChannelId(config.facebook_url); // Wait, I should probably check config.youtube_url
     const actualChannelId = extractChannelId(config.youtube_url);
     const apiKey = config.youtube_api_key;
 
@@ -90,14 +89,16 @@ export default function YouTube() {
         // 2. Check for Live Stream
         const liveRes = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${actualChannelId}&type=video&eventType=live&key=${apiKey}`);
         const liveData = await liveRes.json();
-        if (liveData.items?.[0]) setLiveVideo(liveData.items[0]);
+        const currentLiveVideo = liveData.items?.[0] ?? null;
+        if (currentLiveVideo) setLiveVideo(currentLiveVideo);
 
         // 3. Fetch Latest Videos
         const videosRes = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&channelId=${actualChannelId}&type=video&order=date&maxResults=10&key=${apiKey}`);
         const videosData = await videosRes.json();
         if (videosData.items) {
-          // Filter out the live video if it's the same
-          const filtered = videosData.items.filter((v: any) => v.id.videoId !== liveVideo?.id);
+          // Filter out the live video if it's the same (use local var to avoid stale closure)
+          const liveId = currentLiveVideo ? (typeof currentLiveVideo.id === 'string' ? currentLiveVideo.id : currentLiveVideo.id?.videoId) : null;
+          const filtered = videosData.items.filter((v: any) => v.id?.videoId !== liveId);
           setLatestVideos(filtered);
         }
 
@@ -110,7 +111,8 @@ export default function YouTube() {
     }
 
     fetchYouTubeData();
-  }, [config.youtube_url, config.youtube_api_key, liveVideo?.id]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [config.youtube_url, config.youtube_api_key]);
 
   if (loading) {
     return (

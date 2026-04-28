@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { supabase } from '../lib/supabase';
 import { BookOpen, Play, Pause, ArrowLeft, ArrowRight, Save, Clock, CheckCircle } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useQuranData, useLearningProgress } from '../hooks/useQuranData';
 
 type LearningMode = 'reading' | 'memorization';

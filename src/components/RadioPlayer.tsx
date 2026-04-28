@@ -67,7 +67,7 @@ export default function RadioPlayer() {
               ) : (
                 <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
               )}
-              <p className="text-[10px] text-gray-300 uppercase font-bold tracking-tighter">En Direct • 1.2k Auditeurs</p>
+              <p className="text-[10px] text-gray-300 uppercase font-bold tracking-tighter">En Direct</p>
             </div>
           </div>
         </div>

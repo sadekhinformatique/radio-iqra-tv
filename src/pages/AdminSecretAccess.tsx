@@ -138,13 +138,14 @@ export default function AdminSecretAccess() {
   }, []);
 
   useEffect(() => {
+    if (!supabase) return;
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const { data: { session } } = await supabase!.auth.getSession();
       setUser(session?.user ?? null);
     };
     checkSession();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase!.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
 
