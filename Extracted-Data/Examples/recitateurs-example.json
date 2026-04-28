@@ -1,0 +1,22 @@
+{
+  "recitateurs": [
+    {
+      "nom": "Alafasy",
+      "bytes": "",
+      "lien": "https://everyayah.com/data/Alafasy/",
+      "extension": ".mp3"
+    },
+    {
+      "nom": "AbdulBaset Mujawwad",
+      "bytes": "Mujawwad",
+      "lien": "https://everyayah.com/data/AbdulBaset_Mujawwad/",
+      "extension": ".mp3"
+    },
+    {
+      "nom": "Husary Murattal",
+      "bytes": "Murattal",
+      "lien": "https://everyayah.com/data/Husary_Murattal/",
+      "extension": ".mp3"
+    }
+  ]
+}

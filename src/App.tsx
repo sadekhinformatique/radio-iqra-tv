@@ -13,6 +13,7 @@ import ModernLayout from "./components/modern/ModernLayout";
 import ModernHome from "./pages/modern/ModernHome";
 import ModernListenLive from "./pages/modern/ModernListenLive";
 import LearningProgram from "./pages/LearningProgram";
+import ModernCoranLearning from "./pages/ModernCoranLearning";
 import { useSiteConfig } from "./hooks/useSiteConfig";
 
 function AppContent() {
@@ -33,6 +34,7 @@ function AppContent() {
           <Route path="/listen-live" element={<ModernListenLive />} />
           <Route path="/coran" element={<Coran />} />
           <Route path="/apprentissage" element={<LearningProgram />} />
+          <Route path="/coran-apprentissage" element={<ModernCoranLearning />} />
           <Route path="/youtube" element={<YouTube />} />
           <Route path="/podcasts" element={<Podcasts />} />
           <Route path="/a-propos" element={<About />} />
@@ -67,6 +69,7 @@ function AppContent() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/coran" element={<Coran />} />
         <Route path="/apprentissage" element={<LearningProgram />} />
+        <Route path="/coran-apprentissage" element={<ModernCoranLearning />} />
         <Route path="/podcasts" element={<Podcasts />} />
         <Route path="/conseils" element={<Conseils />} />
       </Route>
