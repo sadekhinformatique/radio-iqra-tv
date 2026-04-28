@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
 import { supabase } from "../lib/supabase";
-import { Lock, User, LogIn, LayoutDashboard, Plus, Pencil, Trash2, X, Music, Save, Loader2, FileText, Image as ImageIcon, BookOpen, Volume2, Clock, CalendarRange } from "lucide-react";
+import { Lock, User, LogIn, LayoutDashboard, Plus, Pencil, Trash2, X, Music, Save, Loader2, FileText, Image as ImageIcon, BookOpen, Volume2, Clock, CalendarRange, Mail, CheckCircle2 } from "lucide-react";
+
+interface Message {
+  id: string;
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+  created_at: string;
+  is_read: boolean;
+}
 
 interface Podcast {
   id: string | number;
@@ -49,7 +59,7 @@ export default function AdminSecretAccess() {
   const [error, setError] = useState<string | null>(null);
 
   // Tabs
-  const [activeTab, setActiveTab] = useState<"podcasts" | "articles" | "sourates" | "grille" | "config">("podcasts");
+  const [activeTab, setActiveTab] = useState<"podcasts" | "articles" | "sourates" | "grille" | "config" | "messages">("podcasts");
 
   // Dashboard State
   const [podcasts, setPodcasts] = useState<Podcast[]>([]);
@@ -57,6 +67,7 @@ export default function AdminSecretAccess() {
   const [sourates, setSourates] = useState<Sourate[]>([]);
   const [grilleItems, setGrilleItems] = useState<GrilleItem[]>([]);
   const [siteConfig, setSiteConfig] = useState<any>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
   
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | number | null>(null);
@@ -145,9 +156,46 @@ export default function AdminSecretAccess() {
       else if (activeTab === "articles") fetchArticles();
       else if (activeTab === "sourates") fetchSourates();
       else if (activeTab === "grille") fetchGrille();
-      else fetchConfig();
+      else if (activeTab === "config") fetchConfig();
+      else fetchMessages();
     }
   }, [user, activeTab]);
+
+  const fetchMessages = async () => {
+    const { data, error } = await supabase
+      .from('contact_messages')
+      .select('*')
+      .order('created_at', { ascending: false });
+    
+    if (error) {
+      console.error("Error fetching messages:", error);
+    } else {
+      setMessages(data || []);
+    }
+  };
+
+  const markMessageAsRead = async (id: string) => {
+    const { error } = await supabase
+      .from('contact_messages')
+      .update({ is_read: true })
+      .eq('id', id);
+    
+    if (!error) {
+      fetchMessages();
+    }
+  };
+
+  const deleteMessage = async (id: string) => {
+    if (!window.confirm("Supprimer ce message ?")) return;
+    const { error } = await supabase
+      .from('contact_messages')
+      .delete()
+      .eq('id', id);
+    
+    if (!error) {
+      fetchMessages();
+    }
+  };
 
   const fetchConfig = async () => {
     const { data, error } = await supabase
@@ -624,7 +672,7 @@ export default function AdminSecretAccess() {
             </div>
           </div>
           <div className="flex items-center gap-4">
-            {activeTab !== "config" && (
+            {activeTab !== "config" && activeTab !== "messages" && (
               <button 
                 onClick={() => setIsFormOpen(true)}
                 className="px-6 py-3 bg-iqra-gold text-iqra-green font-bold rounded-2xl flex items-center gap-2 hover:scale-105 transition-all shadow-lg text-sm"
@@ -691,6 +739,21 @@ export default function AdminSecretAccess() {
           >
             <div className="flex items-center gap-2">
               <Clock size={16} /> Configuration
+            </div>
+          </button>
+          <button 
+            onClick={() => setActiveTab("messages")}
+            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 ${
+              activeTab === "messages" ? "border-iqra-gold text-iqra-green" : "border-transparent text-gray-400"
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <Mail size={16} /> Messages
+              {messages.filter(m => !m.is_read).length > 0 && (
+                <span className="bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full ml-1 animate-pulse">
+                  {messages.filter(m => !m.is_read).length}
+                </span>
+              )}
             </div>
           </button>
         </div>
@@ -964,6 +1027,52 @@ export default function AdminSecretAccess() {
                   </div>
                 </form>
               </div>
+            </div>
+          ) : activeTab === "messages" ? (
+            <div className="space-y-6 animate-in fade-in duration-500">
+               {messages.length === 0 ? (
+                 <div className="bg-white p-12 rounded-3xl text-center shadow-xl border border-gray-100">
+                    <Mail size={48} className="mx-auto text-gray-200 mb-4" />
+                    <p className="text-gray-400 font-bold uppercase tracking-widest text-sm">Aucun message reçu pour le moment</p>
+                 </div>
+               ) : (
+                 <div className="grid grid-cols-1 gap-4">
+                   {messages.map((msg) => (
+                     <div key={msg.id} className={`bg-white p-6 rounded-3xl shadow-lg border-l-8 ${msg.is_read ? 'border-gray-100' : 'border-iqra-gold'} flex flex-col md:flex-row justify-between gap-4`}>
+                        <div className="flex-grow">
+                           <div className="flex items-center gap-3 mb-2">
+                              <h4 className="font-bold text-iqra-green text-lg">{msg.name}</h4>
+                              <span className="text-xs text-gray-400 font-mono">{new Date(msg.created_at).toLocaleString('fr-FR')}</span>
+                              {!msg.is_read && <span className="text-[10px] bg-iqra-gold text-iqra-green font-bold px-2 py-0.5 rounded-full uppercase">Nouveau</span>}
+                           </div>
+                           <p className="text-xs font-bold text-gray-400 uppercase mb-3 px-2 py-1 bg-gray-50 rounded-lg inline-block">Sujet: {msg.subject}</p>
+                           <p className="text-gray-600 text-sm leading-relaxed italic border-l-2 border-gray-100 pl-4 py-1">{msg.message}</p>
+                           <div className="mt-4 flex items-center gap-2 text-xs text-iqra-green font-bold italic">
+                              <Mail size={14} /> {msg.email}
+                           </div>
+                        </div>
+                        <div className="flex md:flex-col justify-end gap-2 shrink-0">
+                           {!msg.is_read && (
+                             <button 
+                               onClick={() => markMessageAsRead(msg.id)}
+                               className="p-3 bg-green-50 text-green-600 rounded-xl hover:bg-green-100 transition-colors"
+                               title="Marquer comme lu"
+                             >
+                               <CheckCircle2 size={20} />
+                             </button>
+                           )}
+                           <button 
+                             onClick={() => deleteMessage(msg.id)}
+                             className="p-3 bg-red-50 text-red-600 rounded-xl hover:bg-red-100 transition-colors"
+                             title="Supprimer"
+                           >
+                             <Trash2 size={20} />
+                           </button>
+                        </div>
+                     </div>
+                   ))}
+                 </div>
+               )}
             </div>
           ) : (
             <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
