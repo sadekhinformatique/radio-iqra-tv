@@ -1,0 +1,38 @@
+{
+  "number": 111,
+  "name": "سُورَةُ المَسَدِ",
+  "englishName": "Al-Masad",
+  "englishNameTranslation": "The Palm Fibre",
+  "ayahs": [
+    {
+      "number": 6217,
+      "numberInSurah": 1,
+      "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ تَبَّتْ يَدَآ أَبِى لَهَبٍۢ وَتَبَّ",
+      "french": "Que périssent les deux mains d'Abû-Lahab et que lui-même périsse."
+    },
+    {
+      "number": 6218,
+      "numberInSurah": 2,
+      "arabic": "مَآ أَغْنَىٰ عَنْهُ مَالُهُۥ وَمَا كَسَبَ",
+      "french": "Sa fortune ne lui sert à rien, ni ce qu'il a acquis."
+    },
+    {
+      "number": 6219,
+      "numberInSurah": 3,
+      "arabic": "سَيَصْلَىٰ نَارًۭا ذَاتَ لَهَبٍۢ",
+      "french": "Il sera brûlé dans un Feu plein de flammes,"
+    },
+    {
+      "number": 6220,
+      "numberInSurah": 4,
+      "arabic": "وَٱمْرَأَتُهُۥ حَمَّالَةَ ٱلْحَطَبِ",
+      "french": "de même sa femme, la porteuse de bois,"
+    },
+    {
+      "number": 6221,
+      "numberInSurah": 5,
+      "arabic": "فِى جِيدِهَا حَبْلٌۭ مِّن مَّسَدٍۭ",
+      "french": "à son cou, une corde de fibres."
+    }
+  ]
+}

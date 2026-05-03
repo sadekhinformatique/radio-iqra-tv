@@ -1,0 +1,26 @@
+{
+  "number": 103,
+  "name": "سُورَةُ العَصۡرِ",
+  "englishName": "Al-Asr",
+  "englishNameTranslation": "The Declining Day, Epoch",
+  "ayahs": [
+    {
+      "number": 6177,
+      "numberInSurah": 1,
+      "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ وَٱلْعَصْرِ",
+      "french": "Par le Temps!"
+    },
+    {
+      "number": 6178,
+      "numberInSurah": 2,
+      "arabic": "إِنَّ ٱلْإِنسَٰنَ لَفِى خُسْرٍ",
+      "french": "L'homme est certes, en perdition,"
+    },
+    {
+      "number": 6179,
+      "numberInSurah": 3,
+      "arabic": "إِلَّا ٱلَّذِينَ ءَامَنُوا۟ وَعَمِلُوا۟ ٱلصَّٰلِحَٰتِ وَتَوَاصَوْا۟ بِٱلْحَقِّ وَتَوَاصَوْا۟ بِٱلصَّبْرِ",
+      "french": "sauf ceux qui croient et accomplissent les bonnes œuvres, s'enjoignent mutuellement la vérité et s'enjoignent mutuellement l'endurance."
+    }
+  ]
+}

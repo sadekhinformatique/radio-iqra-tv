@@ -1,0 +1,74 @@
+{
+  "number": 101,
+  "name": "سُورَةُ القَارِعَةِ",
+  "englishName": "Al-Qaari'a",
+  "englishNameTranslation": "The Calamity",
+  "ayahs": [
+    {
+      "number": 6158,
+      "numberInSurah": 1,
+      "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ٱلْقَارِعَةُ",
+      "french": "Le fracas!"
+    },
+    {
+      "number": 6159,
+      "numberInSurah": 2,
+      "arabic": "مَا ٱلْقَارِعَةُ",
+      "french": "Qu'est-ce que le fracas?"
+    },
+    {
+      "number": 6160,
+      "numberInSurah": 3,
+      "arabic": "وَمَآ أَدْرَىٰكَ مَا ٱلْقَارِعَةُ",
+      "french": "Et qui te dira ce qu'est le fracas?"
+    },
+    {
+      "number": 6161,
+      "numberInSurah": 4,
+      "arabic": "يَوْمَ يَكُونُ ٱلنَّاسُ كَٱلْفَرَاشِ ٱلْمَبْثُوثِ",
+      "french": "C'est le jour où les gens seront comme des papillons éparpillés,"
+    },
+    {
+      "number": 6162,
+      "numberInSurah": 5,
+      "arabic": "وَتَكُونُ ٱلْجِبَالُ كَٱلْعِهْنِ ٱلْمَنفُوشِ",
+      "french": "et les montagnes comme de la laine cardée;"
+    },
+    {
+      "number": 6163,
+      "numberInSurah": 6,
+      "arabic": "فَأَمَّا مَن ثَقُلَتْ مَوَٰزِينُهُۥ",
+      "french": "quant à celui dont la balance sera lourde"
+    },
+    {
+      "number": 6164,
+      "numberInSurah": 7,
+      "arabic": "فَهُوَ فِى عِيشَةٍۢ رَّاضِيَةٍۢ",
+      "french": "il sera dans une vie agréable;"
+    },
+    {
+      "number": 6165,
+      "numberInSurah": 8,
+      "arabic": "وَأَمَّا مَنْ خَفَّتْ مَوَٰزِينُهُۥ",
+      "french": "et quant à celui dont la balance sera légère,"
+    },
+    {
+      "number": 6166,
+      "numberInSurah": 9,
+      "arabic": "فَأُمُّهُۥ هَاوِيَةٌۭ",
+      "french": "sa mère [destination] est un abîme très profond."
+    },
+    {
+      "number": 6167,
+      "numberInSurah": 10,
+      "arabic": "وَمَآ أَدْرَىٰكَ مَا هِيَهْ",
+      "french": "Et qui te dira ce que c'est?"
+    },
+    {
+      "number": 6168,
+      "numberInSurah": 11,
+      "arabic": "نَارٌ حَامِيَةٌۢ",
+      "french": "C'est un Feu ardent."
+    }
+  ]
+}

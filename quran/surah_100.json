@@ -1,0 +1,74 @@
+{
+  "number": 100,
+  "name": "سُورَةُ العَادِيَاتِ",
+  "englishName": "Al-Aadiyaat",
+  "englishNameTranslation": "The Chargers",
+  "ayahs": [
+    {
+      "number": 6147,
+      "numberInSurah": 1,
+      "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ وَٱلْعَٰدِيَٰتِ ضَبْحًۭا",
+      "french": "Par les coursiers qui halètent,"
+    },
+    {
+      "number": 6148,
+      "numberInSurah": 2,
+      "arabic": "فَٱلْمُورِيَٰتِ قَدْحًۭا",
+      "french": "qui font jaillir des étincelles,"
+    },
+    {
+      "number": 6149,
+      "numberInSurah": 3,
+      "arabic": "فَٱلْمُغِيرَٰتِ صُبْحًۭا",
+      "french": "qui attaquent au matin,"
+    },
+    {
+      "number": 6150,
+      "numberInSurah": 4,
+      "arabic": "فَأَثَرْنَ بِهِۦ نَقْعًۭا",
+      "french": "et font ainsi voler la poussière,"
+    },
+    {
+      "number": 6151,
+      "numberInSurah": 5,
+      "arabic": "فَوَسَطْنَ بِهِۦ جَمْعًا",
+      "french": "et pénètrent au centre de la troupe ennemie."
+    },
+    {
+      "number": 6152,
+      "numberInSurah": 6,
+      "arabic": "إِنَّ ٱلْإِنسَٰنَ لِرَبِّهِۦ لَكَنُودٌۭ",
+      "french": "L'homme est, certes, ingrat envers son Seigneur;"
+    },
+    {
+      "number": 6153,
+      "numberInSurah": 7,
+      "arabic": "وَإِنَّهُۥ عَلَىٰ ذَٰلِكَ لَشَهِيدٌۭ",
+      "french": "et pourtant, il est certes, témoin de cela;"
+    },
+    {
+      "number": 6154,
+      "numberInSurah": 8,
+      "arabic": "وَإِنَّهُۥ لِحُبِّ ٱلْخَيْرِ لَشَدِيدٌ",
+      "french": "et pour l'amour des richesses il est certes ardent."
+    },
+    {
+      "number": 6155,
+      "numberInSurah": 9,
+      "arabic": "۞ أَفَلَا يَعْلَمُ إِذَا بُعْثِرَ مَا فِى ٱلْقُبُورِ",
+      "french": "Ne sait-il donc pas que lorsque ce qui est dans les tombes sera bouleversé,"
+    },
+    {
+      "number": 6156,
+      "numberInSurah": 10,
+      "arabic": "وَحُصِّلَ مَا فِى ٱلصُّدُورِ",
+      "french": "et que sera dévoilé ce qui est dans les poitrines,"
+    },
+    {
+      "number": 6157,
+      "numberInSurah": 11,
+      "arabic": "إِنَّ رَبَّهُم بِهِمْ يَوْمَئِذٍۢ لَّخَبِيرٌۢ",
+      "french": "ce jour-là, certes, leur Seigneur sera Parfaitement Connaisseur d'eux?"
+    }
+  ]
+}

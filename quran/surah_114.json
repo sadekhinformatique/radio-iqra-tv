@@ -1,0 +1,44 @@
+{
+  "number": 114,
+  "name": "سُورَةُ النَّاسِ",
+  "englishName": "An-Naas",
+  "englishNameTranslation": "Mankind",
+  "ayahs": [
+    {
+      "number": 6231,
+      "numberInSurah": 1,
+      "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ قُلْ أَعُوذُ بِرَبِّ ٱلنَّاسِ",
+      "french": "Dis: «Je cherche protection auprès du Seigneur des hommes."
+    },
+    {
+      "number": 6232,
+      "numberInSurah": 2,
+      "arabic": "مَلِكِ ٱلنَّاسِ",
+      "french": "Le Souverain des hommes,"
+    },
+    {
+      "number": 6233,
+      "numberInSurah": 3,
+      "arabic": "إِلَٰهِ ٱلنَّاسِ",
+      "french": "Dieu des hommes,"
+    },
+    {
+      "number": 6234,
+      "numberInSurah": 4,
+      "arabic": "مِن شَرِّ ٱلْوَسْوَاسِ ٱلْخَنَّاسِ",
+      "french": "contre le mal du mauvais conseiller, furtif,"
+    },
+    {
+      "number": 6235,
+      "numberInSurah": 5,
+      "arabic": "ٱلَّذِى يُوَسْوِسُ فِى صُدُورِ ٱلنَّاسِ",
+      "french": "qui souffle le mal dans les poitrines des hommes,"
+    },
+    {
+      "number": 6236,
+      "numberInSurah": 6,
+      "arabic": "مِنَ ٱلْجِنَّةِ وَٱلنَّاسِ",
+      "french": "qu'il (le conseiller) soit un djinn, ou un être humain»."
+    }
+  ]
+}

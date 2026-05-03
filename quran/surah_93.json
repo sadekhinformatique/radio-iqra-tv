@@ -1,0 +1,74 @@
+{
+  "number": 93,
+  "name": "سُورَةُ الضُّحَىٰ",
+  "englishName": "Ad-Dhuhaa",
+  "englishNameTranslation": "The Morning Hours",
+  "ayahs": [
+    {
+      "number": 6080,
+      "numberInSurah": 1,
+      "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ وَٱلضُّحَىٰ",
+      "french": "Par le Jour Montant!"
+    },
+    {
+      "number": 6081,
+      "numberInSurah": 2,
+      "arabic": "وَٱلَّيْلِ إِذَا سَجَىٰ",
+      "french": "Et par la nuit quand elle couvre tout!"
+    },
+    {
+      "number": 6082,
+      "numberInSurah": 3,
+      "arabic": "مَا وَدَّعَكَ رَبُّكَ وَمَا قَلَىٰ",
+      "french": "Ton Seigneur ne t'a ni abandonné, ni détesté."
+    },
+    {
+      "number": 6083,
+      "numberInSurah": 4,
+      "arabic": "وَلَلْءَاخِرَةُ خَيْرٌۭ لَّكَ مِنَ ٱلْأُولَىٰ",
+      "french": "La vie dernière t'est, certes, meilleure que la vie présente."
+    },
+    {
+      "number": 6084,
+      "numberInSurah": 5,
+      "arabic": "وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰٓ",
+      "french": "Ton Seigneur t'accordera certes [Ses faveurs], et alors tu seras satisfait."
+    },
+    {
+      "number": 6085,
+      "numberInSurah": 6,
+      "arabic": "أَلَمْ يَجِدْكَ يَتِيمًۭا فَـَٔاوَىٰ",
+      "french": "Ne t'a-t-Il pas trouvé orphelin? Alors Il t'a accueilli!"
+    },
+    {
+      "number": 6086,
+      "numberInSurah": 7,
+      "arabic": "وَوَجَدَكَ ضَآلًّۭا فَهَدَىٰ",
+      "french": "Ne t'a-t-Il pas trouvé égaré? Alors Il t'a guidé."
+    },
+    {
+      "number": 6087,
+      "numberInSurah": 8,
+      "arabic": "وَوَجَدَكَ عَآئِلًۭا فَأَغْنَىٰ",
+      "french": "Ne t'a-t-Il pas trouvé pauvre? Alors Il t'a enrichi."
+    },
+    {
+      "number": 6088,
+      "numberInSurah": 9,
+      "arabic": "فَأَمَّا ٱلْيَتِيمَ فَلَا تَقْهَرْ",
+      "french": "Quant à l'orphelin, donc, ne le maltraite pas."
+    },
+    {
+      "number": 6089,
+      "numberInSurah": 10,
+      "arabic": "وَأَمَّا ٱلسَّآئِلَ فَلَا تَنْهَرْ",
+      "french": "Quant au demandeur, ne le repousse pas."
+    },
+    {
+      "number": 6090,
+      "numberInSurah": 11,
+      "arabic": "وَأَمَّا بِنِعْمَةِ رَبِّكَ فَحَدِّثْ",
+      "french": "Et quant au bienfait de ton Seigneur, proclame-le."
+    }
+  ]
+}

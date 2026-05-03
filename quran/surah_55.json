@@ -1,0 +1,476 @@
+{
+  "number": 55,
+  "name": "سُورَةُ الرَّحۡمَٰن",
+  "englishName": "Ar-Rahmaan",
+  "englishNameTranslation": "The Beneficent",
+  "ayahs": [
+    {
+      "number": 4902,
+      "numberInSurah": 1,
+      "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ٱلرَّحْمَٰنُ",
+      "french": "Le Tout Miséricordieux."
+    },
+    {
+      "number": 4903,
+      "numberInSurah": 2,
+      "arabic": "عَلَّمَ ٱلْقُرْءَانَ",
+      "french": "Il a enseigné le Coran."
+    },
+    {
+      "number": 4904,
+      "numberInSurah": 3,
+      "arabic": "خَلَقَ ٱلْإِنسَٰنَ",
+      "french": "Il a créé l'homme."
+    },
+    {
+      "number": 4905,
+      "numberInSurah": 4,
+      "arabic": "عَلَّمَهُ ٱلْبَيَانَ",
+      "french": "Il lui a appris à s'exprimer clairement."
+    },
+    {
+      "number": 4906,
+      "numberInSurah": 5,
+      "arabic": "ٱلشَّمْسُ وَٱلْقَمَرُ بِحُسْبَانٍۢ",
+      "french": "Le soleil et la lune [évoluent] selon un calcul [minutieux]."
+    },
+    {
+      "number": 4907,
+      "numberInSurah": 6,
+      "arabic": "وَٱلنَّجْمُ وَٱلشَّجَرُ يَسْجُدَانِ",
+      "french": "Et l'herbe et les arbres se prosternent."
+    },
+    {
+      "number": 4908,
+      "numberInSurah": 7,
+      "arabic": "وَٱلسَّمَآءَ رَفَعَهَا وَوَضَعَ ٱلْمِيزَانَ",
+      "french": "Et quant au ciel, Il l'a élevé bien haut. Et Il a établi la balance,"
+    },
+    {
+      "number": 4909,
+      "numberInSurah": 8,
+      "arabic": "أَلَّا تَطْغَوْا۟ فِى ٱلْمِيزَانِ",
+      "french": "afin que vous ne transgressiez pas dans la pesée:"
+    },
+    {
+      "number": 4910,
+      "numberInSurah": 9,
+      "arabic": "وَأَقِيمُوا۟ ٱلْوَزْنَ بِٱلْقِسْطِ وَلَا تُخْسِرُوا۟ ٱلْمِيزَانَ",
+      "french": "Donnez [toujours] le poids exact et ne faussez pas la pesée."
+    },
+    {
+      "number": 4911,
+      "numberInSurah": 10,
+      "arabic": "وَٱلْأَرْضَ وَضَعَهَا لِلْأَنَامِ",
+      "french": "Quant à la terre, Il l'a étendue pour les êtres vivants:"
+    },
+    {
+      "number": 4912,
+      "numberInSurah": 11,
+      "arabic": "فِيهَا فَٰكِهَةٌۭ وَٱلنَّخْلُ ذَاتُ ٱلْأَكْمَامِ",
+      "french": "il s'y trouve des fruits, et aussi les palmiers aux fruits recouverts d'enveloppes,"
+    },
+    {
+      "number": 4913,
+      "numberInSurah": 12,
+      "arabic": "وَٱلْحَبُّ ذُو ٱلْعَصْفِ وَٱلرَّيْحَانُ",
+      "french": "tout comme les grains dans leurs balles, et les plantes aromatiques."
+    },
+    {
+      "number": 4914,
+      "numberInSurah": 13,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4915,
+      "numberInSurah": 14,
+      "arabic": "خَلَقَ ٱلْإِنسَٰنَ مِن صَلْصَٰلٍۢ كَٱلْفَخَّارِ",
+      "french": "Il a crée l'homme d'argile sonnante comme la poterie;"
+    },
+    {
+      "number": 4916,
+      "numberInSurah": 15,
+      "arabic": "وَخَلَقَ ٱلْجَآنَّ مِن مَّارِجٍۢ مِّن نَّارٍۢ",
+      "french": "et Il a créé les djinns de la flamme d'un feu sans fumée."
+    },
+    {
+      "number": 4917,
+      "numberInSurah": 16,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4918,
+      "numberInSurah": 17,
+      "arabic": "رَبُّ ٱلْمَشْرِقَيْنِ وَرَبُّ ٱلْمَغْرِبَيْنِ",
+      "french": "Seigneur des deux Levants et Seigneur des deux Couchants!"
+    },
+    {
+      "number": 4919,
+      "numberInSurah": 18,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4920,
+      "numberInSurah": 19,
+      "arabic": "مَرَجَ ٱلْبَحْرَيْنِ يَلْتَقِيَانِ",
+      "french": "Il a donné libre cours aux deux mers pour se rencontrer;"
+    },
+    {
+      "number": 4921,
+      "numberInSurah": 20,
+      "arabic": "بَيْنَهُمَا بَرْزَخٌۭ لَّا يَبْغِيَانِ",
+      "french": "il y a entre elles une barrière qu'elles ne dépassent pas."
+    },
+    {
+      "number": 4922,
+      "numberInSurah": 21,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4923,
+      "numberInSurah": 22,
+      "arabic": "يَخْرُجُ مِنْهُمَا ٱللُّؤْلُؤُ وَٱلْمَرْجَانُ",
+      "french": "De ces deux [mers] sortent la perle et le corail."
+    },
+    {
+      "number": 4924,
+      "numberInSurah": 23,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4925,
+      "numberInSurah": 24,
+      "arabic": "وَلَهُ ٱلْجَوَارِ ٱلْمُنشَـَٔاتُ فِى ٱلْبَحْرِ كَٱلْأَعْلَٰمِ",
+      "french": "A Lui appartiennent les vaisseaux élevés sur la mer comme des montagnes."
+    },
+    {
+      "number": 4926,
+      "numberInSurah": 25,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4927,
+      "numberInSurah": 26,
+      "arabic": "كُلُّ مَنْ عَلَيْهَا فَانٍۢ",
+      "french": "Tout ce qui est sur elle [la terre] doit disparaître,"
+    },
+    {
+      "number": 4928,
+      "numberInSurah": 27,
+      "arabic": "وَيَبْقَىٰ وَجْهُ رَبِّكَ ذُو ٱلْجَلَٰلِ وَٱلْإِكْرَامِ",
+      "french": "[Seule] subsistera La Face [Wajh] de ton Seigneur, plein de majesté et de noblesse."
+    },
+    {
+      "number": 4929,
+      "numberInSurah": 28,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4930,
+      "numberInSurah": 29,
+      "arabic": "يَسْـَٔلُهُۥ مَن فِى ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ ۚ كُلَّ يَوْمٍ هُوَ فِى شَأْنٍۢ",
+      "french": "Ceux qui sont dans les cieux et la terre L'implorent. Chaque jour, Il accomplit une œuvre nouvelle."
+    },
+    {
+      "number": 4931,
+      "numberInSurah": 30,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4932,
+      "numberInSurah": 31,
+      "arabic": "سَنَفْرُغُ لَكُمْ أَيُّهَ ٱلثَّقَلَانِ",
+      "french": "Nous allons bientôt entreprendre votre jugement, ô vous les deux charges [hommes et djinns]."
+    },
+    {
+      "number": 4933,
+      "numberInSurah": 32,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4934,
+      "numberInSurah": 33,
+      "arabic": "يَٰمَعْشَرَ ٱلْجِنِّ وَٱلْإِنسِ إِنِ ٱسْتَطَعْتُمْ أَن تَنفُذُوا۟ مِنْ أَقْطَارِ ٱلسَّمَٰوَٰتِ وَٱلْأَرْضِ فَٱنفُذُوا۟ ۚ لَا تَنفُذُونَ إِلَّا بِسُلْطَٰنٍۢ",
+      "french": "O peuple de djinns et d'hommes! Si vous pouvez sortir du domaine des cieux et de la terre, alors faites-le. Mais vous ne pourrez en sortir qu'à l'aide d'un pouvoir [illimité]."
+    },
+    {
+      "number": 4935,
+      "numberInSurah": 34,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4936,
+      "numberInSurah": 35,
+      "arabic": "يُرْسَلُ عَلَيْكُمَا شُوَاظٌۭ مِّن نَّارٍۢ وَنُحَاسٌۭ فَلَا تَنتَصِرَانِ",
+      "french": "Il sera lancé contre vous un jet de feu et de fumée [ou de cuivre fondu], et vous ne serez pas secourus."
+    },
+    {
+      "number": 4937,
+      "numberInSurah": 36,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4938,
+      "numberInSurah": 37,
+      "arabic": "فَإِذَا ٱنشَقَّتِ ٱلسَّمَآءُ فَكَانَتْ وَرْدَةًۭ كَٱلدِّهَانِ",
+      "french": "Puis quand le ciel se fendra et deviendra alors écarlate comme le cuir rouge."
+    },
+    {
+      "number": 4939,
+      "numberInSurah": 38,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4940,
+      "numberInSurah": 39,
+      "arabic": "فَيَوْمَئِذٍۢ لَّا يُسْـَٔلُ عَن ذَنۢبِهِۦٓ إِنسٌۭ وَلَا جَآنٌّۭ",
+      "french": "Alors, ni aux hommes ni aux djinns, on ne posera des questions à propos de leurs péchés."
+    },
+    {
+      "number": 4941,
+      "numberInSurah": 40,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4942,
+      "numberInSurah": 41,
+      "arabic": "يُعْرَفُ ٱلْمُجْرِمُونَ بِسِيمَٰهُمْ فَيُؤْخَذُ بِٱلنَّوَٰصِى وَٱلْأَقْدَامِ",
+      "french": "On reconnaîtra les criminels à leurs traits. Ils seront donc saisis par les toupets et les pieds."
+    },
+    {
+      "number": 4943,
+      "numberInSurah": 42,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4944,
+      "numberInSurah": 43,
+      "arabic": "هَٰذِهِۦ جَهَنَّمُ ٱلَّتِى يُكَذِّبُ بِهَا ٱلْمُجْرِمُونَ",
+      "french": "Voilà l'Enfer que les criminels traitaient de mensonge."
+    },
+    {
+      "number": 4945,
+      "numberInSurah": 44,
+      "arabic": "يَطُوفُونَ بَيْنَهَا وَبَيْنَ حَمِيمٍ ءَانٍۢ",
+      "french": "Ils feront le va-et-vient entre lui (l'Enfer) et une eau bouillante extrêmement chaude."
+    },
+    {
+      "number": 4946,
+      "numberInSurah": 45,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4947,
+      "numberInSurah": 46,
+      "arabic": "وَلِمَنْ خَافَ مَقَامَ رَبِّهِۦ جَنَّتَانِ",
+      "french": "Et pour celui qui aura craint de comparaître devant son Seigneur, il y aura deux jardins;"
+    },
+    {
+      "number": 4948,
+      "numberInSurah": 47,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4949,
+      "numberInSurah": 48,
+      "arabic": "ذَوَاتَآ أَفْنَانٍۢ",
+      "french": "Aux branches touffues."
+    },
+    {
+      "number": 4950,
+      "numberInSurah": 49,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4951,
+      "numberInSurah": 50,
+      "arabic": "فِيهِمَا عَيْنَانِ تَجْرِيَانِ",
+      "french": "Ils y trouveront deux sources courantes."
+    },
+    {
+      "number": 4952,
+      "numberInSurah": 51,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4953,
+      "numberInSurah": 52,
+      "arabic": "فِيهِمَا مِن كُلِّ فَٰكِهَةٍۢ زَوْجَانِ",
+      "french": "Ils contiennent deux espèces de chaque fruit."
+    },
+    {
+      "number": 4954,
+      "numberInSurah": 53,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4955,
+      "numberInSurah": 54,
+      "arabic": "مُتَّكِـِٔينَ عَلَىٰ فُرُشٍۭ بَطَآئِنُهَا مِنْ إِسْتَبْرَقٍۢ ۚ وَجَنَى ٱلْجَنَّتَيْنِ دَانٍۢ",
+      "french": "Ils seront accoudés sur des tapis doublés de brocart, et les fruits des deux jardins seront à leur portée (pour être cueillis)."
+    },
+    {
+      "number": 4956,
+      "numberInSurah": 55,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4957,
+      "numberInSurah": 56,
+      "arabic": "فِيهِنَّ قَٰصِرَٰتُ ٱلطَّرْفِ لَمْ يَطْمِثْهُنَّ إِنسٌۭ قَبْلَهُمْ وَلَا جَآنٌّۭ",
+      "french": "Ils y trouveront [les houris] aux regards chastes, qu'avant eux aucun homme ou djinn n'aura déflorées."
+    },
+    {
+      "number": 4958,
+      "numberInSurah": 57,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4959,
+      "numberInSurah": 58,
+      "arabic": "كَأَنَّهُنَّ ٱلْيَاقُوتُ وَٱلْمَرْجَانُ",
+      "french": "Elles seront [aussi belles] que le rubis et le corail."
+    },
+    {
+      "number": 4960,
+      "numberInSurah": 59,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4961,
+      "numberInSurah": 60,
+      "arabic": "هَلْ جَزَآءُ ٱلْإِحْسَٰنِ إِلَّا ٱلْإِحْسَٰنُ",
+      "french": "Y a-t-il d'autre récompense pour le bien, que le bien?"
+    },
+    {
+      "number": 4962,
+      "numberInSurah": 61,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4963,
+      "numberInSurah": 62,
+      "arabic": "وَمِن دُونِهِمَا جَنَّتَانِ",
+      "french": "En deçà de ces deux jardins il y aura deux autres jardins."
+    },
+    {
+      "number": 4964,
+      "numberInSurah": 63,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4965,
+      "numberInSurah": 64,
+      "arabic": "مُدْهَآمَّتَانِ",
+      "french": "Ils sont d'un vert sombre."
+    },
+    {
+      "number": 4966,
+      "numberInSurah": 65,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4967,
+      "numberInSurah": 66,
+      "arabic": "فِيهِمَا عَيْنَانِ نَضَّاخَتَانِ",
+      "french": "Dans lesquelles il y aura deux sources jaillissantes."
+    },
+    {
+      "number": 4968,
+      "numberInSurah": 67,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4969,
+      "numberInSurah": 68,
+      "arabic": "فِيهِمَا فَٰكِهَةٌۭ وَنَخْلٌۭ وَرُمَّانٌۭ",
+      "french": "Ils contiennent des fruits, des palmiers, et des grenadiers."
+    },
+    {
+      "number": 4970,
+      "numberInSurah": 69,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4971,
+      "numberInSurah": 70,
+      "arabic": "فِيهِنَّ خَيْرَٰتٌ حِسَانٌۭ",
+      "french": "Là, il y aura des vertueuses et des belles."
+    },
+    {
+      "number": 4972,
+      "numberInSurah": 71,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4973,
+      "numberInSurah": 72,
+      "arabic": "حُورٌۭ مَّقْصُورَٰتٌۭ فِى ٱلْخِيَامِ",
+      "french": "Des houris cloîtrées dans les tentes,"
+    },
+    {
+      "number": 4974,
+      "numberInSurah": 73,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4975,
+      "numberInSurah": 74,
+      "arabic": "لَمْ يَطْمِثْهُنَّ إِنسٌۭ قَبْلَهُمْ وَلَا جَآنٌّۭ",
+      "french": "qu'avant eux aucun homme ou djinn n'a déflorées."
+    },
+    {
+      "number": 4976,
+      "numberInSurah": 75,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4977,
+      "numberInSurah": 76,
+      "arabic": "مُتَّكِـِٔينَ عَلَىٰ رَفْرَفٍ خُضْرٍۢ وَعَبْقَرِىٍّ حِسَانٍۢ",
+      "french": "Ils seront accoudés sur des coussins verts et des tapis épais et jolis."
+    },
+    {
+      "number": 4978,
+      "numberInSurah": 77,
+      "arabic": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "french": "Lequel donc des bienfaits de votre Seigneur nierez-vous?"
+    },
+    {
+      "number": 4979,
+      "numberInSurah": 78,
+      "arabic": "تَبَٰرَكَ ٱسْمُ رَبِّكَ ذِى ٱلْجَلَٰلِ وَٱلْإِكْرَامِ",
+      "french": "Béni soit le Nom de ton Seigneur, Plein de Majesté et de Munificence!"
+    }
+  ]
+}

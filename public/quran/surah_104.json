@@ -1,0 +1,62 @@
+{
+  "number": 104,
+  "name": "سُورَةُ الهُمَزَةِ",
+  "englishName": "Al-Humaza",
+  "englishNameTranslation": "The Traducer",
+  "ayahs": [
+    {
+      "number": 6180,
+      "numberInSurah": 1,
+      "arabic": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ وَيْلٌۭ لِّكُلِّ هُمَزَةٍۢ لُّمَزَةٍ",
+      "french": "Malheur à tout calomniateur diffamateur,"
+    },
+    {
+      "number": 6181,
+      "numberInSurah": 2,
+      "arabic": "ٱلَّذِى جَمَعَ مَالًۭا وَعَدَّدَهُۥ",
+      "french": "qui amasse une fortune et la compte,"
+    },
+    {
+      "number": 6182,
+      "numberInSurah": 3,
+      "arabic": "يَحْسَبُ أَنَّ مَالَهُۥٓ أَخْلَدَهُۥ",
+      "french": "pensant que sa fortune l'immortalisera."
+    },
+    {
+      "number": 6183,
+      "numberInSurah": 4,
+      "arabic": "كَلَّا ۖ لَيُنۢبَذَنَّ فِى ٱلْحُطَمَةِ",
+      "french": "Mais non! Il sera certes, jeté dans la Hutamah."
+    },
+    {
+      "number": 6184,
+      "numberInSurah": 5,
+      "arabic": "وَمَآ أَدْرَىٰكَ مَا ٱلْحُطَمَةُ",
+      "french": "Et qui te dira ce qu'est la Hutamah?"
+    },
+    {
+      "number": 6185,
+      "numberInSurah": 6,
+      "arabic": "نَارُ ٱللَّهِ ٱلْمُوقَدَةُ",
+      "french": "Le Feu attisé d'Allah"
+    },
+    {
+      "number": 6186,
+      "numberInSurah": 7,
+      "arabic": "ٱلَّتِى تَطَّلِعُ عَلَى ٱلْأَفْـِٔدَةِ",
+      "french": "qui monte jusqu'aux cœurs."
+    },
+    {
+      "number": 6187,
+      "numberInSurah": 8,
+      "arabic": "إِنَّهَا عَلَيْهِم مُّؤْصَدَةٌۭ",
+      "french": "Il se refermera sur eux,"
+    },
+    {
+      "number": 6188,
+      "numberInSurah": 9,
+      "arabic": "فِى عَمَدٍۢ مُّمَدَّدَةٍۭ",
+      "french": "en colonnes (de flammes) étendues."
+    }
+  ]
+}
