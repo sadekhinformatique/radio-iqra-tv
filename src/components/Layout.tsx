@@ -13,11 +13,11 @@ export default function Layout() {
       <main className="flex-grow">
         <Outlet />
       </main>
-      <footer className="bg-gray-50 border-t border-gray-200 py-12 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+      <footer className="bg-gray-50 border-t border-gray-200 py-8 px-4 md:px-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-14 h-14 bg-white rounded-full shadow-md overflow-hidden border-2 border-iqra-gold p-0.5">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-white rounded-full shadow-md overflow-hidden border-2 border-iqra-gold p-0.5">
                 <img 
                   src={config.logo_url || "https://i.pinimg.com/1200x/ac/2a/6e/ac2a6e5b57e6831dc47d7d50d0a95894.jpg"} 
                   alt={`Logo ${config.site_name}`} 
@@ -25,7 +25,7 @@ export default function Layout() {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <h3 className="font-serif font-bold text-xl text-iqra-green uppercase">{config.site_name}</h3>
+              <h3 className="font-serif font-bold text-lg text-iqra-green uppercase">{config.site_name}</h3>
             </div>
             <p className="text-gray-600 text-sm leading-relaxed mb-6">
               Dédiée à la diffusion des enseignements authentiques de l'Islam, 

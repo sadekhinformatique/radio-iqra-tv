@@ -63,16 +63,16 @@ export default function Radio() {
   }
 
   return (
-    <div className="py-20 px-4 md:px-8 max-w-5xl mx-auto">
-      <div className="text-center mb-16">
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-iqra-green text-iqra-gold rounded-full mb-6 shadow-xl">
-          <RadioIcon size={32} />
+    <div className="py-12 px-4 md:px-8 max-w-4xl mx-auto">
+      <div className="text-center mb-10">
+        <div className="inline-flex items-center justify-center w-12 h-12 bg-iqra-green text-iqra-gold rounded-full mb-4 shadow-xl">
+          <RadioIcon size={24} />
         </div>
-        <h1 className="text-4xl md:text-5xl font-serif font-bold text-iqra-green mb-4 uppercase tracking-tight">Grille des Programmes</h1>
+        <h1 className="text-2xl md:text-4xl font-serif font-bold text-iqra-green mb-3 uppercase tracking-tight">Grille des Programmes</h1>
         <p className="text-gray-500 uppercase tracking-widest text-xs font-bold bg-yellow-50 inline-block px-4 py-1 rounded-full border border-iqra-gold/20">Programme Hebdomadaire • RADIO IQRA TV</p>
       </div>
 
-      <div className="space-y-12">
+      <div className="space-y-8">
         {sortedDays.length > 0 ? sortedDays.map((day, groupIdx) => (
           <div key={groupIdx} className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100 transition-all hover:shadow-2xl">
             <div className="bg-iqra-green py-6 px-8 flex justify-between items-center">

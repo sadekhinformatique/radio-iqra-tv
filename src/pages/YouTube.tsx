@@ -118,18 +118,18 @@ export default function YouTube() {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="relative h-48 md:h-80 bg-gray-900 overflow-hidden">
+      <div className="relative h-40 md:h-56 bg-gray-900 overflow-hidden">
         <div className="w-full h-full bg-gradient-to-r from-iqra-green to-iqra-green-dark"></div>
         <div className="absolute inset-0 flex items-center justify-center">
-          <Youtube size={80} className="text-white/20" />
+          <Youtube size={48} className="text-white/20" />
         </div>
         <div className="absolute inset-0 flex items-end">
           <div className="max-w-7xl mx-auto w-full px-4 md:px-8 pb-8 flex flex-col md:flex-row items-center md:items-end gap-6">
-            <div className="w-20 h-20 md:w-28 md:h-28 rounded-full border-4 border-white shadow-2xl overflow-hidden bg-red-600 flex items-center justify-center shrink-0">
-              <Youtube size={40} className="text-white" />
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full border-4 border-white shadow-2xl overflow-hidden bg-red-600 flex items-center justify-center shrink-0">
+              <Youtube size={28} className="text-white" />
             </div>
             <div className="flex-grow text-center md:text-left mb-2">
-              <h1 className="text-2xl md:text-4xl font-bold text-white mb-2">{channelName}</h1>
+              <h1 className="text-xl md:text-3xl font-bold text-white mb-1">{channelName}</h1>
               <p className="text-white/70 text-sm">Nos vidéos sur YouTube</p>
             </div>
             <a
@@ -144,11 +144,11 @@ export default function YouTube() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-12">
-        <section className="mb-20">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-1.5 h-8 bg-iqra-gold rounded-full"></div>
-            <h2 className="text-3xl font-serif font-bold text-iqra-green">Dernière Vidéo</h2>
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
+        <section className="mb-12">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-1 h-6 bg-iqra-gold rounded-full"></div>
+            <h2 className="text-xl md:text-2xl font-serif font-bold text-iqra-green">Dernière Vidéo</h2>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
@@ -186,10 +186,10 @@ export default function YouTube() {
         </section>
 
         <section>
-          <div className="flex items-center justify-between mb-10">
+          <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-1.5 h-8 bg-iqra-gold rounded-full"></div>
-              <h2 className="text-3xl font-serif font-bold text-iqra-green">Vidéos Récentes</h2>
+              <div className="w-1 h-6 bg-iqra-gold rounded-full"></div>
+              <h2 className="text-xl md:text-2xl font-serif font-bold text-iqra-green">Vidéos Récentes</h2>
             </div>
             <a
               href={config.youtube_url}

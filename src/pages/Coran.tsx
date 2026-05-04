@@ -162,12 +162,12 @@ export default function Coran() {
   }
 
   return (
-    <div className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
-      <div className="text-center mb-16">
-        <div className="inline-flex items-center justify-center w-24 h-24 bg-iqra-gold/10 text-iqra-gold rounded-[2rem] mb-8 shadow-inner shadow-iqra-gold/5 animate-pulse">
-          <BookOpen size={48} />
+    <div className="py-12 px-4 md:px-8 max-w-6xl mx-auto">
+      <div className="text-center mb-10">
+        <div className="inline-flex items-center justify-center w-16 h-16 bg-iqra-gold/10 text-iqra-gold rounded-[1.5rem] mb-6 shadow-inner shadow-iqra-gold/5 animate-pulse">
+          <BookOpen size={32} />
         </div>
-        <h1 className="text-4xl md:text-7xl font-serif font-bold text-iqra-green mb-6 tracking-tight">Le Noble Coran</h1>
+        <h1 className="text-2xl md:text-5xl font-serif font-bold text-iqra-green mb-4 tracking-tight">Le Noble Coran</h1>
         <p className="text-gray-500 max-w-2xl mx-auto font-medium text-lg">Lumière et guidance pour l'humanité, méditez la parole de votre Seigneur.</p>
         
         <div className="mt-12 max-w-lg mx-auto relative px-4">
@@ -242,7 +242,7 @@ export default function Coran() {
               initial={{ opacity: 0, scale: 0.9, y: 40 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 40 }}
-              className="bg-white w-full max-w-5xl h-[90vh] rounded-[3rem] shadow-2xl overflow-hidden flex flex-col relative"
+              className="bg-white w-full max-w-4xl h-[85vh] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col relative"
             >
               {loadingSurah ? (
                 <div className="flex-1 flex items-center justify-center">

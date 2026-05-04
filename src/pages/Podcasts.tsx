@@ -80,12 +80,12 @@ export default function Podcasts() {
   }
 
   return (
-    <div className="py-20 px-4 md:px-8 max-w-6xl mx-auto">
-      <div className="text-center mb-16">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-iqra-gold/10 text-iqra-gold rounded-3xl mb-6">
-          <Mic2 size={40} />
+    <div className="py-12 px-4 md:px-8 max-w-5xl mx-auto">
+      <div className="text-center mb-10">
+        <div className="inline-flex items-center justify-center w-14 h-14 bg-iqra-gold/10 text-iqra-gold rounded-2xl mb-4">
+          <Mic2 size={28} />
         </div>
-        <h1 className="text-4xl md:text-6xl font-serif font-bold text-iqra-green mb-4">Nos Podcasts</h1>
+        <h1 className="text-2xl md:text-4xl font-serif font-bold text-iqra-green mb-3">Nos Podcasts</h1>
         <p className="text-gray-500 max-w-xl mx-auto font-medium">Redécouvrez nos émissions religieuses à tout moment.</p>
       </div>
 
@@ -122,7 +122,7 @@ export default function Podcasts() {
                   </span>
                 )}
               </div>
-              <h3 className="text-xl font-bold text-iqra-green group-hover:text-iqra-gold transition-colors line-clamp-2">{podcast.title}</h3>
+              <h3 className="text-lg font-bold text-iqra-green group-hover:text-iqra-gold transition-colors line-clamp-2">{podcast.title}</h3>
             </div>
           </motion.div>
         ))}

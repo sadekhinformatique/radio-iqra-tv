@@ -91,12 +91,12 @@ export default function Conseils() {
   }
 
   return (
-    <div className="py-20 px-4 md:px-8 max-w-6xl mx-auto">
-      <div className="text-center mb-16">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-iqra-gold/10 text-iqra-gold rounded-3xl mb-6">
-          <MessageSquare size={40} />
+    <div className="py-12 px-4 md:px-8 max-w-5xl mx-auto">
+      <div className="text-center mb-10">
+        <div className="inline-flex items-center justify-center w-14 h-14 bg-iqra-gold/10 text-iqra-gold rounded-2xl mb-4">
+          <MessageSquare size={28} />
         </div>
-        <h1 className="text-4xl md:text-6xl font-serif font-bold text-iqra-green mb-4">Conseils & Fatwas</h1>
+        <h1 className="text-2xl md:text-4xl font-serif font-bold text-iqra-green mb-3">Conseils & Fatwas</h1>
         <p className="text-gray-500 max-w-xl mx-auto font-medium">L'Islam au quotidien pour éclairer votre chemin.</p>
       </div>
 
@@ -138,7 +138,7 @@ export default function Conseils() {
                   {Math.ceil((article.content?.length || 0) / 1000) || 1} min lecture
                 </span>
               </div>
-              <h3 className="text-2xl font-bold text-iqra-green group-hover:text-iqra-gold transition-colors line-clamp-2 leading-tight">{article.title}</h3>
+              <h3 className="text-xl font-bold text-iqra-green group-hover:text-iqra-gold transition-colors line-clamp-2 leading-tight">{article.title}</h3>
               <p className="text-gray-500 leading-relaxed line-clamp-3 text-sm">{(article as any).description || article.content}</p>
               
               <div className="mt-auto pt-6 border-t border-gray-50 flex items-center justify-between">
@@ -170,7 +170,7 @@ export default function Conseils() {
               initial={{ opacity: 0, scale: 0.9, y: 40 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 40 }}
-              className="bg-white w-full max-w-5xl max-h-[90vh] rounded-[3rem] shadow-2xl overflow-hidden flex flex-col relative"
+              className="bg-white w-full max-w-4xl max-h-[85vh] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col relative"
             >
               {/* Close Button */}
               <button 
@@ -182,7 +182,7 @@ export default function Conseils() {
 
               <div className="overflow-y-auto overflow-x-hidden flex-grow scrollbar-hide">
                 {/* Header Image */}
-                <div className="relative h-[40vh] md:h-[50vh] w-full">
+                <div className="relative h-[25vh] md:h-[35vh] w-full">
                   {selectedArticle.image_url ? (
                     <img 
                       src={selectedArticle.image_url} 
@@ -210,7 +210,7 @@ export default function Conseils() {
                         })}
                       </div>
                     </div>
-                    <h2 className="text-3xl md:text-5xl font-serif font-bold text-iqra-green leading-tight max-w-3xl">
+                    <h2 className="text-2xl md:text-3xl font-serif font-bold text-iqra-green leading-tight max-w-3xl">
                       {selectedArticle.title}
                     </h2>
                   </div>

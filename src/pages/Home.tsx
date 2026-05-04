@@ -46,35 +46,35 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden bg-iqra-green">
+      <section className="relative h-[40vh] md:h-[50vh] flex items-center justify-center overflow-hidden bg-iqra-green">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/islamic-art.png')]"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80"></div>
         </div>
         
-        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
+        <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-3xl md:text-6xl font-serif font-bold text-white mb-4 uppercase tracking-tight leading-none">
+            <h1 className="text-2xl md:text-5xl font-serif font-bold text-white mb-4 uppercase tracking-tight leading-none">
               La Voix du <span className="text-iqra-gold">Saint Coran</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+            <p className="text-base md:text-lg text-gray-200 mb-6 max-w-xl mx-auto font-light leading-relaxed">
               Basée au cœur du Burkina Faso, {config.site_name} est une station islamique 
               dédiée à la diffusion des enseignements authentiques de l'Islam.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center gap-3">
               <Link 
                 to="/radio"
-                className="px-8 py-4 bg-iqra-gold text-iqra-green font-bold rounded-full flex items-center gap-2 hover:scale-105 transition-transform shadow-xl uppercase tracking-wider text-sm"
+                className="px-6 py-3 bg-iqra-gold text-iqra-green font-bold rounded-full flex items-center gap-2 hover:scale-105 transition-transform shadow-xl uppercase tracking-wider text-xs"
               >
-                <Play size={20} fill="currentColor" /> Écouter en Direct
+                <Play size={16} fill="currentColor" /> Écouter en Direct
               </Link>
               <Link 
                 to="/a-propos"
-                className="px-8 py-4 bg-white/10 backdrop-blur-md text-white border border-white/20 font-bold rounded-full flex items-center gap-2 hover:bg-white/20 transition-all uppercase tracking-wider text-sm"
+                className="px-6 py-3 bg-white/10 backdrop-blur-md text-white border border-white/20 font-bold rounded-full flex items-center gap-2 hover:bg-white/20 transition-all uppercase tracking-wider text-xs"
               >
                 En savoir plus
               </Link>
@@ -84,7 +84,7 @@ export default function Home() {
       </section>
 
       {/* Pages Grid */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 -mt-20 relative z-20 mb-24">
+      <section className="max-w-7xl mx-auto px-4 md:px-8 -mt-16 relative z-20 mb-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <PageCard 
             title="Bibliothèque Coranique" 
@@ -138,7 +138,7 @@ export default function Home() {
       </section>
 
       {/* Latest Content Sections */}
-      <section className="max-w-7xl mx-auto px-4 md:px-8 mb-24 grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <section className="max-w-7xl mx-auto px-4 md:px-8 mb-14 grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Latest Podcast */}
         {latestPodcast && (
           <div className="bg-white rounded-3xl p-8 shadow-xl border border-gray-100">
@@ -195,7 +195,7 @@ export default function Home() {
       </section>
 
       {/* About Section (Partial) */}
-      <section className="py-24 px-4 md:px-8">
+      <section className="py-14 px-4 md:px-8">
         <div className="max-w-5xl mx-auto">
           <div className="dashed-card p-10 md:p-16 relative overflow-hidden">
             <h2 className="text-lg font-bold text-iqra-green mb-6 flex items-center gap-3">

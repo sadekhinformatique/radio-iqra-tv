@@ -5,14 +5,14 @@ export default function About() {
   const { config } = useSiteConfig();
 
   return (
-    <div className="py-20 px-4 md:px-8 max-w-4xl mx-auto">
+    <div className="py-12 px-4 md:px-8 max-w-3xl mx-auto">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-iqra-gold font-bold uppercase tracking-[0.3em] text-sm mb-4">Notre Histoire</h1>
-        <h2 className="text-4xl md:text-6xl font-serif font-bold text-iqra-green mb-12">{config.site_name} — La Voix du Saint Coran</h2>
+        <h1 className="text-iqra-gold font-bold uppercase tracking-[0.3em] text-xs mb-3">Notre Histoire</h1>
+        <h2 className="text-2xl md:text-4xl font-serif font-bold text-iqra-green mb-8">{config.site_name} — La Voix du Saint Coran</h2>
         
         <div className="prose prose-lg text-gray-700 font-serif leading-loose space-y-8">
           <p className="text-xl italic text-iqra-green">

@@ -10,12 +10,12 @@ interface EmptyListProps {
 
 export default function EmptyListPage({ title, subtitle, icon: Icon, category }: EmptyListProps) {
   return (
-    <div className="py-20 px-4 md:px-8 max-w-6xl mx-auto">
-      <div className="text-center mb-16">
-        <div className="inline-flex items-center justify-center w-20 h-20 bg-iqra-gold/10 text-iqra-gold rounded-3xl mb-6">
-          <Icon size={40} />
+    <div className="py-12 px-4 md:px-8 max-w-5xl mx-auto">
+      <div className="text-center mb-10">
+        <div className="inline-flex items-center justify-center w-14 h-14 bg-iqra-gold/10 text-iqra-gold rounded-2xl mb-4">
+          <Icon size={28} />
         </div>
-        <h1 className="text-4xl md:text-6xl font-serif font-bold text-iqra-green mb-4">{title}</h1>
+        <h1 className="text-2xl md:text-4xl font-serif font-bold text-iqra-green mb-3">{title}</h1>
         <p className="text-gray-500 max-w-xl mx-auto font-medium">{subtitle}</p>
       </div>
 

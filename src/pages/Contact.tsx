@@ -44,15 +44,15 @@ export default function Contact() {
   };
 
   return (
-    <div className="py-20 px-4 md:px-8 max-w-6xl mx-auto">
-      <div className="text-center mb-16">
-        <h1 className="text-4xl md:text-6xl font-serif font-bold text-iqra-green mb-4">Contactez-nous</h1>
+    <div className="py-12 px-4 md:px-8 max-w-5xl mx-auto">
+      <div className="text-center mb-10">
+        <h1 className="text-2xl md:text-4xl font-serif font-bold text-iqra-green mb-3">Contactez-nous</h1>
         <p className="text-gray-500 max-w-xl mx-auto font-medium">
           Une question ? Un témoignage ? Notre équipe est à votre écoute pour vous accompagner dans votre cheminement spirituel.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
         {/* Info Sidebar */}
         <div className="lg:col-span-2 space-y-8">
           <ContactCard 
