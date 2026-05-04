@@ -26,18 +26,18 @@ export default function QuranDisplay({
       className="bg-white rounded-3xl shadow-2xl border border-gray-50 overflow-hidden"
     >
       {/* Surah Header */}
-      <div className="bg-gradient-to-r from-iqra-green to-iqra-gold p-8 text-white">
+      <div className="bg-gradient-to-r from-iqra-green to-iqra-gold p-6 text-white">
         <div className="text-center">
-          <p className="text-5xl font-serif mb-2 text-iqra-gold">{surah.name_ar}</p>
-          <h1 className="text-4xl font-bold mb-2">{surah.name_fr}</h1>
-          <p className="text-white/80 text-lg">
+          <p className="text-4xl font-serif mb-2 text-iqra-gold">{surah.name_ar}</p>
+          <h1 className="text-3xl font-bold mb-2">{surah.name_fr}</h1>
+          <p className="text-white/80 text-base">
             {surah.ayahs.length} آية • Sourate {surah.number}
           </p>
         </div>
       </div>
 
       {/* Quran Text */}
-      <div className="p-8 space-y-6 max-h-[600px] overflow-y-auto">
+      <div className="p-6 space-y-4 max-h-[500px] overflow-y-auto">
         {surah.ayahs.map((ayah, verseIdx) => (
           <motion.div
             key={ayah.numberInSurah}
@@ -49,11 +49,11 @@ export default function QuranDisplay({
                   : 'transparent'
             }}
             transition={{ duration: 0.2 }}
-            className="p-6 rounded-2xl cursor-pointer hover:bg-iqra-gold/5 transition-all group"
+            className="p-4 rounded-2xl cursor-pointer hover:bg-iqra-gold/5 transition-all group"
           >
             {/* Verse Number */}
-            <div className="flex items-start justify-between mb-4">
-              <div className="w-10 h-10 rounded-full bg-iqra-gold text-white flex items-center justify-center font-bold text-sm">
+            <div className="flex items-start justify-between mb-3">
+              <div className="w-8 h-8 rounded-full bg-iqra-gold text-white flex items-center justify-center font-bold text-xs">
                 {ayah.numberInSurah}
               </div>
               {verseIdx === currentVerse && (
@@ -68,8 +68,8 @@ export default function QuranDisplay({
             </div>
 
             {/* Arabic Text */}
-            <div className="mb-6">
-              <div className="text-right text-3xl leading-relaxed font-serif text-iqra-green group-hover:text-iqra-gold transition-colors">
+            <div className="mb-4">
+              <div className="text-right text-2xl leading-relaxed font-serif text-iqra-green group-hover:text-iqra-gold transition-colors">
                 {ayah.words.map((word, wordIdx) => (
                   <motion.span
                     key={`${verseIdx}-${wordIdx}`}
@@ -104,15 +104,15 @@ export default function QuranDisplay({
             </div>
 
             {/* Verse Number in Circle (Islamic style) */}
-            <div className="text-center mb-4">
+            <div className="text-center mb-3">
               <span className="inline-flex items-center justify-center w-8 h-8 rounded-full border-2 border-iqra-gold/50 text-iqra-gold text-xs font-bold">
                 ۝
               </span>
             </div>
 
             {/* Translation */}
-            <div className="pt-4 border-t border-iqra-gold/10">
-              <p className="text-gray-600 text-base leading-relaxed italic">
+            <div className="pt-3 border-t border-iqra-gold/10">
+              <p className="text-gray-600 text-sm leading-relaxed italic">
                 {/* Placeholder - À récupérer depuis l'API */}
                 📖 Traduction française du verset {ayah.numberInSurah}
               </p>

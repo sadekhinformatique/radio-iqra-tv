@@ -140,12 +140,12 @@ export default function LearningProgram() {
 
   if (showSurahSelect) {
     return (
-      <div className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center justify-center w-24 h-24 bg-iqra-gold/10 text-iqra-gold rounded-[2rem] mb-8">
-            <BookOpen size={48} />
+      <div className="py-12 px-4 md:px-8 max-w-6xl mx-auto">
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-iqra-gold/10 text-iqra-gold rounded-[1.5rem] mb-6">
+            <BookOpen size={32} />
           </div>
-          <h1 className="text-4xl md:text-7xl font-serif font-bold text-iqra-green mb-6">Programme d'Apprentissage</h1>
+          <h1 className="text-2xl md:text-4xl font-serif font-bold text-iqra-green mb-3">Programme d'Apprentissage</h1>
           <p className="text-gray-500 max-w-2xl mx-auto text-lg">Choisissez une sourate pour commencer</p>
         </div>
         {loading ? (
@@ -199,36 +199,36 @@ export default function LearningProgram() {
       : 'p-6 rounded-2xl border-2 cursor-pointer transition-all border-gray-100';
     const hasResume = resumeData && resumeData.completion_percentage > 0;
     return (
-      <div className="py-20 px-4 md:px-8 max-w-4xl mx-auto">
-        <button onClick={() => { setShowModeSelect(false); setShowSurahSelect(true); }} className="mb-8 flex items-center gap-2 text-iqra-green hover:text-iqra-gold transition-colors">
-          <ArrowLeft size={20} /> Retour
+      <div className="py-12 px-4 md:px-8 max-w-4xl mx-auto">
+        <button onClick={() => { setShowModeSelect(false); setShowSurahSelect(true); }} className="mb-6 flex items-center gap-2 text-iqra-green hover:text-iqra-gold transition-colors">
+          <ArrowLeft size={18} /> Retour
         </button>
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-iqra-green mb-4">{selectedSurah.name_fr}</h1>
-          <p className="text-2xl font-serif text-iqra-gold" dir="rtl">{selectedSurah.name_ar}</p>
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-iqra-green mb-3">{selectedSurah.name_fr}</h1>
+          <p className="text-xl font-serif text-iqra-gold" dir="rtl">{selectedSurah.name_ar}</p>
         </div>
-        <div className="bg-white rounded-3xl p-8 shadow-xl">
-          <h2 className="text-2xl font-bold text-iqra-green mb-6">Mode d'apprentissage</h2>
-          <div className="space-y-4">
+        <div className="bg-white rounded-3xl p-6 shadow-xl">
+          <h2 className="text-xl font-bold text-iqra-green mb-4">Mode d'apprentissage</h2>
+          <div className="space-y-3">
             <div onClick={() => setMode('reading')} className={modeClassReading}>
-              <h3 className="text-xl font-bold text-iqra-green mb-2">Lecture</h3>
-              <p className="text-gray-600">Lecture mot par mot avec audio. Idéal pour l'apprentissage.</p>
+              <h3 className="text-lg font-bold text-iqra-green mb-1">Lecture</h3>
+              <p className="text-gray-600 text-sm">Lecture mot par mot avec audio. Idéal pour l'apprentissage.</p>
             </div>
             <div onClick={() => setMode('memorization')} className={modeClassMem}>
-              <h3 className="text-xl font-bold text-iqra-green mb-2">Mémorisation</h3>
-              <p className="text-gray-600">Répétition et mémorisation avec pauses.</p>
+              <h3 className="text-lg font-bold text-iqra-green mb-1">Mémorisation</h3>
+              <p className="text-gray-600 text-sm">Répétition et mémorisation avec pauses.</p>
             </div>
           </div>
           {hasResume && (
-            <div className="mt-6 p-4 bg-blue-50 rounded-xl flex items-center gap-3">
-              <Clock className="text-blue-500" size={20} />
+            <div className="mt-4 p-3 bg-blue-50 rounded-xl flex items-center gap-3">
+              <Clock className="text-blue-500" size={18} />
               <div>
-                <p className="font-bold text-blue-700">Progression sauvegardée</p>
-                <p className="text-sm text-blue-600">Verset {resumeData.verse_number + 1} ({Math.round(resumeData.completion_percentage)}%)</p>
+                <p className="font-bold text-blue-700 text-sm">Progression sauvegardée</p>
+                <p className="text-xs text-blue-600">Verset {resumeData.verse_number + 1} ({Math.round(resumeData.completion_percentage)}%)</p>
               </div>
             </div>
           )}
-          <div className="mt-6">
+          <div className="mt-4">
             <label className="block text-sm font-bold text-gray-600 mb-2">Récitateur</label>
             <select value={selectedReciter?.id || ''} onChange={(e) => {
               const rec = reciters.find(r => r.id === Number(e.target.value));
@@ -239,7 +239,7 @@ export default function LearningProgram() {
               ))}
             </select>
           </div>
-          <button onClick={startLearning} className="mt-8 w-full bg-iqra-green text-white py-4 rounded-xl font-bold text-lg hover:bg-iqra-green/90">
+          <button onClick={startLearning} className="mt-6 w-full bg-iqra-green text-white py-3 rounded-xl font-bold text-base hover:bg-iqra-green/90">
             {hasResume ? 'Reprendre' : 'Commencer'}
           </button>
         </div>
@@ -253,8 +253,8 @@ export default function LearningProgram() {
   const progressPercentage = ((currentVerse / selectedSurah.ayahs.length) * 100).toFixed(1);
 
   return (
-    <div className="py-20 px-4 md:px-8 max-w-6xl mx-auto">
-      <div className="flex items-center justify-between mb-8">
+    <div className="py-12 px-4 md:px-8 max-w-6xl mx-auto">
+      <div className="flex items-center justify-between mb-6">
         <button onClick={() => setShowModeSelect(true)} className="flex items-center gap-2 text-iqra-green hover:text-iqra-gold transition-colors">
           <ArrowLeft size={20} /> Retour
         </button>
@@ -266,13 +266,13 @@ export default function LearningProgram() {
           <Save size={18} /> {saving ? '...' : 'Sauvegarder'}
         </button>
       </div>
-      <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mb-8">
+      <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden mb-6">
         <div className="h-full bg-iqra-gold transition-all duration-300" style={{ width: progressPercentage + '%' }} />
       </div>
-      <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xl mb-8">
-        <div className="text-center mb-8">
-          <p className="text-sm text-gray-400 mb-4">Verset {currentVerse + 1}</p>
-          <div className="text-3xl md:text-5xl leading-loose text-right font-serif text-iqra-green" dir="rtl">
+      <div className="bg-white rounded-3xl p-6 md:p-8 shadow-xl mb-6">
+          <div className="text-center mb-6">
+            <p className="text-xs text-gray-400 mb-3">Verset {currentVerse + 1}</p>
+            <div className="text-2xl md:text-4xl leading-loose text-right font-serif text-iqra-green" dir="rtl">
             {currentAyah?.words?.map((word: string, idx: number) => {
               const isActive = idx === currentWord;
               const wordClass = isActive
@@ -291,18 +291,18 @@ export default function LearningProgram() {
             })}
           </div>
         </div>
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-3">
           <button onClick={() => {
             if (currentWord > 0) setCurrentWord(currentWord - 1);
             else if (currentVerse > 0) {
               setCurrentVerse(currentVerse - 1);
               setCurrentWord(selectedSurah.ayahs[currentVerse - 1]?.words?.length || 0);
             }
-          }} className="w-14 h-14 bg-gray-100 text-iqra-green rounded-full flex items-center justify-center hover:bg-gray-200">
-            <ArrowLeft size={24} />
+          }} className="w-12 h-12 bg-gray-100 text-iqra-green rounded-full flex items-center justify-center hover:bg-gray-200">
+            <ArrowLeft size={20} />
           </button>
-          <button onClick={() => playVerseAudio(selectedSurah.number, currentAyah.numberInSurah)} className="w-20 h-20 bg-iqra-green text-white rounded-full flex items-center justify-center shadow-xl hover:scale-105">
-            {isPlaying ? <Pause size={32} /> : <Play size={32} className="ml-1" />}
+          <button onClick={() => playVerseAudio(selectedSurah.number, currentAyah.numberInSurah)} className="w-16 h-16 bg-iqra-green text-white rounded-full flex items-center justify-center shadow-xl hover:scale-105">
+            {isPlaying ? <Pause size={28} /> : <Play size={28} className="ml-1" />}
           </button>
           <button onClick={() => {
             if (currentWord < (currentAyah?.words?.length || 0) - 1) setCurrentWord(currentWord + 1);
@@ -310,8 +310,8 @@ export default function LearningProgram() {
               setCurrentVerse(currentVerse + 1);
               setCurrentWord(0);
             }
-          }} className="w-14 h-14 bg-gray-100 text-iqra-green rounded-full flex items-center justify-center hover:bg-gray-200">
-            <ArrowRight size={24} />
+          }} className="w-12 h-12 bg-gray-100 text-iqra-green rounded-full flex items-center justify-center hover:bg-gray-200">
+            <ArrowRight size={20} />
           </button>
         </div>
       </div>

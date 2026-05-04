@@ -55,14 +55,14 @@ export default function ModeSelector({
   onReciterChange
 }: ModeSelectorProps) {
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Reciter Selection */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-white rounded-3xl p-8 shadow-xl border border-gray-50"
+        className="bg-white rounded-3xl p-6 shadow-xl border border-gray-50"
       >
-        <h2 className="text-2xl font-bold text-iqra-green mb-6 flex items-center gap-2">
+        <h2 className="text-xl font-bold text-iqra-green mb-4 flex items-center gap-2">
           🎙️ Sélectionnez un Récitateur
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -83,11 +83,11 @@ export default function ModeSelector({
 
       {/* Mode Selection */}
       <div>
-        <h2 className="text-2xl font-bold text-iqra-green mb-6">
+        <h2 className="text-xl font-bold text-iqra-green mb-4">
           Choisissez votre Mode d'Apprentissage
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {modes.map((mode, idx) => {
             const Icon = mode.icon;
             const isSelected = currentMode === mode.id;
@@ -101,7 +101,7 @@ export default function ModeSelector({
                 whileHover={{ scale: 1.02, y: -5 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => onModeSelected(mode.id as LearningMode)}
-                className={`relative overflow-hidden rounded-3xl p-8 text-left transition-all ${
+                className={`relative overflow-hidden rounded-3xl p-6 text-left transition-all ${
                   isSelected
                     ? 'ring-2 ring-iqra-gold shadow-2xl'
                     : 'shadow-lg border border-gray-50'
@@ -112,18 +112,18 @@ export default function ModeSelector({
 
                 <div className="relative z-10">
                   {/* Header */}
-                  <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-start justify-between mb-3">
                     <div>
-                      <h3 className="text-2xl font-bold text-gray-800">
+                      <h3 className="text-lg font-bold text-gray-800">
                         {mode.name}
                       </h3>
-                      <p className="text-gray-600 text-sm mt-2">{mode.description}</p>
+                      <p className="text-gray-600 text-xs mt-1">{mode.description}</p>
                     </div>
-                    <Icon className={`${mode.textColor}`} size={32} />
+                    <Icon className={`${mode.textColor}`} size={24} />
                   </div>
 
                   {/* Benefits */}
-                  <div className="mt-6 space-y-2">
+                  <div className="mt-4 space-y-1">
                     {mode.id === 'progressive-reading' && (
                       <>
                         <p className="text-xs text-gray-600">✓ Parfait pour débuter</p>
@@ -156,12 +156,12 @@ export default function ModeSelector({
 
                   {/* Select Button */}
                   {isSelected ? (
-                    <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 bg-iqra-gold text-white rounded-xl font-bold">
+                    <div className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 bg-iqra-gold text-white rounded-xl font-bold text-sm">
                       ✓ Sélectionné
                     </div>
                   ) : (
-                    <div className="mt-6 inline-flex items-center gap-2 text-iqra-gold font-bold hover:gap-3 transition-all">
-                      Commencer <ArrowRight size={18} />
+                    <div className="mt-4 inline-flex items-center gap-2 text-iqra-gold font-bold hover:gap-3 transition-all text-sm">
+                      Commencer <ArrowRight size={16} />
                     </div>
                   )}
                 </div>
@@ -175,9 +175,9 @@ export default function ModeSelector({
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="bg-gradient-to-r from-iqra-green/5 to-iqra-gold/5 rounded-3xl p-6 border border-iqra-green/10"
+        className="bg-gradient-to-r from-iqra-green/5 to-iqra-gold/5 rounded-3xl p-4 border border-iqra-green/10"
       >
-        <p className="text-sm text-gray-600">
+        <p className="text-xs text-gray-600">
           💡 <span className="font-semibold">Conseil:</span> Vous pouvez changer de mode à tout moment. Votre progression sera sauvegardée automatiquement.
         </p>
       </motion.div>

@@ -53,8 +53,8 @@ export default function ProgressDashboard({ userId, onClose }: ProgressDashboard
         exit={{ opacity: 0 }}
         className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
       >
-        <div className="bg-white rounded-3xl p-8">
-          <div className="animate-spin w-12 h-12 border-4 border-iqra-gold border-t-transparent rounded-full" />
+          <div className="bg-white rounded-3xl p-6">
+          <div className="animate-spin w-10 h-10 border-4 border-iqra-gold border-t-transparent rounded-full" />
         </div>
       </motion.div>
     );
@@ -75,39 +75,39 @@ export default function ProgressDashboard({ userId, onClose }: ProgressDashboard
           className="bg-white rounded-3xl max-w-4xl w-full shadow-2xl overflow-hidden my-8"
         >
           {/* Header */}
-          <div className="bg-gradient-to-r from-iqra-green to-iqra-gold p-8 text-white flex items-center justify-between">
+          <div className="bg-gradient-to-r from-iqra-green to-iqra-gold p-6 text-white flex items-center justify-between">
             <div>
-              <h2 className="text-3xl font-bold">📊 Tableau de Bord</h2>
-              <p className="text-white/80 mt-2">Votre progression d'apprentissage</p>
+              <h2 className="text-2xl font-bold">📊 Tableau de Bord</h2>
+              <p className="text-white/80 mt-1 text-sm">Votre progression d'apprentissage</p>
             </div>
             <button
               onClick={onClose}
               className="p-2 hover:bg-white/20 rounded-xl transition-all"
             >
-              <X size={24} />
+              <X size={20} />
             </button>
           </div>
 
           {/* Content */}
-          <div className="p-8 space-y-8">
+          <div className="p-6 space-y-6">
             {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
               {/* Total Verses */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-2xl border border-blue-200"
+                className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-2xl border border-blue-200"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <BookOpen className="text-blue-600" size={24} />
-                  <span className="text-sm font-bold text-blue-600 bg-white px-3 py-1 rounded-full">
+                <div className="flex items-center justify-between mb-2">
+                  <BookOpen className="text-blue-600" size={20} />
+                  <span className="text-xs font-bold text-blue-600 bg-white px-2 py-0.5 rounded-full">
                     Versets
                   </span>
                 </div>
-                <p className="text-3xl font-bold text-blue-700">
+                <p className="text-2xl font-bold text-blue-700">
                   {stats?.total_verses_learned || 0}
                 </p>
-                <p className="text-sm text-blue-600 mt-1">Versets appris</p>
+                <p className="text-xs text-blue-600 mt-1">Versets appris</p>
               </motion.div>
 
               {/* Total Time */}
@@ -115,18 +115,18 @@ export default function ProgressDashboard({ userId, onClose }: ProgressDashboard
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.05 }}
-                className="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-2xl border border-purple-200"
+                className="bg-gradient-to-br from-purple-50 to-purple-100 p-4 rounded-2xl border border-purple-200"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <Clock className="text-purple-600" size={24} />
-                  <span className="text-sm font-bold text-purple-600 bg-white px-3 py-1 rounded-full">
+                <div className="flex items-center justify-between mb-2">
+                  <Clock className="text-purple-600" size={20} />
+                  <span className="text-xs font-bold text-purple-600 bg-white px-2 py-0.5 rounded-full">
                     Temps
                   </span>
                 </div>
-                <p className="text-3xl font-bold text-purple-700">
+                <p className="text-2xl font-bold text-purple-700">
                   {Math.round((stats?.total_time || 0) / 60)}h
                 </p>
-                <p className="text-sm text-purple-600 mt-1">Temps total</p>
+                <p className="text-xs text-purple-600 mt-1">Temps total</p>
               </motion.div>
 
               {/* Streak */}
@@ -134,18 +134,18 @@ export default function ProgressDashboard({ userId, onClose }: ProgressDashboard
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-2xl border border-orange-200"
+                className="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-2xl border border-orange-200"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <Flame className="text-orange-600" size={24} />
-                  <span className="text-sm font-bold text-orange-600 bg-white px-3 py-1 rounded-full">
+                <div className="flex items-center justify-between mb-2">
+                  <Flame className="text-orange-600" size={20} />
+                  <span className="text-xs font-bold text-orange-600 bg-white px-2 py-0.5 rounded-full">
                     Streaks
                   </span>
                 </div>
-                <p className="text-3xl font-bold text-orange-700">
+                <p className="text-2xl font-bold text-orange-700">
                   {stats?.current_streak || 0}
                 </p>
-                <p className="text-sm text-orange-600 mt-1">Jours consécutifs</p>
+                <p className="text-xs text-orange-600 mt-1">Jours consécutifs</p>
               </motion.div>
 
               {/* Accuracy */}
@@ -153,31 +153,31 @@ export default function ProgressDashboard({ userId, onClose }: ProgressDashboard
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 }}
-                className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-6 rounded-2xl border border-emerald-200"
+                className="bg-gradient-to-br from-emerald-50 to-emerald-100 p-4 rounded-2xl border border-emerald-200"
               >
-                <div className="flex items-center justify-between mb-3">
-                  <TrendingUp className="text-emerald-600" size={24} />
-                  <span className="text-sm font-bold text-emerald-600 bg-white px-3 py-1 rounded-full">
+                <div className="flex items-center justify-between mb-2">
+                  <TrendingUp className="text-emerald-600" size={20} />
+                  <span className="text-xs font-bold text-emerald-600 bg-white px-2 py-0.5 rounded-full">
                     Précision
                   </span>
                 </div>
-                <p className="text-3xl font-bold text-emerald-700">
+                <p className="text-2xl font-bold text-emerald-700">
                   {Math.round(stats?.best_accuracy || 0)}%
                 </p>
-                <p className="text-sm text-emerald-600 mt-1">Meilleure précision</p>
+                <p className="text-xs text-emerald-600 mt-1">Meilleure précision</p>
               </motion.div>
             </div>
 
             {/* Badges Section */}
             <div>
-              <h3 className="text-2xl font-bold text-iqra-green mb-6 flex items-center gap-2">
-                <Award size={28} />
+              <h3 className="text-xl font-bold text-iqra-green mb-4 flex items-center gap-2">
+                <Award size={22} />
                 Badges Débloqués
               </h3>
 
               {badges.length === 0 ? (
-                <div className="bg-gray-50 rounded-2xl p-8 text-center">
-                  <p className="text-gray-600">
+                <div className="bg-gray-50 rounded-2xl p-6 text-center">
+                  <p className="text-gray-600 text-sm">
                     Commencez à apprendre pour débloquer vos premiers badges! 🎯
                   </p>
                 </div>
@@ -207,7 +207,7 @@ export default function ProgressDashboard({ userId, onClose }: ProgressDashboard
             {/* Study Schedule */}
             {stats?.study_schedule && (
               <div>
-                <h3 className="text-2xl font-bold text-iqra-green mb-4">
+                <h3 className="text-xl font-bold text-iqra-green mb-3">
                   📅 Votre Calendrier
                 </h3>
                 <div className="grid grid-cols-7 gap-2">
@@ -245,8 +245,8 @@ export default function ProgressDashboard({ userId, onClose }: ProgressDashboard
 
             {/* Recommendations */}
             <div className="bg-gradient-to-r from-iqra-gold/10 to-iqra-green/10 rounded-2xl p-6 border border-iqra-gold/20">
-              <h3 className="font-bold text-iqra-green mb-3">💡 Recommandations</h3>
-              <ul className="space-y-2 text-sm text-gray-700">
+              <h3 className="font-bold text-iqra-green mb-2 text-sm">💡 Recommandations</h3>
+              <ul className="space-y-1.5 text-xs text-gray-700">
                 <li>✓ Continuez vos études régulièrement pour maintenir votre streak</li>
                 <li>✓ Essayez les modes de mémorisation pour améliorer votre précision</li>
                 <li>✓ Relevez les quiz pour renforcer votre compréhension</li>
@@ -256,10 +256,10 @@ export default function ProgressDashboard({ userId, onClose }: ProgressDashboard
           </div>
 
           {/* Footer */}
-          <div className="bg-gray-50 px-8 py-4 border-t border-gray-100 flex justify-end">
+          <div className="bg-gray-50 px-6 py-3 border-t border-gray-100 flex justify-end">
             <button
               onClick={onClose}
-              className="px-6 py-3 bg-iqra-gold text-white font-semibold rounded-xl hover:bg-iqra-gold/90 transition-all"
+              className="px-4 py-2 bg-iqra-gold text-white font-semibold rounded-xl hover:bg-iqra-gold/90 transition-all text-sm"
             >
               Fermer
             </button>
