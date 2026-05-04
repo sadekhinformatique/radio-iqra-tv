@@ -1,5 +1,5 @@
 import { BookOpen, Play, Search, Pause, RotateCcw, Volume2, ArrowLeft, ArrowRight, X } from "lucide-react";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import EmptyListPage from "../components/EmptyListPage";
 import { motion, AnimatePresence } from "motion/react";
 
@@ -27,6 +27,13 @@ interface SurahDetail {
   ayahs: Ayah[];
 }
 
+const AUDIO_BASE_URL = "https://sadekhinformatique.site/coran-audio";
+
+function getSurahAudioPath(surahNumber: number): string {
+  const n = String(surahNumber).padStart(3, "0");
+  return `${AUDIO_BASE_URL}/Coran-Arabe-Sourate-${n}.mp3`;
+}
+
 export default function Coran() {
   const [surahs, setSurahs] = useState<SurahMeta[]>([]);
   const [loading, setLoading] = useState(true);
@@ -38,7 +45,10 @@ export default function Coran() {
   const [isLooping, setIsLooping] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentAyahIndex, setCurrentAyahIndex] = useState(0);
+  const [audioMode, setAudioMode] = useState<"surah" | "ayah">("surah");
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const surahContentRef = useRef<HTMLDivElement | null>(null);
+  const ayahRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   useEffect(() => {
     async function loadSurahs() {
@@ -60,6 +70,7 @@ export default function Coran() {
     setIsPlaying(false);
     setProgress(0);
     setCurrentAyahIndex(0);
+    ayahRefs.current = [];
     try {
       const res = await fetch(`/quran/surah_${surah.number}.json`);
       const data = await res.json();
@@ -71,12 +82,31 @@ export default function Coran() {
     }
   };
 
+  const closeSurah = useCallback(() => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.src = "";
+    }
+    setSelectedSurah(null);
+    setIsPlaying(false);
+    setProgress(0);
+    setCurrentAyahIndex(0);
+  }, []);
+
   const filteredSurahs = surahs.filter(s => 
     s.englishName.toLowerCase().includes(searchQuery.toLowerCase()) ||
     s.englishNameTranslation.toLowerCase().includes(searchQuery.toLowerCase()) ||
     s.number.toString().includes(searchQuery) ||
     s.name.includes(searchQuery)
   );
+
+  const playSurahAudio = useCallback(() => {
+    if (!selectedSurah || !audioRef.current) return;
+    audioRef.current.src = getSurahAudioPath(selectedSurah.number);
+    audioRef.current.play();
+    setIsPlaying(true);
+    setAudioMode("surah");
+  }, [selectedSurah]);
 
   const togglePlay = () => {
     if (audioRef.current) {
@@ -90,7 +120,7 @@ export default function Coran() {
   };
 
   const handleTimeUpdate = () => {
-    if (audioRef.current) {
+    if (audioRef.current && selectedSurah) {
       const p = (audioRef.current.currentTime / audioRef.current.duration) * 100;
       setProgress(p || 0);
     }
@@ -109,12 +139,17 @@ export default function Coran() {
   const playAyahAudio = (index: number) => {
     if (!selectedSurah) return;
     setCurrentAyahIndex(index);
-    const s = String(selectedSurah.number).padStart(3, "0");
-    const a = String(index + 1).padStart(3, "0");
+    setAudioMode("ayah");
     if (audioRef.current) {
-      audioRef.current.src = `https://everyayah.com/data/Abdurrahmaan_As-Sudais_192kbps/${s}${a}.mp3`;
+      audioRef.current.pause();
+      audioRef.current.src = getSurahAudioPath(selectedSurah.number);
       audioRef.current.play();
       setIsPlaying(true);
+    }
+
+    const ayahElement = ayahRefs.current[index];
+    if (ayahElement) {
+      ayahElement.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
 
@@ -217,10 +252,7 @@ export default function Coran() {
                 <>
                   <div className="bg-iqra-gold/10 p-8 border-b border-iqra-gold/10 relative">
                     <button 
-                      onClick={() => {
-                        setSelectedSurah(null);
-                        setIsPlaying(false);
-                      }}
+                      onClick={closeSurah}
                       className="absolute top-6 right-6 w-12 h-12 bg-white text-iqra-green rounded-2xl shadow-lg flex items-center justify-center hover:scale-110 transition-all z-10 p-0"
                     >
                       <X size={24} />
@@ -246,7 +278,9 @@ export default function Coran() {
                         {isPlaying ? <Pause size={28} /> : <Play size={28} className="ml-1" fill="currentColor" />}
                       </button>
                       <div>
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1 mb-1">Récitation Audio</p>
+                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1 mb-1">
+                          {audioMode === "surah" ? "Récitation complète" : `Verset ${currentAyahIndex + 1}`}
+                        </p>
                         <div className="w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
                           <div className="h-full bg-iqra-gold" style={{ width: `${progress}%` }} />
                         </div>
@@ -254,6 +288,20 @@ export default function Coran() {
                     </div>
 
                     <div className="flex items-center gap-3">
+                      <button 
+                        onClick={() => {
+                          setAudioMode("surah");
+                          playSurahAudio();
+                        }}
+                        className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest transition-all border ${
+                          audioMode === "surah" ? "bg-iqra-green text-white border-iqra-green" : "bg-white border-gray-100 text-gray-400 hover:border-iqra-gold"
+                        }`}
+                      >
+                        <span className="flex items-center gap-2">
+                          <Volume2 size={14} />
+                          Sourate
+                        </span>
+                      </button>
                       <button 
                         onClick={() => setIsLooping(!isLooping)}
                         className={`p-3 rounded-xl flex items-center gap-2 transition-all border ${
@@ -266,7 +314,7 @@ export default function Coran() {
                     </div>
                   </div>
 
-                  <div className="flex-grow overflow-y-auto p-8 md:p-12 space-y-12">
+                  <div ref={surahContentRef} className="flex-grow overflow-y-auto p-8 md:p-12 space-y-12">
                     <div className="text-center">
                       {selectedSurah.number !== 9 && (
                         <p className="text-[10px] font-bold text-gray-300 uppercase tracking-[0.3em] mb-10">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
@@ -274,27 +322,31 @@ export default function Coran() {
                       
                       <div className="mb-16 space-y-8">
                         {selectedSurah.ayahs.map((ayah, idx) => (
-                          <div key={ayah.numberInSurah}>
-                            <button
-                              onClick={() => playAyahAudio(idx)}
-                              className={`group/ayah block w-full text-right px-6 py-4 rounded-2xl transition-all hover:bg-iqra-gold/5 ${
-                                currentAyahIndex === idx && isPlaying ? "bg-iqra-gold/10 border border-iqra-gold/30" : ""
-                              }`}
-                              dir="rtl"
-                            >
-                              <div className="flex items-start gap-4">
-                                <span className="flex-shrink-0 w-10 h-10 rounded-full bg-iqra-green/10 text-iqra-green flex items-center justify-center text-sm font-bold group-hover/ayah:bg-iqra-gold group-hover/ayah:text-iqra-green transition-colors mt-2">
-                                  {ayah.numberInSurah}
-                                </span>
-                                <p className="text-gray-900 font-serif text-3xl md:text-4xl leading-[2.2] md:leading-[2.2] flex-grow">
-                                  {ayah.arabic}
-                                </p>
-                              </div>
-                              <p className="text-gray-500 text-sm md:text-base leading-relaxed mt-4 text-left italic" dir="ltr">
-                                {ayah.french}
+                          <button
+                            key={ayah.numberInSurah}
+                            ref={(el) => { ayahRefs.current[idx] = el; }}
+                            onClick={() => playAyahAudio(idx)}
+                            className={`group/ayah block w-full text-right px-6 py-4 rounded-2xl transition-all hover:bg-iqra-gold/5 ${
+                              currentAyahIndex === idx && isPlaying && audioMode === "ayah" ? "bg-iqra-gold/10 border border-iqra-gold/30" : "border border-transparent"
+                            }`}
+                            dir="rtl"
+                          >
+                            <div className="flex items-start gap-4">
+                              <span className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-colors mt-2 ${
+                                currentAyahIndex === idx && isPlaying && audioMode === "ayah"
+                                  ? "bg-iqra-gold text-iqra-green"
+                                  : "bg-iqra-green/10 text-iqra-green group-hover/ayah:bg-iqra-gold group-hover/ayah:text-iqra-green"
+                              }`}>
+                                {ayah.numberInSurah}
+                              </span>
+                              <p className="text-gray-900 font-serif text-3xl md:text-4xl leading-[2.2] md:leading-[2.2] flex-grow">
+                                {ayah.arabic}
                               </p>
-                            </button>
-                          </div>
+                            </div>
+                            <p className="text-gray-500 text-sm md:text-base leading-relaxed mt-4 text-left italic" dir="ltr">
+                              {ayah.french}
+                            </p>
+                          </button>
                         ))}
                       </div>
                     </div>
