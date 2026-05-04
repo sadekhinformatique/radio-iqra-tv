@@ -1,0 +1,1724 @@
+{
+  "surahNumber": 2,
+  "reciter": "Alafasy",
+  "audioUrl": "https://sadekhinformatique.site/coran-audio/Coran-Arabe-Sourate-002.mp3",
+  "totalDuration": 7271.576,
+  "verses": [
+    {
+      "numberInSurah": 1,
+      "startTime": 0,
+      "endTime": 7.68,
+      "duration": 7.68
+    },
+    {
+      "numberInSurah": 2,
+      "startTime": 7.68,
+      "endTime": 16.692,
+      "duration": 9.012
+    },
+    {
+      "numberInSurah": 3,
+      "startTime": 16.692,
+      "endTime": 28.134,
+      "duration": 11.442
+    },
+    {
+      "numberInSurah": 4,
+      "startTime": 28.134,
+      "endTime": 43.99,
+      "duration": 15.856
+    },
+    {
+      "numberInSurah": 5,
+      "startTime": 43.99,
+      "endTime": 55.38,
+      "duration": 11.389
+    },
+    {
+      "numberInSurah": 6,
+      "startTime": 55.38,
+      "endTime": 68.023,
+      "duration": 12.643
+    },
+    {
+      "numberInSurah": 7,
+      "startTime": 68.023,
+      "endTime": 81.371,
+      "duration": 13.349
+    },
+    {
+      "numberInSurah": 8,
+      "startTime": 81.371,
+      "endTime": 93.44,
+      "duration": 12.069
+    },
+    {
+      "numberInSurah": 9,
+      "startTime": 93.44,
+      "endTime": 106.057,
+      "duration": 12.617
+    },
+    {
+      "numberInSurah": 10,
+      "startTime": 106.057,
+      "endTime": 119.667,
+      "duration": 13.61
+    },
+    {
+      "numberInSurah": 11,
+      "startTime": 119.667,
+      "endTime": 130.377,
+      "duration": 10.71
+    },
+    {
+      "numberInSurah": 12,
+      "startTime": 130.377,
+      "endTime": 139.546,
+      "duration": 9.169
+    },
+    {
+      "numberInSurah": 13,
+      "startTime": 139.546,
+      "endTime": 164.545,
+      "duration": 24.999
+    },
+    {
+      "numberInSurah": 14,
+      "startTime": 164.545,
+      "endTime": 188.343,
+      "duration": 23.798
+    },
+    {
+      "numberInSurah": 15,
+      "startTime": 188.343,
+      "endTime": 196.31,
+      "duration": 7.967
+    },
+    {
+      "numberInSurah": 16,
+      "startTime": 196.31,
+      "endTime": 208.901,
+      "duration": 12.591
+    },
+    {
+      "numberInSurah": 17,
+      "startTime": 208.901,
+      "endTime": 230.687,
+      "duration": 21.786
+    },
+    {
+      "numberInSurah": 18,
+      "startTime": 230.687,
+      "endTime": 238.524,
+      "duration": 7.837
+    },
+    {
+      "numberInSurah": 19,
+      "startTime": 238.524,
+      "endTime": 264.02,
+      "duration": 25.496
+    },
+    {
+      "numberInSurah": 20,
+      "startTime": 264.02,
+      "endTime": 294.504,
+      "duration": 30.485
+    },
+    {
+      "numberInSurah": 21,
+      "startTime": 294.504,
+      "endTime": 308.036,
+      "duration": 13.531
+    },
+    {
+      "numberInSurah": 22,
+      "startTime": 308.036,
+      "endTime": 339.122,
+      "duration": 31.086
+    },
+    {
+      "numberInSurah": 23,
+      "startTime": 339.122,
+      "endTime": 362.971,
+      "duration": 23.85
+    },
+    {
+      "numberInSurah": 24,
+      "startTime": 362.971,
+      "endTime": 377.861,
+      "duration": 14.89
+    },
+    {
+      "numberInSurah": 25,
+      "startTime": 377.861,
+      "endTime": 416.235,
+      "duration": 38.374
+    },
+    {
+      "numberInSurah": 26,
+      "startTime": 416.235,
+      "endTime": 459.416,
+      "duration": 43.18
+    },
+    {
+      "numberInSurah": 27,
+      "startTime": 459.416,
+      "endTime": 482.926,
+      "duration": 23.51
+    },
+    {
+      "numberInSurah": 28,
+      "startTime": 482.926,
+      "endTime": 500.924,
+      "duration": 17.998
+    },
+    {
+      "numberInSurah": 29,
+      "startTime": 500.924,
+      "endTime": 522.658,
+      "duration": 21.734
+    },
+    {
+      "numberInSurah": 30,
+      "startTime": 522.658,
+      "endTime": 553.221,
+      "duration": 30.563
+    },
+    {
+      "numberInSurah": 31,
+      "startTime": 553.221,
+      "endTime": 580.467,
+      "duration": 27.246
+    },
+    {
+      "numberInSurah": 32,
+      "startTime": 580.467,
+      "endTime": 594.651,
+      "duration": 14.184
+    },
+    {
+      "numberInSurah": 33,
+      "startTime": 594.651,
+      "endTime": 629.786,
+      "duration": 35.135
+    },
+    {
+      "numberInSurah": 34,
+      "startTime": 629.786,
+      "endTime": 646.635,
+      "duration": 16.849
+    },
+    {
+      "numberInSurah": 35,
+      "startTime": 646.635,
+      "endTime": 667.193,
+      "duration": 20.558
+    },
+    {
+      "numberInSurah": 36,
+      "startTime": 667.193,
+      "endTime": 688.509,
+      "duration": 21.316
+    },
+    {
+      "numberInSurah": 37,
+      "startTime": 688.509,
+      "endTime": 704.183,
+      "duration": 15.673
+    },
+    {
+      "numberInSurah": 38,
+      "startTime": 704.183,
+      "endTime": 722.312,
+      "duration": 18.129
+    },
+    {
+      "numberInSurah": 39,
+      "startTime": 722.312,
+      "endTime": 739.918,
+      "duration": 17.607
+    },
+    {
+      "numberInSurah": 40,
+      "startTime": 739.918,
+      "endTime": 761.861,
+      "duration": 21.943
+    },
+    {
+      "numberInSurah": 41,
+      "startTime": 761.861,
+      "endTime": 784.013,
+      "duration": 22.152
+    },
+    {
+      "numberInSurah": 42,
+      "startTime": 784.013,
+      "endTime": 793.6,
+      "duration": 9.587
+    },
+    {
+      "numberInSurah": 43,
+      "startTime": 793.6,
+      "endTime": 801.593,
+      "duration": 7.993
+    },
+    {
+      "numberInSurah": 44,
+      "startTime": 801.593,
+      "endTime": 817.972,
+      "duration": 16.379
+    },
+    {
+      "numberInSurah": 45,
+      "startTime": 817.972,
+      "endTime": 830.354,
+      "duration": 12.382
+    },
+    {
+      "numberInSurah": 46,
+      "startTime": 830.354,
+      "endTime": 843.207,
+      "duration": 12.852
+    },
+    {
+      "numberInSurah": 47,
+      "startTime": 843.207,
+      "endTime": 860.604,
+      "duration": 17.398
+    },
+    {
+      "numberInSurah": 48,
+      "startTime": 860.604,
+      "endTime": 883.357,
+      "duration": 22.753
+    },
+    {
+      "numberInSurah": 49,
+      "startTime": 883.357,
+      "endTime": 909.505,
+      "duration": 26.149
+    },
+    {
+      "numberInSurah": 50,
+      "startTime": 909.505,
+      "endTime": 924.656,
+      "duration": 15.151
+    },
+    {
+      "numberInSurah": 51,
+      "startTime": 924.656,
+      "endTime": 940.278,
+      "duration": 15.621
+    },
+    {
+      "numberInSurah": 52,
+      "startTime": 940.278,
+      "endTime": 950.753,
+      "duration": 10.475
+    },
+    {
+      "numberInSurah": 53,
+      "startTime": 950.753,
+      "endTime": 959.843,
+      "duration": 9.091
+    },
+    {
+      "numberInSurah": 54,
+      "startTime": 959.843,
+      "endTime": 995.709,
+      "duration": 35.866
+    },
+    {
+      "numberInSurah": 55,
+      "startTime": 995.709,
+      "endTime": 1014.073,
+      "duration": 18.364
+    },
+    {
+      "numberInSurah": 56,
+      "startTime": 1014.073,
+      "endTime": 1024.183,
+      "duration": 10.109
+    },
+    {
+      "numberInSurah": 57,
+      "startTime": 1024.183,
+      "endTime": 1048.372,
+      "duration": 24.189
+    },
+    {
+      "numberInSurah": 58,
+      "startTime": 1048.372,
+      "endTime": 1072.562,
+      "duration": 24.189
+    },
+    {
+      "numberInSurah": 59,
+      "startTime": 1072.562,
+      "endTime": 1091.814,
+      "duration": 19.252
+    },
+    {
+      "numberInSurah": 60,
+      "startTime": 1091.814,
+      "endTime": 1117.78,
+      "duration": 25.966
+    },
+    {
+      "numberInSurah": 61,
+      "startTime": 1117.78,
+      "endTime": 1186.821,
+      "duration": 69.042
+    },
+    {
+      "numberInSurah": 62,
+      "startTime": 1186.821,
+      "endTime": 1213.78,
+      "duration": 26.958
+    },
+    {
+      "numberInSurah": 63,
+      "startTime": 1213.78,
+      "endTime": 1232.849,
+      "duration": 19.069
+    },
+    {
+      "numberInSurah": 64,
+      "startTime": 1232.849,
+      "endTime": 1249.202,
+      "duration": 16.353
+    },
+    {
+      "numberInSurah": 65,
+      "startTime": 1249.202,
+      "endTime": 1260.539,
+      "duration": 11.337
+    },
+    {
+      "numberInSurah": 66,
+      "startTime": 1260.539,
+      "endTime": 1272.111,
+      "duration": 11.572
+    },
+    {
+      "numberInSurah": 67,
+      "startTime": 1272.111,
+      "endTime": 1294.707,
+      "duration": 22.596
+    },
+    {
+      "numberInSurah": 68,
+      "startTime": 1294.707,
+      "endTime": 1315.474,
+      "duration": 20.767
+    },
+    {
+      "numberInSurah": 69,
+      "startTime": 1315.474,
+      "endTime": 1335.771,
+      "duration": 20.297
+    },
+    {
+      "numberInSurah": 70,
+      "startTime": 1335.771,
+      "endTime": 1353.848,
+      "duration": 18.077
+    },
+    {
+      "numberInSurah": 71,
+      "startTime": 1353.848,
+      "endTime": 1376.34,
+      "duration": 22.491
+    },
+    {
+      "numberInSurah": 72,
+      "startTime": 1376.34,
+      "endTime": 1389.375,
+      "duration": 13.035
+    },
+    {
+      "numberInSurah": 73,
+      "startTime": 1389.375,
+      "endTime": 1402.723,
+      "duration": 13.349
+    },
+    {
+      "numberInSurah": 74,
+      "startTime": 1402.723,
+      "endTime": 1445.669,
+      "duration": 42.945
+    },
+    {
+      "numberInSurah": 75,
+      "startTime": 1445.669,
+      "endTime": 1468.291,
+      "duration": 22.622
+    },
+    {
+      "numberInSurah": 76,
+      "startTime": 1468.291,
+      "endTime": 1499.429,
+      "duration": 31.138
+    },
+    {
+      "numberInSurah": 77,
+      "startTime": 1499.429,
+      "endTime": 1510.243,
+      "duration": 10.815
+    },
+    {
+      "numberInSurah": 78,
+      "startTime": 1510.243,
+      "endTime": 1523.931,
+      "duration": 13.688
+    },
+    {
+      "numberInSurah": 79,
+      "startTime": 1523.931,
+      "endTime": 1550.838,
+      "duration": 26.906
+    },
+    {
+      "numberInSurah": 80,
+      "startTime": 1550.838,
+      "endTime": 1576.647,
+      "duration": 25.809
+    },
+    {
+      "numberInSurah": 81,
+      "startTime": 1576.647,
+      "endTime": 1594.253,
+      "duration": 17.607
+    },
+    {
+      "numberInSurah": 82,
+      "startTime": 1594.253,
+      "endTime": 1608.516,
+      "duration": 14.263
+    },
+    {
+      "numberInSurah": 83,
+      "startTime": 1608.516,
+      "endTime": 1648.353,
+      "duration": 39.837
+    },
+    {
+      "numberInSurah": 84,
+      "startTime": 1648.353,
+      "endTime": 1668.049,
+      "duration": 19.696
+    },
+    {
+      "numberInSurah": 85,
+      "startTime": 1668.049,
+      "endTime": 1731.579,
+      "duration": 63.53
+    },
+    {
+      "numberInSurah": 86,
+      "startTime": 1731.579,
+      "endTime": 1748.454,
+      "duration": 16.875
+    },
+    {
+      "numberInSurah": 87,
+      "startTime": 1748.454,
+      "endTime": 1781.995,
+      "duration": 33.541
+    },
+    {
+      "numberInSurah": 88,
+      "startTime": 1781.995,
+      "endTime": 1792.914,
+      "duration": 10.919
+    },
+    {
+      "numberInSurah": 89,
+      "startTime": 1792.914,
+      "endTime": 1821.257,
+      "duration": 28.343
+    },
+    {
+      "numberInSurah": 90,
+      "startTime": 1821.257,
+      "endTime": 1854.485,
+      "duration": 33.228
+    },
+    {
+      "numberInSurah": 91,
+      "startTime": 1854.485,
+      "endTime": 1891.422,
+      "duration": 36.937
+    },
+    {
+      "numberInSurah": 92,
+      "startTime": 1891.422,
+      "endTime": 1907.879,
+      "duration": 16.457
+    },
+    {
+      "numberInSurah": 93,
+      "startTime": 1907.879,
+      "endTime": 1942.413,
+      "duration": 34.534
+    },
+    {
+      "numberInSurah": 94,
+      "startTime": 1942.413,
+      "endTime": 1964.042,
+      "duration": 21.629
+    },
+    {
+      "numberInSurah": 95,
+      "startTime": 1964.042,
+      "endTime": 1977.652,
+      "duration": 13.61
+    },
+    {
+      "numberInSurah": 96,
+      "startTime": 1977.652,
+      "endTime": 2006.518,
+      "duration": 28.865
+    },
+    {
+      "numberInSurah": 97,
+      "startTime": 2006.518,
+      "endTime": 2033.11,
+      "duration": 26.593
+    },
+    {
+      "numberInSurah": 98,
+      "startTime": 2033.11,
+      "endTime": 2050.22,
+      "duration": 17.11
+    },
+    {
+      "numberInSurah": 99,
+      "startTime": 2050.22,
+      "endTime": 2067.487,
+      "duration": 17.267
+    },
+    {
+      "numberInSurah": 100,
+      "startTime": 2067.487,
+      "endTime": 2079.948,
+      "duration": 12.46
+    },
+    {
+      "numberInSurah": 101,
+      "startTime": 2079.948,
+      "endTime": 2105.313,
+      "duration": 25.365
+    },
+    {
+      "numberInSurah": 102,
+      "startTime": 2105.313,
+      "endTime": 2189.688,
+      "duration": 84.376
+    },
+    {
+      "numberInSurah": 103,
+      "startTime": 2189.688,
+      "endTime": 2205.571,
+      "duration": 15.882
+    },
+    {
+      "numberInSurah": 104,
+      "startTime": 2205.571,
+      "endTime": 2221.453,
+      "duration": 15.882
+    },
+    {
+      "numberInSurah": 105,
+      "startTime": 2221.453,
+      "endTime": 2246.661,
+      "duration": 25.208
+    },
+    {
+      "numberInSurah": 106,
+      "startTime": 2246.661,
+      "endTime": 2267.429,
+      "duration": 20.767
+    },
+    {
+      "numberInSurah": 107,
+      "startTime": 2267.429,
+      "endTime": 2284.304,
+      "duration": 16.875
+    },
+    {
+      "numberInSurah": 108,
+      "startTime": 2284.304,
+      "endTime": 2303.687,
+      "duration": 19.383
+    },
+    {
+      "numberInSurah": 109,
+      "startTime": 2303.687,
+      "endTime": 2337.802,
+      "duration": 34.116
+    },
+    {
+      "numberInSurah": 110,
+      "startTime": 2337.802,
+      "endTime": 2360.764,
+      "duration": 22.962
+    },
+    {
+      "numberInSurah": 111,
+      "startTime": 2360.764,
+      "endTime": 2380.513,
+      "duration": 19.749
+    },
+    {
+      "numberInSurah": 112,
+      "startTime": 2380.513,
+      "endTime": 2403.657,
+      "duration": 23.144
+    },
+    {
+      "numberInSurah": 113,
+      "startTime": 2403.657,
+      "endTime": 2436.232,
+      "duration": 32.575
+    },
+    {
+      "numberInSurah": 114,
+      "startTime": 2436.232,
+      "endTime": 2469.46,
+      "duration": 33.228
+    },
+    {
+      "numberInSurah": 115,
+      "startTime": 2469.46,
+      "endTime": 2485.29,
+      "duration": 15.83
+    },
+    {
+      "numberInSurah": 116,
+      "startTime": 2485.29,
+      "endTime": 2499.004,
+      "duration": 13.714
+    },
+    {
+      "numberInSurah": 117,
+      "startTime": 2499.004,
+      "endTime": 2513.763,
+      "duration": 14.759
+    },
+    {
+      "numberInSurah": 118,
+      "startTime": 2513.763,
+      "endTime": 2542.289,
+      "duration": 28.526
+    },
+    {
+      "numberInSurah": 119,
+      "startTime": 2542.289,
+      "endTime": 2557.074,
+      "duration": 14.785
+    },
+    {
+      "numberInSurah": 120,
+      "startTime": 2557.074,
+      "endTime": 2588.421,
+      "duration": 31.347
+    },
+    {
+      "numberInSurah": 121,
+      "startTime": 2588.421,
+      "endTime": 2610.939,
+      "duration": 22.518
+    },
+    {
+      "numberInSurah": 122,
+      "startTime": 2610.939,
+      "endTime": 2628.519,
+      "duration": 17.58
+    },
+    {
+      "numberInSurah": 123,
+      "startTime": 2628.519,
+      "endTime": 2649.13,
+      "duration": 20.611
+    },
+    {
+      "numberInSurah": 124,
+      "startTime": 2649.13,
+      "endTime": 2675.749,
+      "duration": 26.619
+    },
+    {
+      "numberInSurah": 125,
+      "startTime": 2675.749,
+      "endTime": 2711.38,
+      "duration": 35.631
+    },
+    {
+      "numberInSurah": 126,
+      "startTime": 2711.38,
+      "endTime": 2746.122,
+      "duration": 34.743
+    },
+    {
+      "numberInSurah": 127,
+      "startTime": 2746.122,
+      "endTime": 2763.755,
+      "duration": 17.633
+    },
+    {
+      "numberInSurah": 128,
+      "startTime": 2763.755,
+      "endTime": 2790.374,
+      "duration": 26.619
+    },
+    {
+      "numberInSurah": 129,
+      "startTime": 2790.374,
+      "endTime": 2811.873,
+      "duration": 21.499
+    },
+    {
+      "numberInSurah": 130,
+      "startTime": 2811.873,
+      "endTime": 2831.909,
+      "duration": 20.036
+    },
+    {
+      "numberInSurah": 131,
+      "startTime": 2831.909,
+      "endTime": 2842.776,
+      "duration": 10.867
+    },
+    {
+      "numberInSurah": 132,
+      "startTime": 2842.776,
+      "endTime": 2863.882,
+      "duration": 21.107
+    },
+    {
+      "numberInSurah": 133,
+      "startTime": 2863.882,
+      "endTime": 2894.733,
+      "duration": 30.851
+    },
+    {
+      "numberInSurah": 134,
+      "startTime": 2894.733,
+      "endTime": 2912,
+      "duration": 17.267
+    },
+    {
+      "numberInSurah": 135,
+      "startTime": 2912,
+      "endTime": 2927.256,
+      "duration": 15.256
+    },
+    {
+      "numberInSurah": 136,
+      "startTime": 2927.256,
+      "endTime": 2972.996,
+      "duration": 45.74
+    },
+    {
+      "numberInSurah": 137,
+      "startTime": 2972.996,
+      "endTime": 2999.615,
+      "duration": 26.619
+    },
+    {
+      "numberInSurah": 138,
+      "startTime": 2999.615,
+      "endTime": 3012.728,
+      "duration": 13.113
+    },
+    {
+      "numberInSurah": 139,
+      "startTime": 3012.728,
+      "endTime": 3031.144,
+      "duration": 18.416
+    },
+    {
+      "numberInSurah": 140,
+      "startTime": 3031.144,
+      "endTime": 3067.429,
+      "duration": 36.284
+    },
+    {
+      "numberInSurah": 141,
+      "startTime": 3067.429,
+      "endTime": 3086.446,
+      "duration": 19.017
+    },
+    {
+      "numberInSurah": 142,
+      "startTime": 3086.446,
+      "endTime": 3113.221,
+      "duration": 26.776
+    },
+    {
+      "numberInSurah": 143,
+      "startTime": 3113.221,
+      "endTime": 3168.131,
+      "duration": 54.909
+    },
+    {
+      "numberInSurah": 144,
+      "startTime": 3168.131,
+      "endTime": 3208.333,
+      "duration": 40.202
+    },
+    {
+      "numberInSurah": 145,
+      "startTime": 3208.333,
+      "endTime": 3247.334,
+      "duration": 39.001
+    },
+    {
+      "numberInSurah": 146,
+      "startTime": 3247.334,
+      "endTime": 3266.456,
+      "duration": 19.122
+    },
+    {
+      "numberInSurah": 147,
+      "startTime": 3266.456,
+      "endTime": 3273.927,
+      "duration": 7.471
+    },
+    {
+      "numberInSurah": 148,
+      "startTime": 3273.927,
+      "endTime": 3294.851,
+      "duration": 20.924
+    },
+    {
+      "numberInSurah": 149,
+      "startTime": 3294.851,
+      "endTime": 3312.927,
+      "duration": 18.077
+    },
+    {
+      "numberInSurah": 150,
+      "startTime": 3312.927,
+      "endTime": 3348.793,
+      "duration": 35.866
+    },
+    {
+      "numberInSurah": 151,
+      "startTime": 3348.793,
+      "endTime": 3372.957,
+      "duration": 24.163
+    },
+    {
+      "numberInSurah": 152,
+      "startTime": 3372.957,
+      "endTime": 3383.38,
+      "duration": 10.423
+    },
+    {
+      "numberInSurah": 153,
+      "startTime": 3383.38,
+      "endTime": 3397.956,
+      "duration": 14.576
+    },
+    {
+      "numberInSurah": 154,
+      "startTime": 3397.956,
+      "endTime": 3414.779,
+      "duration": 16.823
+    },
+    {
+      "numberInSurah": 155,
+      "startTime": 3414.779,
+      "endTime": 3434.762,
+      "duration": 19.984
+    },
+    {
+      "numberInSurah": 156,
+      "startTime": 3434.762,
+      "endTime": 3454.407,
+      "duration": 19.644
+    },
+    {
+      "numberInSurah": 157,
+      "startTime": 3454.407,
+      "endTime": 3469.427,
+      "duration": 15.02
+    },
+    {
+      "numberInSurah": 158,
+      "startTime": 3469.427,
+      "endTime": 3494.348,
+      "duration": 24.921
+    },
+    {
+      "numberInSurah": 159,
+      "startTime": 3494.348,
+      "endTime": 3517.544,
+      "duration": 23.197
+    },
+    {
+      "numberInSurah": 160,
+      "startTime": 3517.544,
+      "endTime": 3530.658,
+      "duration": 13.113
+    },
+    {
+      "numberInSurah": 161,
+      "startTime": 3530.658,
+      "endTime": 3547.507,
+      "duration": 16.849
+    },
+    {
+      "numberInSurah": 162,
+      "startTime": 3547.507,
+      "endTime": 3557.172,
+      "duration": 9.665
+    },
+    {
+      "numberInSurah": 163,
+      "startTime": 3557.172,
+      "endTime": 3569.032,
+      "duration": 11.86
+    },
+    {
+      "numberInSurah": 164,
+      "startTime": 3569.032,
+      "endTime": 3621.59,
+      "duration": 52.558
+    },
+    {
+      "numberInSurah": 165,
+      "startTime": 3621.59,
+      "endTime": 3657.326,
+      "duration": 35.736
+    },
+    {
+      "numberInSurah": 166,
+      "startTime": 3657.326,
+      "endTime": 3669.081,
+      "duration": 11.755
+    },
+    {
+      "numberInSurah": 167,
+      "startTime": 3669.081,
+      "endTime": 3693.845,
+      "duration": 24.764
+    },
+    {
+      "numberInSurah": 168,
+      "startTime": 3693.845,
+      "endTime": 3714.691,
+      "duration": 20.846
+    },
+    {
+      "numberInSurah": 169,
+      "startTime": 3714.691,
+      "endTime": 3729.162,
+      "duration": 14.472
+    },
+    {
+      "numberInSurah": 170,
+      "startTime": 3729.162,
+      "endTime": 3753.117,
+      "duration": 23.954
+    },
+    {
+      "numberInSurah": 171,
+      "startTime": 3753.117,
+      "endTime": 3772.604,
+      "duration": 19.487
+    },
+    {
+      "numberInSurah": 172,
+      "startTime": 3772.604,
+      "endTime": 3792.509,
+      "duration": 19.905
+    },
+    {
+      "numberInSurah": 173,
+      "startTime": 3792.509,
+      "endTime": 3819.755,
+      "duration": 27.246
+    },
+    {
+      "numberInSurah": 174,
+      "startTime": 3819.755,
+      "endTime": 3851.755,
+      "duration": 32
+    },
+    {
+      "numberInSurah": 175,
+      "startTime": 3851.755,
+      "endTime": 3867.847,
+      "duration": 16.091
+    },
+    {
+      "numberInSurah": 176,
+      "startTime": 3867.847,
+      "endTime": 3882.815,
+      "duration": 14.968
+    },
+    {
+      "numberInSurah": 177,
+      "startTime": 3882.815,
+      "endTime": 3948.8,
+      "duration": 65.985
+    },
+    {
+      "numberInSurah": 178,
+      "startTime": 3948.8,
+      "endTime": 3988.976,
+      "duration": 40.176
+    },
+    {
+      "numberInSurah": 179,
+      "startTime": 3988.976,
+      "endTime": 3999.451,
+      "duration": 10.475
+    },
+    {
+      "numberInSurah": 180,
+      "startTime": 3999.451,
+      "endTime": 4016.248,
+      "duration": 16.797
+    },
+    {
+      "numberInSurah": 181,
+      "startTime": 4016.248,
+      "endTime": 4031.974,
+      "duration": 15.726
+    },
+    {
+      "numberInSurah": 182,
+      "startTime": 4031.974,
+      "endTime": 4050.495,
+      "duration": 18.521
+    },
+    {
+      "numberInSurah": 183,
+      "startTime": 4050.495,
+      "endTime": 4065.149,
+      "duration": 14.655
+    },
+    {
+      "numberInSurah": 184,
+      "startTime": 4065.149,
+      "endTime": 4102.348,
+      "duration": 37.198
+    },
+    {
+      "numberInSurah": 185,
+      "startTime": 4102.348,
+      "endTime": 4152.398,
+      "duration": 50.051
+    },
+    {
+      "numberInSurah": 186,
+      "startTime": 4152.398,
+      "endTime": 4175.7,
+      "duration": 23.301
+    },
+    {
+      "numberInSurah": 187,
+      "startTime": 4175.7,
+      "endTime": 4246.335,
+      "duration": 70.635
+    },
+    {
+      "numberInSurah": 188,
+      "startTime": 4246.335,
+      "endTime": 4269.871,
+      "duration": 23.536
+    },
+    {
+      "numberInSurah": 189,
+      "startTime": 4269.871,
+      "endTime": 4297.482,
+      "duration": 27.611
+    },
+    {
+      "numberInSurah": 190,
+      "startTime": 4297.482,
+      "endTime": 4311.197,
+      "duration": 13.714
+    },
+    {
+      "numberInSurah": 191,
+      "startTime": 4311.197,
+      "endTime": 4342.674,
+      "duration": 31.478
+    },
+    {
+      "numberInSurah": 192,
+      "startTime": 4342.674,
+      "endTime": 4349.597,
+      "duration": 6.922
+    },
+    {
+      "numberInSurah": 193,
+      "startTime": 4349.597,
+      "endTime": 4366.498,
+      "duration": 16.901
+    },
+    {
+      "numberInSurah": 194,
+      "startTime": 4366.498,
+      "endTime": 4389.695,
+      "duration": 23.197
+    },
+    {
+      "numberInSurah": 195,
+      "startTime": 4389.695,
+      "endTime": 4405.29,
+      "duration": 15.595
+    },
+    {
+      "numberInSurah": 196,
+      "startTime": 4405.29,
+      "endTime": 4476.5,
+      "duration": 71.21
+    },
+    {
+      "numberInSurah": 197,
+      "startTime": 4476.5,
+      "endTime": 4508.891,
+      "duration": 32.392
+    },
+    {
+      "numberInSurah": 198,
+      "startTime": 4508.891,
+      "endTime": 4542.354,
+      "duration": 33.463
+    },
+    {
+      "numberInSurah": 199,
+      "startTime": 4542.354,
+      "endTime": 4556.957,
+      "duration": 14.602
+    },
+    {
+      "numberInSurah": 200,
+      "startTime": 4556.957,
+      "endTime": 4581.355,
+      "duration": 24.398
+    },
+    {
+      "numberInSurah": 201,
+      "startTime": 4581.355,
+      "endTime": 4597.525,
+      "duration": 16.17
+    },
+    {
+      "numberInSurah": 202,
+      "startTime": 4597.525,
+      "endTime": 4609.202,
+      "duration": 11.677
+    },
+    {
+      "numberInSurah": 203,
+      "startTime": 4609.202,
+      "endTime": 4643.161,
+      "duration": 33.959
+    },
+    {
+      "numberInSurah": 204,
+      "startTime": 4643.161,
+      "endTime": 4661.577,
+      "duration": 18.416
+    },
+    {
+      "numberInSurah": 205,
+      "startTime": 4661.577,
+      "endTime": 4674.717,
+      "duration": 13.14
+    },
+    {
+      "numberInSurah": 206,
+      "startTime": 4674.717,
+      "endTime": 4687.334,
+      "duration": 12.617
+    },
+    {
+      "numberInSurah": 207,
+      "startTime": 4687.334,
+      "endTime": 4701.936,
+      "duration": 14.602
+    },
+    {
+      "numberInSurah": 208,
+      "startTime": 4701.936,
+      "endTime": 4723.278,
+      "duration": 21.342
+    },
+    {
+      "numberInSurah": 209,
+      "startTime": 4723.278,
+      "endTime": 4740.545,
+      "duration": 17.267
+    },
+    {
+      "numberInSurah": 210,
+      "startTime": 4740.545,
+      "endTime": 4759.406,
+      "duration": 18.86
+    },
+    {
+      "numberInSurah": 211,
+      "startTime": 4759.406,
+      "endTime": 4782.968,
+      "duration": 23.562
+    },
+    {
+      "numberInSurah": 212,
+      "startTime": 4782.968,
+      "endTime": 4804.153,
+      "duration": 21.185
+    },
+    {
+      "numberInSurah": 213,
+      "startTime": 4804.153,
+      "endTime": 4862.537,
+      "duration": 58.384
+    },
+    {
+      "numberInSurah": 214,
+      "startTime": 4862.537,
+      "endTime": 4896.209,
+      "duration": 33.672
+    },
+    {
+      "numberInSurah": 215,
+      "startTime": 4896.209,
+      "endTime": 4923.559,
+      "duration": 27.35
+    },
+    {
+      "numberInSurah": 216,
+      "startTime": 4923.559,
+      "endTime": 4949.629,
+      "duration": 26.07
+    },
+    {
+      "numberInSurah": 217,
+      "startTime": 4949.629,
+      "endTime": 5013.838,
+      "duration": 64.209
+    },
+    {
+      "numberInSurah": 218,
+      "startTime": 5013.838,
+      "endTime": 5032.96,
+      "duration": 19.122
+    },
+    {
+      "numberInSurah": 219,
+      "startTime": 5032.96,
+      "endTime": 5063.811,
+      "duration": 30.851
+    },
+    {
+      "numberInSurah": 220,
+      "startTime": 5063.811,
+      "endTime": 5092.31,
+      "duration": 28.5
+    },
+    {
+      "numberInSurah": 221,
+      "startTime": 5092.31,
+      "endTime": 5142.596,
+      "duration": 50.286
+    },
+    {
+      "numberInSurah": 222,
+      "startTime": 5142.596,
+      "endTime": 5176.137,
+      "duration": 33.541
+    },
+    {
+      "numberInSurah": 223,
+      "startTime": 5176.137,
+      "endTime": 5200.353,
+      "duration": 24.216
+    },
+    {
+      "numberInSurah": 224,
+      "startTime": 5200.353,
+      "endTime": 5216.392,
+      "duration": 16.039
+    },
+    {
+      "numberInSurah": 225,
+      "startTime": 5216.392,
+      "endTime": 5232.823,
+      "duration": 16.431
+    },
+    {
+      "numberInSurah": 226,
+      "startTime": 5232.823,
+      "endTime": 5249.933,
+      "duration": 17.11
+    },
+    {
+      "numberInSurah": 227,
+      "startTime": 5249.933,
+      "endTime": 5257.117,
+      "duration": 7.184
+    },
+    {
+      "numberInSurah": 228,
+      "startTime": 5257.117,
+      "endTime": 5307.22,
+      "duration": 50.103
+    },
+    {
+      "numberInSurah": 229,
+      "startTime": 5307.22,
+      "endTime": 5361.685,
+      "duration": 54.465
+    },
+    {
+      "numberInSurah": 230,
+      "startTime": 5361.685,
+      "endTime": 5399.928,
+      "duration": 38.243
+    },
+    {
+      "numberInSurah": 231,
+      "startTime": 5399.928,
+      "endTime": 5450.632,
+      "duration": 50.704
+    },
+    {
+      "numberInSurah": 232,
+      "startTime": 5450.632,
+      "endTime": 5490.416,
+      "duration": 39.784
+    },
+    {
+      "numberInSurah": 233,
+      "startTime": 5490.416,
+      "endTime": 5559.118,
+      "duration": 68.702
+    },
+    {
+      "numberInSurah": 234,
+      "startTime": 5559.118,
+      "endTime": 5590.178,
+      "duration": 31.06
+    },
+    {
+      "numberInSurah": 235,
+      "startTime": 5590.178,
+      "endTime": 5645.296,
+      "duration": 55.118
+    },
+    {
+      "numberInSurah": 236,
+      "startTime": 5645.296,
+      "endTime": 5671.001,
+      "duration": 25.704
+    },
+    {
+      "numberInSurah": 237,
+      "startTime": 5671.001,
+      "endTime": 5708.46,
+      "duration": 37.46
+    },
+    {
+      "numberInSurah": 238,
+      "startTime": 5708.46,
+      "endTime": 5717.029,
+      "duration": 8.568
+    },
+    {
+      "numberInSurah": 239,
+      "startTime": 5717.029,
+      "endTime": 5732.78,
+      "duration": 15.752
+    },
+    {
+      "numberInSurah": 240,
+      "startTime": 5732.78,
+      "endTime": 5762.325,
+      "duration": 29.544
+    },
+    {
+      "numberInSurah": 241,
+      "startTime": 5762.325,
+      "endTime": 5770.397,
+      "duration": 8.072
+    },
+    {
+      "numberInSurah": 242,
+      "startTime": 5770.397,
+      "endTime": 5778.756,
+      "duration": 8.359
+    },
+    {
+      "numberInSurah": 243,
+      "startTime": 5778.756,
+      "endTime": 5801.012,
+      "duration": 22.256
+    },
+    {
+      "numberInSurah": 244,
+      "startTime": 5801.012,
+      "endTime": 5810.077,
+      "duration": 9.064
+    },
+    {
+      "numberInSurah": 245,
+      "startTime": 5810.077,
+      "endTime": 5826.56,
+      "duration": 16.483
+    },
+    {
+      "numberInSurah": 246,
+      "startTime": 5826.56,
+      "endTime": 5883.089,
+      "duration": 56.529
+    },
+    {
+      "numberInSurah": 247,
+      "startTime": 5883.089,
+      "endTime": 5923.161,
+      "duration": 40.072
+    },
+    {
+      "numberInSurah": 248,
+      "startTime": 5923.161,
+      "endTime": 5955.291,
+      "duration": 32.131
+    },
+    {
+      "numberInSurah": 249,
+      "startTime": 5955.291,
+      "endTime": 6016.914,
+      "duration": 61.623
+    },
+    {
+      "numberInSurah": 250,
+      "startTime": 6016.914,
+      "endTime": 6037.812,
+      "duration": 20.898
+    },
+    {
+      "numberInSurah": 251,
+      "startTime": 6037.812,
+      "endTime": 6068.323,
+      "duration": 30.511
+    },
+    {
+      "numberInSurah": 252,
+      "startTime": 6068.323,
+      "endTime": 6080.836,
+      "duration": 12.513
+    },
+    {
+      "numberInSurah": 253,
+      "startTime": 6080.836,
+      "endTime": 6134.648,
+      "duration": 53.812
+    },
+    {
+      "numberInSurah": 254,
+      "startTime": 6134.648,
+      "endTime": 6159.673,
+      "duration": 25.025
+    },
+    {
+      "numberInSurah": 255,
+      "startTime": 6159.673,
+      "endTime": 6211.657,
+      "duration": 51.984
+    },
+    {
+      "numberInSurah": 256,
+      "startTime": 6211.657,
+      "endTime": 6236.865,
+      "duration": 25.208
+    },
+    {
+      "numberInSurah": 257,
+      "startTime": 6236.865,
+      "endTime": 6270.119,
+      "duration": 33.254
+    },
+    {
+      "numberInSurah": 258,
+      "startTime": 6270.119,
+      "endTime": 6308.885,
+      "duration": 38.766
+    },
+    {
+      "numberInSurah": 259,
+      "startTime": 6308.885,
+      "endTime": 6375.523,
+      "duration": 66.638
+    },
+    {
+      "numberInSurah": 260,
+      "startTime": 6375.523,
+      "endTime": 6417.502,
+      "duration": 41.979
+    },
+    {
+      "numberInSurah": 261,
+      "startTime": 6417.502,
+      "endTime": 6441.509,
+      "duration": 24.007
+    },
+    {
+      "numberInSurah": 262,
+      "startTime": 6441.509,
+      "endTime": 6465.855,
+      "duration": 24.346
+    },
+    {
+      "numberInSurah": 263,
+      "startTime": 6465.855,
+      "endTime": 6482.364,
+      "duration": 16.509
+    },
+    {
+      "numberInSurah": 264,
+      "startTime": 6482.364,
+      "endTime": 6524.813,
+      "duration": 42.449
+    },
+    {
+      "numberInSurah": 265,
+      "startTime": 6524.813,
+      "endTime": 6556.865,
+      "duration": 32.052
+    },
+    {
+      "numberInSurah": 266,
+      "startTime": 6556.865,
+      "endTime": 6607.804,
+      "duration": 50.939
+    },
+    {
+      "numberInSurah": 267,
+      "startTime": 6607.804,
+      "endTime": 6645.943,
+      "duration": 38.139
+    },
+    {
+      "numberInSurah": 268,
+      "startTime": 6645.943,
+      "endTime": 6664.49,
+      "duration": 18.547
+    },
+    {
+      "numberInSurah": 269,
+      "startTime": 6664.49,
+      "endTime": 6683.768,
+      "duration": 19.278
+    },
+    {
+      "numberInSurah": 270,
+      "startTime": 6683.768,
+      "endTime": 6702.498,
+      "duration": 18.73
+    },
+    {
+      "numberInSurah": 271,
+      "startTime": 6702.498,
+      "endTime": 6727.523,
+      "duration": 25.025
+    },
+    {
+      "numberInSurah": 272,
+      "startTime": 6727.523,
+      "endTime": 6760.777,
+      "duration": 33.254
+    },
+    {
+      "numberInSurah": 273,
+      "startTime": 6760.777,
+      "endTime": 6801.946,
+      "duration": 41.169
+    },
+    {
+      "numberInSurah": 274,
+      "startTime": 6801.946,
+      "endTime": 6824.229,
+      "duration": 22.282
+    },
+    {
+      "numberInSurah": 275,
+      "startTime": 6824.229,
+      "endTime": 6875.037,
+      "duration": 50.808
+    },
+    {
+      "numberInSurah": 276,
+      "startTime": 6875.037,
+      "endTime": 6886.844,
+      "duration": 11.807
+    },
+    {
+      "numberInSurah": 277,
+      "startTime": 6886.844,
+      "endTime": 6907.298,
+      "duration": 20.454
+    },
+    {
+      "numberInSurah": 278,
+      "startTime": 6907.298,
+      "endTime": 6922.553,
+      "duration": 15.256
+    },
+    {
+      "numberInSurah": 279,
+      "startTime": 6922.553,
+      "endTime": 6938.54,
+      "duration": 15.987
+    },
+    {
+      "numberInSurah": 280,
+      "startTime": 6938.54,
+      "endTime": 6954.24,
+      "duration": 15.7
+    },
+    {
+      "numberInSurah": 281,
+      "startTime": 6954.24,
+      "endTime": 6971.559,
+      "duration": 17.319
+    },
+    {
+      "numberInSurah": 282,
+      "startTime": 6971.559,
+      "endTime": 7116.434,
+      "duration": 144.875
+    },
+    {
+      "numberInSurah": 283,
+      "startTime": 7116.434,
+      "endTime": 7154.312,
+      "duration": 37.878
+    },
+    {
+      "numberInSurah": 284,
+      "startTime": 7154.312,
+      "endTime": 7185.633,
+      "duration": 31.321
+    },
+    {
+      "numberInSurah": 285,
+      "startTime": 7185.633,
+      "endTime": 7218.469,
+      "duration": 32.836
+    },
+    {
+      "numberInSurah": 286,
+      "startTime": 7218.469,
+      "endTime": 7271.576,
+      "duration": 53.107
+    }
+  ]
+}

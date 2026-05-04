@@ -1,0 +1,32 @@
+{
+  "surahNumber": 106,
+  "reciter": "Alafasy",
+  "audioUrl": "https://sadekhinformatique.site/coran-audio/Coran-Arabe-Sourate-106.mp3",
+  "totalDuration": 33.097,
+  "verses": [
+    {
+      "numberInSurah": 1,
+      "startTime": 0,
+      "endTime": 4.65,
+      "duration": 4.65
+    },
+    {
+      "numberInSurah": 2,
+      "startTime": 4.65,
+      "endTime": 13.531,
+      "duration": 8.882
+    },
+    {
+      "numberInSurah": 3,
+      "startTime": 13.531,
+      "endTime": 19.513,
+      "duration": 5.982
+    },
+    {
+      "numberInSurah": 4,
+      "startTime": 19.513,
+      "endTime": 33.097,
+      "duration": 13.584
+    }
+  ]
+}

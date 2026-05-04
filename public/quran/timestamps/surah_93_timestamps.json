@@ -1,0 +1,74 @@
+{
+  "surahNumber": 93,
+  "reciter": "Alafasy",
+  "audioUrl": "https://sadekhinformatique.site/coran-audio/Coran-Arabe-Sourate-093.mp3",
+  "totalDuration": 55.249,
+  "verses": [
+    {
+      "numberInSurah": 1,
+      "startTime": 0,
+      "endTime": 1.881,
+      "duration": 1.881
+    },
+    {
+      "numberInSurah": 2,
+      "startTime": 1.881,
+      "endTime": 4.937,
+      "duration": 3.056
+    },
+    {
+      "numberInSurah": 3,
+      "startTime": 4.937,
+      "endTime": 9.378,
+      "duration": 4.441
+    },
+    {
+      "numberInSurah": 4,
+      "startTime": 9.378,
+      "endTime": 14.576,
+      "duration": 5.198
+    },
+    {
+      "numberInSurah": 5,
+      "startTime": 14.576,
+      "endTime": 19.618,
+      "duration": 5.042
+    },
+    {
+      "numberInSurah": 6,
+      "startTime": 19.618,
+      "endTime": 24.869,
+      "duration": 5.251
+    },
+    {
+      "numberInSurah": 7,
+      "startTime": 24.869,
+      "endTime": 32,
+      "duration": 7.131
+    },
+    {
+      "numberInSurah": 8,
+      "startTime": 32,
+      "endTime": 38.139,
+      "duration": 6.139
+    },
+    {
+      "numberInSurah": 9,
+      "startTime": 38.139,
+      "endTime": 43.076,
+      "duration": 4.937
+    },
+    {
+      "numberInSurah": 10,
+      "startTime": 43.076,
+      "endTime": 49.345,
+      "duration": 6.269
+    },
+    {
+      "numberInSurah": 11,
+      "startTime": 49.345,
+      "endTime": 55.249,
+      "duration": 5.904
+    }
+  ]
+}

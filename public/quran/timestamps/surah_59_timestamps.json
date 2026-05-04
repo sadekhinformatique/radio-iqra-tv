@@ -1,0 +1,152 @@
+{
+  "surahNumber": 59,
+  "reciter": "Alafasy",
+  "audioUrl": "https://sadekhinformatique.site/coran-audio/Coran-Arabe-Sourate-059.mp3",
+  "totalDuration": 623.151,
+  "verses": [
+    {
+      "numberInSurah": 1,
+      "startTime": 0,
+      "endTime": 9.091,
+      "duration": 9.091
+    },
+    {
+      "numberInSurah": 2,
+      "startTime": 9.091,
+      "endTime": 54.073,
+      "duration": 44.983
+    },
+    {
+      "numberInSurah": 3,
+      "startTime": 54.073,
+      "endTime": 70.87,
+      "duration": 16.797
+    },
+    {
+      "numberInSurah": 4,
+      "startTime": 70.87,
+      "endTime": 90.619,
+      "duration": 19.749
+    },
+    {
+      "numberInSurah": 5,
+      "startTime": 90.619,
+      "endTime": 107.363,
+      "duration": 16.744
+    },
+    {
+      "numberInSurah": 6,
+      "startTime": 107.363,
+      "endTime": 139.389,
+      "duration": 32.026
+    },
+    {
+      "numberInSurah": 7,
+      "startTime": 139.389,
+      "endTime": 192.758,
+      "duration": 53.368
+    },
+    {
+      "numberInSurah": 8,
+      "startTime": 192.758,
+      "endTime": 225.855,
+      "duration": 33.097
+    },
+    {
+      "numberInSurah": 9,
+      "startTime": 225.855,
+      "endTime": 272.327,
+      "duration": 46.472
+    },
+    {
+      "numberInSurah": 10,
+      "startTime": 272.327,
+      "endTime": 316.735,
+      "duration": 44.408
+    },
+    {
+      "numberInSurah": 11,
+      "startTime": 316.735,
+      "endTime": 357.773,
+      "duration": 41.038
+    },
+    {
+      "numberInSurah": 12,
+      "startTime": 357.773,
+      "endTime": 377.731,
+      "duration": 19.958
+    },
+    {
+      "numberInSurah": 13,
+      "startTime": 377.731,
+      "endTime": 394.188,
+      "duration": 16.457
+    },
+    {
+      "numberInSurah": 14,
+      "startTime": 394.188,
+      "endTime": 423.079,
+      "duration": 28.891
+    },
+    {
+      "numberInSurah": 15,
+      "startTime": 423.079,
+      "endTime": 439.171,
+      "duration": 16.091
+    },
+    {
+      "numberInSurah": 16,
+      "startTime": 439.171,
+      "endTime": 461.087,
+      "duration": 21.917
+    },
+    {
+      "numberInSurah": 17,
+      "startTime": 461.087,
+      "endTime": 479.007,
+      "duration": 17.92
+    },
+    {
+      "numberInSurah": 18,
+      "startTime": 479.007,
+      "endTime": 502.361,
+      "duration": 23.353
+    },
+    {
+      "numberInSurah": 19,
+      "startTime": 502.361,
+      "endTime": 518.165,
+      "duration": 15.804
+    },
+    {
+      "numberInSurah": 20,
+      "startTime": 518.165,
+      "endTime": 535.771,
+      "duration": 17.607
+    },
+    {
+      "numberInSurah": 21,
+      "startTime": 535.771,
+      "endTime": 561.972,
+      "duration": 26.201
+    },
+    {
+      "numberInSurah": 22,
+      "startTime": 561.972,
+      "endTime": 577.254,
+      "duration": 15.282
+    },
+    {
+      "numberInSurah": 23,
+      "startTime": 577.254,
+      "endTime": 600.216,
+      "duration": 22.962
+    },
+    {
+      "numberInSurah": 24,
+      "startTime": 600.216,
+      "endTime": 623.151,
+      "duration": 22.936
+    }
+  ]
+}

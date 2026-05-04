@@ -1,0 +1,44 @@
+{
+  "surahNumber": 114,
+  "reciter": "Alafasy",
+  "audioUrl": "https://sadekhinformatique.site/coran-audio/Coran-Arabe-Sourate-114.mp3",
+  "totalDuration": 41.064,
+  "verses": [
+    {
+      "numberInSurah": 1,
+      "startTime": 0,
+      "endTime": 6.139,
+      "duration": 6.139
+    },
+    {
+      "numberInSurah": 2,
+      "startTime": 6.139,
+      "endTime": 11.442,
+      "duration": 5.303
+    },
+    {
+      "numberInSurah": 3,
+      "startTime": 11.442,
+      "endTime": 16.823,
+      "duration": 5.381
+    },
+    {
+      "numberInSurah": 4,
+      "startTime": 16.823,
+      "endTime": 24.842,
+      "duration": 8.02
+    },
+    {
+      "numberInSurah": 5,
+      "startTime": 24.842,
+      "endTime": 32.784,
+      "duration": 7.941
+    },
+    {
+      "numberInSurah": 6,
+      "startTime": 32.784,
+      "endTime": 41.064,
+      "duration": 8.281
+    }
+  ]
+}

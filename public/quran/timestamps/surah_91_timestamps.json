@@ -1,0 +1,98 @@
+{
+  "surahNumber": 91,
+  "reciter": "Alafasy",
+  "audioUrl": "https://sadekhinformatique.site/coran-audio/Coran-Arabe-Sourate-091.mp3",
+  "totalDuration": 73.482,
+  "verses": [
+    {
+      "numberInSurah": 1,
+      "startTime": 0,
+      "endTime": 3.135,
+      "duration": 3.135
+    },
+    {
+      "numberInSurah": 2,
+      "startTime": 3.135,
+      "endTime": 6.661,
+      "duration": 3.527
+    },
+    {
+      "numberInSurah": 3,
+      "startTime": 6.661,
+      "endTime": 11.442,
+      "duration": 4.78
+    },
+    {
+      "numberInSurah": 4,
+      "startTime": 11.442,
+      "endTime": 15.151,
+      "duration": 3.709
+    },
+    {
+      "numberInSurah": 5,
+      "startTime": 15.151,
+      "endTime": 20.167,
+      "duration": 5.016
+    },
+    {
+      "numberInSurah": 6,
+      "startTime": 20.167,
+      "endTime": 23.536,
+      "duration": 3.37
+    },
+    {
+      "numberInSurah": 7,
+      "startTime": 23.536,
+      "endTime": 27.899,
+      "duration": 4.362
+    },
+    {
+      "numberInSurah": 8,
+      "startTime": 27.899,
+      "endTime": 33.097,
+      "duration": 5.198
+    },
+    {
+      "numberInSurah": 9,
+      "startTime": 33.097,
+      "endTime": 37.251,
+      "duration": 4.153
+    },
+    {
+      "numberInSurah": 10,
+      "startTime": 37.251,
+      "endTime": 41.613,
+      "duration": 4.362
+    },
+    {
+      "numberInSurah": 11,
+      "startTime": 41.613,
+      "endTime": 45.688,
+      "duration": 4.075
+    },
+    {
+      "numberInSurah": 12,
+      "startTime": 45.688,
+      "endTime": 49.528,
+      "duration": 3.84
+    },
+    {
+      "numberInSurah": 13,
+      "startTime": 49.528,
+      "endTime": 56.842,
+      "duration": 7.314
+    },
+    {
+      "numberInSurah": 14,
+      "startTime": 56.842,
+      "endTime": 67.814,
+      "duration": 10.971
+    },
+    {
+      "numberInSurah": 15,
+      "startTime": 67.814,
+      "endTime": 73.482,
+      "duration": 5.669
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "surahNumber": 99,
+  "reciter": "Alafasy",
+  "audioUrl": "https://sadekhinformatique.site/coran-audio/Coran-Arabe-Sourate-099.mp3",
+  "totalDuration": 50.129,
+  "verses": [
+    {
+      "numberInSurah": 1,
+      "startTime": 0,
+      "endTime": 4.807,
+      "duration": 4.807
+    },
+    {
+      "numberInSurah": 2,
+      "startTime": 4.807,
+      "endTime": 9.326,
+      "duration": 4.519
+    },
+    {
+      "numberInSurah": 3,
+      "startTime": 9.326,
+      "endTime": 14.42,
+      "duration": 5.094
+    },
+    {
+      "numberInSurah": 4,
+      "startTime": 14.42,
+      "endTime": 19.853,
+      "duration": 5.433
+    },
+    {
+      "numberInSurah": 5,
+      "startTime": 19.853,
+      "endTime": 24.738,
+      "duration": 4.885
+    },
+    {
+      "numberInSurah": 6,
+      "startTime": 24.738,
+      "endTime": 33.437,
+      "duration": 8.699
+    },
+    {
+      "numberInSurah": 7,
+      "startTime": 33.437,
+      "endTime": 40.568,
+      "duration": 7.131
+    },
+    {
+      "numberInSurah": 8,
+      "startTime": 40.568,
+      "endTime": 50.129,
+      "duration": 9.561
+    }
+  ]
+}

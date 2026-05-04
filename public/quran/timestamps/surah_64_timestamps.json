@@ -1,0 +1,116 @@
+{
+  "surahNumber": 64,
+  "reciter": "Alafasy",
+  "audioUrl": "https://sadekhinformatique.site/coran-audio/Coran-Arabe-Sourate-064.mp3",
+  "totalDuration": 319.713,
+  "verses": [
+    {
+      "numberInSurah": 1,
+      "startTime": 0,
+      "endTime": 14.89,
+      "duration": 14.89
+    },
+    {
+      "numberInSurah": 2,
+      "startTime": 14.89,
+      "endTime": 29.78,
+      "duration": 14.89
+    },
+    {
+      "numberInSurah": 3,
+      "startTime": 29.78,
+      "endTime": 41.012,
+      "duration": 11.233
+    },
+    {
+      "numberInSurah": 4,
+      "startTime": 41.012,
+      "endTime": 57.522,
+      "duration": 16.509
+    },
+    {
+      "numberInSurah": 5,
+      "startTime": 57.522,
+      "endTime": 70.452,
+      "duration": 12.931
+    },
+    {
+      "numberInSurah": 6,
+      "startTime": 70.452,
+      "endTime": 97.254,
+      "duration": 26.802
+    },
+    {
+      "numberInSurah": 7,
+      "startTime": 97.254,
+      "endTime": 119.771,
+      "duration": 22.518
+    },
+    {
+      "numberInSurah": 8,
+      "startTime": 119.771,
+      "endTime": 135.393,
+      "duration": 15.621
+    },
+    {
+      "numberInSurah": 9,
+      "startTime": 135.393,
+      "endTime": 174.629,
+      "duration": 39.236
+    },
+    {
+      "numberInSurah": 10,
+      "startTime": 174.629,
+      "endTime": 191.608,
+      "duration": 16.98
+    },
+    {
+      "numberInSurah": 11,
+      "startTime": 191.608,
+      "endTime": 211.54,
+      "duration": 19.931
+    },
+    {
+      "numberInSurah": 12,
+      "startTime": 211.54,
+      "endTime": 226.403,
+      "duration": 14.864
+    },
+    {
+      "numberInSurah": 13,
+      "startTime": 226.403,
+      "endTime": 239.543,
+      "duration": 13.14
+    },
+    {
+      "numberInSurah": 14,
+      "startTime": 239.543,
+      "endTime": 263.158,
+      "duration": 23.615
+    },
+    {
+      "numberInSurah": 15,
+      "startTime": 263.158,
+      "endTime": 277.943,
+      "duration": 14.785
+    },
+    {
+      "numberInSurah": 16,
+      "startTime": 277.943,
+      "endTime": 297.456,
+      "duration": 19.513
+    },
+    {
+      "numberInSurah": 17,
+      "startTime": 297.456,
+      "endTime": 310.439,
+      "duration": 12.983
+    },
+    {
+      "numberInSurah": 18,
+      "startTime": 310.439,
+      "endTime": 319.713,
+      "duration": 9.273
+    }
+  ]
+}

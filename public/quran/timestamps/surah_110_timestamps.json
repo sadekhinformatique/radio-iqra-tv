@@ -1,0 +1,26 @@
+{
+  "surahNumber": 110,
+  "reciter": "Alafasy",
+  "audioUrl": "https://sadekhinformatique.site/coran-audio/Coran-Arabe-Sourate-110.mp3",
+  "totalDuration": 25.234,
+  "verses": [
+    {
+      "numberInSurah": 1,
+      "startTime": 0,
+      "endTime": 6.949,
+      "duration": 6.949
+    },
+    {
+      "numberInSurah": 2,
+      "startTime": 6.949,
+      "endTime": 15.151,
+      "duration": 8.202
+    },
+    {
+      "numberInSurah": 3,
+      "startTime": 15.151,
+      "endTime": 25.234,
+      "duration": 10.083
+    }
+  ]
+}

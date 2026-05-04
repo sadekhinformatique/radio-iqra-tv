@@ -1,0 +1,50 @@
+{
+  "surahNumber": 107,
+  "reciter": "Alafasy",
+  "audioUrl": "https://sadekhinformatique.site/coran-audio/Coran-Arabe-Sourate-107.mp3",
+  "totalDuration": 48.353,
+  "verses": [
+    {
+      "numberInSurah": 1,
+      "startTime": 0,
+      "endTime": 6.296,
+      "duration": 6.296
+    },
+    {
+      "numberInSurah": 2,
+      "startTime": 6.296,
+      "endTime": 12.852,
+      "duration": 6.557
+    },
+    {
+      "numberInSurah": 3,
+      "startTime": 12.852,
+      "endTime": 20.088,
+      "duration": 7.236
+    },
+    {
+      "numberInSurah": 4,
+      "startTime": 20.088,
+      "endTime": 25.835,
+      "duration": 5.747
+    },
+    {
+      "numberInSurah": 5,
+      "startTime": 25.835,
+      "endTime": 33.411,
+      "duration": 7.576
+    },
+    {
+      "numberInSurah": 6,
+      "startTime": 33.411,
+      "endTime": 41.064,
+      "duration": 7.654
+    },
+    {
+      "numberInSurah": 7,
+      "startTime": 41.064,
+      "endTime": 48.353,
+      "duration": 7.288
+    }
+  ]
+}

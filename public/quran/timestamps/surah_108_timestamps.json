@@ -1,0 +1,26 @@
+{
+  "surahNumber": 108,
+  "reciter": "Alafasy",
+  "audioUrl": "https://sadekhinformatique.site/coran-audio/Coran-Arabe-Sourate-108.mp3",
+  "totalDuration": 15.595,
+  "verses": [
+    {
+      "numberInSurah": 1,
+      "startTime": 0,
+      "endTime": 6.74,
+      "duration": 6.74
+    },
+    {
+      "numberInSurah": 2,
+      "startTime": 6.74,
+      "endTime": 10.318,
+      "duration": 3.579
+    },
+    {
+      "numberInSurah": 3,
+      "startTime": 10.318,
+      "endTime": 15.595,
+      "duration": 5.277
+    }
+  ]
+}

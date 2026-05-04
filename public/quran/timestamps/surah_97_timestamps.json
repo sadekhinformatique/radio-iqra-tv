@@ -1,0 +1,38 @@
+{
+  "surahNumber": 97,
+  "reciter": "Alafasy",
+  "audioUrl": "https://sadekhinformatique.site/coran-audio/Coran-Arabe-Sourate-097.mp3",
+  "totalDuration": 35.944,
+  "verses": [
+    {
+      "numberInSurah": 1,
+      "startTime": 0,
+      "endTime": 7.993,
+      "duration": 7.993
+    },
+    {
+      "numberInSurah": 2,
+      "startTime": 7.993,
+      "endTime": 14.028,
+      "duration": 6.034
+    },
+    {
+      "numberInSurah": 3,
+      "startTime": 14.028,
+      "endTime": 19.592,
+      "duration": 5.564
+    },
+    {
+      "numberInSurah": 4,
+      "startTime": 19.592,
+      "endTime": 30.694,
+      "duration": 11.102
+    },
+    {
+      "numberInSurah": 5,
+      "startTime": 30.694,
+      "endTime": 35.944,
+      "duration": 5.251
+    }
+  ]
+}

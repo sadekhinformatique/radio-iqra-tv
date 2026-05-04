@@ -27,6 +27,21 @@ interface SurahDetail {
   ayahs: Ayah[];
 }
 
+interface VerseTimestamp {
+  numberInSurah: number;
+  startTime: number;
+  endTime: number;
+  duration: number;
+}
+
+interface SurahTimestamps {
+  surahNumber: number;
+  reciter: string;
+  audioUrl: string;
+  totalDuration: number;
+  verses: VerseTimestamp[];
+}
+
 const AUDIO_BASE_URL = "https://sadekhinformatique.site/coran-audio";
 
 function getSurahAudioPath(surahNumber: number): string {
@@ -40,6 +55,7 @@ export default function Coran() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSurah, setSelectedSurah] = useState<SurahDetail | null>(null);
   const [loadingSurah, setLoadingSurah] = useState(false);
+  const [timestamps, setTimestamps] = useState<SurahTimestamps | null>(null);
   
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLooping, setIsLooping] = useState(false);
@@ -71,10 +87,22 @@ export default function Coran() {
     setProgress(0);
     setCurrentAyahIndex(0);
     ayahRefs.current = [];
+    setTimestamps(null);
     try {
       const res = await fetch(`/quran/surah_${surah.number}.json`);
       const data = await res.json();
       setSelectedSurah(data);
+
+      // Load timestamps for verse sync
+      try {
+        const tsRes = await fetch(`/quran/timestamps/surah_${surah.number}_timestamps.json`);
+        if (tsRes.ok) {
+          const tsData = await tsRes.json();
+          setTimestamps(tsData);
+        }
+      } catch (err) {
+        console.error("No timestamps available for surah", surah.number);
+      }
     } catch (err) {
       console.error("Error loading surah detail:", err);
     } finally {
@@ -88,6 +116,7 @@ export default function Coran() {
       audioRef.current.src = "";
     }
     setSelectedSurah(null);
+    setTimestamps(null);
     setIsPlaying(false);
     setProgress(0);
     setCurrentAyahIndex(0);
@@ -123,6 +152,22 @@ export default function Coran() {
     if (audioRef.current && selectedSurah) {
       const p = (audioRef.current.currentTime / audioRef.current.duration) * 100;
       setProgress(p || 0);
+
+      // Update current ayah index based on timestamps
+      if (timestamps && audioMode === "ayah") {
+        const currentTime = audioRef.current.currentTime;
+        const verseIdx = timestamps.verses.findIndex(
+          (v) => currentTime >= v.startTime && currentTime < v.endTime
+        );
+        if (verseIdx !== -1 && verseIdx !== currentAyahIndex) {
+          setCurrentAyahIndex(verseIdx);
+          // Scroll to current ayah
+          const ayahElement = ayahRefs.current[verseIdx];
+          if (ayahElement) {
+            ayahElement.scrollIntoView({ behavior: "smooth", block: "center" });
+          }
+        }
+      }
     }
   };
 
@@ -140,16 +185,47 @@ export default function Coran() {
     if (!selectedSurah) return;
     setCurrentAyahIndex(index);
     setAudioMode("ayah");
+    
     if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current.src = getSurahAudioPath(selectedSurah.number);
-      audioRef.current.play();
-      setIsPlaying(true);
+      // If we have timestamps, seek to the verse start time
+      if (timestamps && timestamps.verses[index]) {
+        const verseStart = timestamps.verses[index].startTime;
+        // Only set src if not already playing this surah
+        if (!audioRef.current.src || !audioRef.current.src.includes(getSurahAudioPath(selectedSurah.number))) {
+          audioRef.current.src = getSurahAudioPath(selectedSurah.number);
+          audioRef.current.addEventListener('loadedmetadata', () => {
+            audioRef.current!.currentTime = verseStart;
+            audioRef.current!.play();
+            setIsPlaying(true);
+          }, { once: true });
+        } else {
+          audioRef.current.currentTime = verseStart;
+          audioRef.current.play();
+          setIsPlaying(true);
+        }
+      } else {
+        // Fallback: play from start
+        audioRef.current.src = getSurahAudioPath(selectedSurah.number);
+        audioRef.current.play();
+        setIsPlaying(true);
+      }
     }
 
     const ayahElement = ayahRefs.current[index];
     if (ayahElement) {
       ayahElement.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
+
+  const playPreviousAyah = () => {
+    if (currentAyahIndex > 0) {
+      playAyahAudio(currentAyahIndex - 1);
+    }
+  };
+
+  const playNextAyah = () => {
+    if (selectedSurah && currentAyahIndex < selectedSurah.ayahs.length - 1) {
+      playAyahAudio(currentAyahIndex + 1);
     }
   };
 
@@ -272,10 +348,24 @@ export default function Coran() {
                   <div className="px-8 py-4 bg-gray-50 flex flex-wrap items-center justify-between gap-6">
                     <div className="flex items-center gap-4">
                       <button 
+                        onClick={playPreviousAyah}
+                        disabled={currentAyahIndex === 0 && audioMode === "ayah"}
+                        className="w-10 h-10 bg-gray-100 text-iqra-green rounded-full flex items-center justify-center hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                      >
+                        <ArrowLeft size={18} />
+                      </button>
+                      <button 
                         onClick={togglePlay}
                         className="w-16 h-16 bg-iqra-green text-white rounded-full flex items-center justify-center shadow-xl hover:scale-105 active:scale-95 transition-all"
                       >
                         {isPlaying ? <Pause size={28} /> : <Play size={28} className="ml-1" fill="currentColor" />}
+                      </button>
+                      <button 
+                        onClick={playNextAyah}
+                        disabled={selectedSurah && currentAyahIndex >= selectedSurah.ayahs.length - 1 && audioMode === "ayah"}
+                        className="w-10 h-10 bg-gray-100 text-iqra-green rounded-full flex items-center justify-center hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                      >
+                        <ArrowRight size={18} />
                       </button>
                       <div>
                         <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1 mb-1">

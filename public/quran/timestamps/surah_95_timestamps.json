@@ -1,0 +1,56 @@
+{
+  "surahNumber": 95,
+  "reciter": "Alafasy",
+  "audioUrl": "https://sadekhinformatique.site/coran-audio/Coran-Arabe-Sourate-095.mp3",
+  "totalDuration": 59.455,
+  "verses": [
+    {
+      "numberInSurah": 1,
+      "startTime": 0,
+      "endTime": 4.833,
+      "duration": 4.833
+    },
+    {
+      "numberInSurah": 2,
+      "startTime": 4.833,
+      "endTime": 8.986,
+      "duration": 4.153
+    },
+    {
+      "numberInSurah": 3,
+      "startTime": 8.986,
+      "endTime": 13.845,
+      "duration": 4.859
+    },
+    {
+      "numberInSurah": 4,
+      "startTime": 13.845,
+      "endTime": 22.596,
+      "duration": 8.751
+    },
+    {
+      "numberInSurah": 5,
+      "startTime": 22.596,
+      "endTime": 29.623,
+      "duration": 7.027
+    },
+    {
+      "numberInSurah": 6,
+      "startTime": 29.623,
+      "endTime": 40.229,
+      "duration": 10.606
+    },
+    {
+      "numberInSurah": 7,
+      "startTime": 40.229,
+      "endTime": 46.341,
+      "duration": 6.113
+    },
+    {
+      "numberInSurah": 8,
+      "startTime": 46.341,
+      "endTime": 59.455,
+      "duration": 13.113
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "surahNumber": 65,
+  "reciter": "Alafasy",
+  "audioUrl": "https://sadekhinformatique.site/coran-audio/Coran-Arabe-Sourate-065.mp3",
+  "totalDuration": 356.807,
+  "verses": [
+    {
+      "numberInSurah": 1,
+      "startTime": 0,
+      "endTime": 52.088,
+      "duration": 52.088
+    },
+    {
+      "numberInSurah": 2,
+      "startTime": 52.088,
+      "endTime": 85.969,
+      "duration": 33.881
+    },
+    {
+      "numberInSurah": 3,
+      "startTime": 85.969,
+      "endTime": 104.96,
+      "duration": 18.991
+    },
+    {
+      "numberInSurah": 4,
+      "startTime": 104.96,
+      "endTime": 137.874,
+      "duration": 32.914
+    },
+    {
+      "numberInSurah": 5,
+      "startTime": 137.874,
+      "endTime": 154.697,
+      "duration": 16.823
+    },
+    {
+      "numberInSurah": 6,
+      "startTime": 154.697,
+      "endTime": 201.535,
+      "duration": 46.838
+    },
+    {
+      "numberInSurah": 7,
+      "startTime": 201.535,
+      "endTime": 232.62,
+      "duration": 31.086
+    },
+    {
+      "numberInSurah": 8,
+      "startTime": 232.62,
+      "endTime": 254.746,
+      "duration": 22.126
+    },
+    {
+      "numberInSurah": 9,
+      "startTime": 254.746,
+      "endTime": 261.695,
+      "duration": 6.949
+    },
+    {
+      "numberInSurah": 10,
+      "startTime": 261.695,
+      "endTime": 280.059,
+      "duration": 18.364
+    },
+    {
+      "numberInSurah": 11,
+      "startTime": 280.059,
+      "endTime": 326.766,
+      "duration": 46.707
+    },
+    {
+      "numberInSurah": 12,
+      "startTime": 326.766,
+      "endTime": 356.807,
+      "duration": 30.041
+    }
+  ]
+}

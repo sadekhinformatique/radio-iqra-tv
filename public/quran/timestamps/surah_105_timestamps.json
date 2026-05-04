@@ -1,0 +1,38 @@
+{
+  "surahNumber": 105,
+  "reciter": "Alafasy",
+  "audioUrl": "https://sadekhinformatique.site/coran-audio/Coran-Arabe-Sourate-105.mp3",
+  "totalDuration": 39.602,
+  "verses": [
+    {
+      "numberInSurah": 1,
+      "startTime": 0,
+      "endTime": 7.967,
+      "duration": 7.967
+    },
+    {
+      "numberInSurah": 2,
+      "startTime": 7.967,
+      "endTime": 14.263,
+      "duration": 6.296
+    },
+    {
+      "numberInSurah": 3,
+      "startTime": 14.263,
+      "endTime": 21.185,
+      "duration": 6.922
+    },
+    {
+      "numberInSurah": 4,
+      "startTime": 21.185,
+      "endTime": 30.537,
+      "duration": 9.352
+    },
+    {
+      "numberInSurah": 5,
+      "startTime": 30.537,
+      "endTime": 39.602,
+      "duration": 9.064
+    }
+  ]
+}
