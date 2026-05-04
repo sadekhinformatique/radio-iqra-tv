@@ -32,7 +32,7 @@ const DEFAULT_CONFIG: SiteConfig = {
   email: "contact@iqra.tv",
   address: "Ouagadougou, Burkina Faso",
   facebook_url: "",
-  youtube_url: "",
+  youtube_url: "https://www.youtube.com/channel/UCJ9nE4p5YlbTsP_fLZvxRLw",
   whatsapp_number: "",
   telegram_url: "",
   twitter_url: "",
