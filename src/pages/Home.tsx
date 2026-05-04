@@ -46,7 +46,7 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden bg-iqra-green">
+      <section className="relative h-[50vh] md:h-[60vh] flex items-center justify-center overflow-hidden bg-iqra-green">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/islamic-art.png')]"></div>
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/80"></div>
@@ -58,7 +58,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-7xl font-serif font-bold text-white mb-6 uppercase tracking-tight leading-none">
+            <h1 className="text-3xl md:text-6xl font-serif font-bold text-white mb-4 uppercase tracking-tight leading-none">
               La Voix du <span className="text-iqra-gold">Saint Coran</span>
             </h1>
             <p className="text-lg md:text-xl text-gray-200 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
