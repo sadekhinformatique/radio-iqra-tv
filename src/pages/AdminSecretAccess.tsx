@@ -119,6 +119,7 @@ export default function AdminSecretAccess() {
     radio_stream_url: "",
     youtube_api_key: "",
     use_modern_ui: false,
+    modern_theme: 'dark' as const,
   });
 
   const [uploadFile, setUploadFile] = useState<File | null>(null);
@@ -228,6 +229,7 @@ export default function AdminSecretAccess() {
         radio_stream_url: data.radio_stream_url || "",
         youtube_api_key: data.youtube_api_key || "",
         use_modern_ui: data.use_modern_ui || false,
+        modern_theme: data.modern_theme || 'dark',
       });
     }
   };
@@ -1017,23 +1019,35 @@ export default function AdminSecretAccess() {
                     <div className="md:col-span-2 pt-4">
                        <h3 className="text-sm font-bold text-iqra-gold uppercase tracking-widest mb-4 border-l-4 border-iqra-gold pl-4">Apparence (Nouveau Design)</h3>
                     </div>
-                    <div className="md:col-span-2 space-y-2">
-                       <label className="flex items-center gap-4 cursor-pointer">
-                         <div className={`w-14 h-8 rounded-full p-1 transition-colors ${configFormData.use_modern_ui ? 'bg-iqra-green' : 'bg-gray-200'}`}>
-                           <div className={`w-6 h-6 bg-white rounded-full transition-transform shadow-sm ${configFormData.use_modern_ui ? 'translate-x-6' : 'translate-x-0'}`} />
-                         </div>
-                         <input 
-                           type="checkbox" 
-                           className="hidden" 
-                           checked={configFormData.use_modern_ui} 
-                           onChange={(e) => setConfigFormData({...configFormData, use_modern_ui: e.target.checked})} 
-                         />
-                         <div>
-                           <span className="font-bold text-gray-700 block text-sm">Activer le Nouveau Design du Lecteur (Option 1 & 2 & 3)</span>
-                           <span className="text-xs text-gray-400">Si activé, le bouton Play/Pause et l'interface du lecteur utiliseront les nouvelles propriétés Tailwind (Glassmorphism, glow effect, etc.).</span>
-                         </div>
-                       </label>
-                    </div>
+                     <div className="md:col-span-2 space-y-2">
+                        <label className="flex items-center gap-4 cursor-pointer">
+                          <div className={`w-14 h-8 rounded-full p-1 transition-colors ${configFormData.use_modern_ui ? 'bg-iqra-green' : 'bg-gray-200'}`}>
+                            <div className={`w-6 h-6 bg-white rounded-full transition-transform shadow-sm ${configFormData.use_modern_ui ? 'translate-x-6' : 'translate-x-0'}`} />
+                          </div>
+                          <input 
+                            type="checkbox" 
+                            className="hidden" 
+                            checked={configFormData.use_modern_ui} 
+                            onChange={(e) => setConfigFormData({...configFormData, use_modern_ui: e.target.checked})} 
+                          />
+                          <div>
+                            <span className="font-bold text-gray-700 block text-sm">Activer le Nouveau Design du Lecteur (Option 1 & 2 & 3)</span>
+                            <span className="text-xs text-gray-400">Si activé, le bouton Play/Pause et l'interface du lecteur utiliseront les nouvelles propriétés Tailwind (Glassmorphism, glow effect, etc.).</span>
+                          </div>
+                        </label>
+                     </div>
+                     <div className="md:col-span-2 space-y-2">
+                        <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Thème de l'interface moderne</label>
+                        <select 
+                          value={configFormData.modern_theme || 'dark'} 
+                          onChange={(e) => setConfigFormData({...configFormData, modern_theme: e.target.value as 'dark' | 'light' | 'auto'})} 
+                          className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all"
+                        >
+                          <option value="dark">Sombre (par défaut)</option>
+                          <option value="light">Clair</option>
+                          <option value="auto">Automatique (système)</option>
+                        </select>
+                     </div>
 
                     {/* Footer */}
                     <div className="md:col-span-2 pt-4">

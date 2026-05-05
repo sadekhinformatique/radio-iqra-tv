@@ -1,6 +1,5 @@
-import { BookOpen, Play, Search, Pause, RotateCcw, Volume2, ArrowLeft, ArrowRight, X } from "lucide-react";
+import { BookOpen, Play, Search, Pause, ArrowLeft, ArrowRight, X, CheckCircle, Filter, Eye } from "lucide-react";
 import { useEffect, useState, useRef, useCallback } from "react";
-import EmptyListPage from "../components/EmptyListPage";
 import { motion, AnimatePresence } from "motion/react";
 
 interface SurahMeta {
@@ -24,29 +23,16 @@ interface SurahDetail {
   name: string;
   englishName: string;
   englishNameTranslation: string;
+  numberOfRevelation?: number;
   ayahs: Ayah[];
 }
 
-interface VerseTimestamp {
-  numberInSurah: number;
-  startTime: number;
-  endTime: number;
-  duration: number;
-}
+const ISLAMIC_NETWORK_AUDIO_BASE = "https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee";
 
-interface SurahTimestamps {
-  surahNumber: number;
-  reciter: string;
-  audioUrl: string;
-  totalDuration: number;
-  verses: VerseTimestamp[];
-}
-
-const AUDIO_BASE_URL = "https://sadekhinformatique.site/coran-audio";
-
-function getSurahAudioPath(surahNumber: number): string {
-  const n = String(surahNumber).padStart(3, "0");
-  return `${AUDIO_BASE_URL}/Coran-Arabe-Sourate-${n}.mp3`;
+function getVerseAudioUrl(surahNumber: number, verseNumber: number): string {
+  const surah = String(surahNumber).padStart(3, "0");
+  const verse = String(verseNumber).padStart(3, "0");
+  return `${ISLAMIC_NETWORK_AUDIO_BASE}/${surah}${verse}.mp3`;
 }
 
 export default function Coran() {
@@ -55,16 +41,26 @@ export default function Coran() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSurah, setSelectedSurah] = useState<SurahDetail | null>(null);
   const [loadingSurah, setLoadingSurah] = useState(false);
-  const [timestamps, setTimestamps] = useState<SurahTimestamps | null>(null);
+  const [filterType, setFilterType] = useState<"all" | "meccan" | "medinan">("all");
+  const [showUnreadOnly, setShowUnreadOnly] = useState(false);
+  const [readSurahs, setReadSurahs] = useState<Set<number>>(new Set());
   
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isLooping, setIsLooping] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [currentAyahIndex, setCurrentAyahIndex] = useState(0);
-  const [audioMode, setAudioMode] = useState<"surah" | "ayah">("surah");
+  const [currentAyahIndex, setCurrentAyahIndex] = useState(-1);
+  const [audioError, setAudioError] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const surahContentRef = useRef<HTMLDivElement | null>(null);
-  const ayahRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const ayahRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("quran_read_surahs");
+    if (stored) {
+      try {
+        setReadSurahs(new Set(JSON.parse(stored)));
+      } catch {}
+    }
+  }, []);
 
   useEffect(() => {
     async function loadSurahs() {
@@ -81,28 +77,36 @@ export default function Coran() {
     loadSurahs();
   }, []);
 
+  const markSurahAsRead = useCallback((surahNumber: number) => {
+    setReadSurahs(prev => {
+      const next = new Set(prev);
+      next.add(surahNumber);
+      localStorage.setItem("quran_read_surahs", JSON.stringify([...next]));
+      return next;
+    });
+  }, []);
+
+  const resetProgress = useCallback(() => {
+    setReadSurahs(new Set());
+    localStorage.removeItem("quran_read_surahs");
+  }, []);
+
   const openSurah = async (surah: SurahMeta) => {
     setLoadingSurah(true);
     setIsPlaying(false);
     setProgress(0);
-    setCurrentAyahIndex(0);
+    setCurrentAyahIndex(-1);
+    setAudioError(false);
     ayahRefs.current = [];
-    setTimestamps(null);
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.src = "";
+    }
     try {
       const res = await fetch(`/quran/surah_${surah.number}.json`);
       const data = await res.json();
       setSelectedSurah(data);
-
-      // Load timestamps for verse sync
-      try {
-        const tsRes = await fetch(`/quran/timestamps/surah_${surah.number}_timestamps.json`);
-        if (tsRes.ok) {
-          const tsData = await tsRes.json();
-          setTimestamps(tsData);
-        }
-      } catch (err) {
-        console.error("No timestamps available for surah", surah.number);
-      }
+      markSurahAsRead(surah.number);
     } catch (err) {
       console.error("Error loading surah detail:", err);
     } finally {
@@ -116,360 +120,464 @@ export default function Coran() {
       audioRef.current.src = "";
     }
     setSelectedSurah(null);
-    setTimestamps(null);
     setIsPlaying(false);
     setProgress(0);
-    setCurrentAyahIndex(0);
+    setCurrentAyahIndex(-1);
   }, []);
 
-  const filteredSurahs = surahs.filter(s => 
-    s.englishName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    s.englishNameTranslation.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    s.number.toString().includes(searchQuery) ||
-    s.name.includes(searchQuery)
-  );
-
-  const playSurahAudio = useCallback(() => {
+  const playAyahAudio = useCallback((index: number) => {
     if (!selectedSurah || !audioRef.current) return;
-    audioRef.current.src = getSurahAudioPath(selectedSurah.number);
-    audioRef.current.play();
-    setIsPlaying(true);
-    setAudioMode("surah");
-  }, [selectedSurah]);
-
-  const togglePlay = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
-
-  const handleTimeUpdate = () => {
-    if (audioRef.current && selectedSurah) {
-      const p = (audioRef.current.currentTime / audioRef.current.duration) * 100;
-      setProgress(p || 0);
-
-      // Update current ayah index based on timestamps
-      if (timestamps && audioMode === "ayah") {
-        const currentTime = audioRef.current.currentTime;
-        const verseIdx = timestamps.verses.findIndex(
-          (v) => currentTime >= v.startTime && currentTime < v.endTime
-        );
-        if (verseIdx !== -1 && verseIdx !== currentAyahIndex) {
-          setCurrentAyahIndex(verseIdx);
-          // Scroll to current ayah
-          const ayahElement = ayahRefs.current[verseIdx];
-          if (ayahElement) {
-            ayahElement.scrollIntoView({ behavior: "smooth", block: "center" });
-          }
-        }
-      }
-    }
-  };
-
-  const handleEnded = () => {
-    if (isLooping && audioRef.current) {
-      audioRef.current.currentTime = 0;
-      audioRef.current.play();
-    } else {
-      setIsPlaying(false);
-      setProgress(0);
-    }
-  };
-
-  const playAyahAudio = (index: number) => {
-    if (!selectedSurah) return;
-    setCurrentAyahIndex(index);
-    setAudioMode("ayah");
+    const ayah = selectedSurah.ayahs[index];
+    if (!ayah) return;
     
-    if (audioRef.current) {
-      // If we have timestamps, seek to the verse start time
-      if (timestamps && timestamps.verses[index]) {
-        const verseStart = timestamps.verses[index].startTime;
-        // Only set src if not already playing this surah
-        if (!audioRef.current.src || !audioRef.current.src.includes(getSurahAudioPath(selectedSurah.number))) {
-          audioRef.current.src = getSurahAudioPath(selectedSurah.number);
-          audioRef.current.addEventListener('loadedmetadata', () => {
-            audioRef.current!.currentTime = verseStart;
-            audioRef.current!.play();
-            setIsPlaying(true);
-          }, { once: true });
-        } else {
-          audioRef.current.currentTime = verseStart;
-          audioRef.current.play();
-          setIsPlaying(true);
-        }
-      } else {
-        // Fallback: play from start
-        audioRef.current.src = getSurahAudioPath(selectedSurah.number);
-        audioRef.current.play();
-        setIsPlaying(true);
-      }
-    }
-
+    setCurrentAyahIndex(index);
+    setAudioError(false);
+    
+    audioRef.current.src = getVerseAudioUrl(selectedSurah.number, ayah.numberInSurah);
+    audioRef.current.play().catch(() => setAudioError(true));
+    setIsPlaying(true);
+    
     const ayahElement = ayahRefs.current[index];
     if (ayahElement) {
       ayahElement.scrollIntoView({ behavior: "smooth", block: "center" });
     }
+  }, [selectedSurah]);
+
+  const togglePlay = useCallback(() => {
+    if (!audioRef.current) return;
+    if (isPlaying) {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    } else {
+      if (!audioRef.current.src && selectedSurah) {
+        playAyahAudio(0);
+        return;
+      }
+      audioRef.current.play().catch(() => setAudioError(true));
+      setIsPlaying(true);
+    }
+  }, [isPlaying, selectedSurah, playAyahAudio]);
+
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      const p = (audioRef.current.currentTime / audioRef.current.duration) * 100;
+      setProgress(p || 0);
+    }
   };
 
-  const playPreviousAyah = () => {
+  const handleEnded = useCallback(() => {
+    if (selectedSurah && currentAyahIndex < selectedSurah.ayahs.length - 1) {
+      playAyahAudio(currentAyahIndex + 1);
+    } else {
+      setIsPlaying(false);
+      setProgress(0);
+    }
+  }, [selectedSurah, currentAyahIndex, playAyahAudio]);
+
+  const playPreviousAyah = useCallback(() => {
     if (currentAyahIndex > 0) {
       playAyahAudio(currentAyahIndex - 1);
     }
-  };
+  }, [currentAyahIndex, playAyahAudio]);
 
-  const playNextAyah = () => {
+  const playNextAyah = useCallback(() => {
     if (selectedSurah && currentAyahIndex < selectedSurah.ayahs.length - 1) {
       playAyahAudio(currentAyahIndex + 1);
     }
+  }, [selectedSurah, currentAyahIndex, playAyahAudio]);
+
+  const goNextSurah = useCallback(() => {
+    if (!selectedSurah) return;
+    const nextIdx = surahs.findIndex(s => s.number === selectedSurah.number + 1);
+    if (nextIdx !== -1) {
+      openSurah(surahs[nextIdx]);
+    }
+  }, [selectedSurah, surahs]);
+
+  const goPrevSurah = useCallback(() => {
+    if (!selectedSurah) return;
+    const prevIdx = surahs.findIndex(s => s.number === selectedSurah.number - 1);
+    if (prevIdx !== -1) {
+      openSurah(surahs[prevIdx]);
+    }
+  }, [selectedSurah, surahs]);
+
+  const filteredSurahs = surahs.filter(s => {
+    const matchesSearch = 
+      s.englishName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.englishNameTranslation.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.number.toString().includes(searchQuery) ||
+      s.name.includes(searchQuery);
+    
+    const matchesFilter = 
+      filterType === "all" ||
+      (filterType === "meccan" && s.revelationType === "Meccan") ||
+      (filterType === "medinan" && s.revelationType === "Medinan");
+    
+    const matchesRead = 
+      !showUnreadOnly || !readSurahs.has(s.number);
+    
+    return matchesSearch && matchesFilter && matchesRead;
+  });
+
+  const formatTime = (seconds: number) => {
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return `${m}:${s.toString().padStart(2, "0")}`;
   };
 
   if (loading) {
     return (
-      <div className="py-20 flex justify-center">
-        <div className="w-12 h-12 border-4 border-iqra-gold border-t-transparent rounded-full animate-spin"></div>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="w-12 h-12 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
 
   return (
-    <div className="py-12 px-4 md:px-8 max-w-6xl mx-auto">
-      <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-iqra-gold/10 text-iqra-gold rounded-[1.5rem] mb-6 shadow-inner shadow-iqra-gold/5 animate-pulse">
-          <BookOpen size={32} />
-        </div>
-        <h1 className="text-2xl md:text-5xl font-serif font-bold text-iqra-green mb-4 tracking-tight">Le Noble Coran</h1>
-        <p className="text-gray-500 max-w-2xl mx-auto font-medium text-lg">Lumière et guidance pour l'humanité, méditez la parole de votre Seigneur.</p>
-        
-        <div className="mt-12 max-w-lg mx-auto relative px-4">
-          <input 
-            type="text" 
-            placeholder="N° ou nom de la sourate..." 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white/80 backdrop-blur-md border border-gray-100 rounded-2xl py-5 px-14 shadow-2xl focus:outline-none focus:ring-4 focus:ring-iqra-gold/20 transition-all font-medium text-iqra-green placeholder:text-gray-300"
-          />
-          <Search className="absolute left-8 top-1/2 -translate-y-1/2 text-iqra-gold" size={24} />
-          {searchQuery && (
-            <button onClick={() => setSearchQuery("")} className="absolute right-8 top-1/2 -translate-y-1/2 text-gray-300 hover:text-iqra-green transition-colors">
-              <X size={20} />
-            </button>
-          )}
+    <div className="min-h-screen bg-gray-50">
+      {/* Hero Header */}
+      <div className="bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="text-center mb-8">
+            <p className="text-2xl mb-4" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
+            <h1 className="text-3xl md:text-5xl font-bold mb-3">Lire et écouter <span className="text-amber-400 italic">le Coran</span></h1>
+            <p className="text-emerald-200 max-w-2xl mx-auto text-sm md:text-base">Texte arabe, traduction française de Muhammad Hamidullah, audio par Mishary Rashid Alafasy — accessible sans compte.</p>
+          </div>
+
+          {/* Search Bar */}
+          <div className="max-w-lg mx-auto relative">
+            <input 
+              type="text" 
+              placeholder="Rechercher une sourate..." 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl py-3 px-12 text-white placeholder:text-emerald-300 focus:outline-none focus:ring-2 focus:ring-amber-400 transition-all"
+            />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-emerald-300" size={20} />
+            {searchQuery && (
+              <button onClick={() => setSearchQuery("")} className="absolute right-4 top-1/2 -translate-y-1/2 text-emerald-300 hover:text-white transition-colors">
+                <X size={18} />
+              </button>
+            )}
+          </div>
         </div>
       </div>
 
-      {surahs.length === 0 ? (
-        <EmptyListPage 
-          title="Coran en cours de chargement"
-          subtitle="Il n'y a pas encore de sourates dans la base de données."
-          icon={BookOpen}
-          category="Verset"
-        />
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {filteredSurahs.map((surah, idx) => (
-            <motion.div 
-              key={surah.number}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.05 }}
-              whileHover={{ scale: 1.02, y: -5 }}
-              onClick={() => openSurah(surah)}
-              className="bg-white rounded-3xl p-6 shadow-xl border border-gray-50 hover:border-iqra-gold/50 transition-all cursor-pointer group relative overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-iqra-gold/5 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-150 duration-700" />
-              
-              <div className="flex items-center gap-5 relative z-10">
-                <div className="w-14 h-14 bg-iqra-green/5 text-iqra-green rounded-2xl flex items-center justify-center font-bold text-xl group-hover:bg-iqra-gold group-hover:text-iqra-green transition-colors font-serif shadow-inner">
-                  {surah.number}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Sidebar - Surah List */}
+          <div className="lg:w-80 xl:w-96 shrink-0">
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden sticky top-4">
+              {/* Filters */}
+              <div className="p-4 border-b border-gray-100 space-y-3">
+                <div className="flex items-center justify-between">
+                  <h2 className="font-bold text-gray-800 flex items-center gap-2">
+                    <BookOpen size={18} className="text-emerald-600" />
+                    Les 114 sourates
+                  </h2>
+                  <span className="text-xs text-gray-400">{readSurahs.size} / 114 lues</span>
                 </div>
-                <div className="flex-grow">
-                  <h3 className="text-xl font-bold text-iqra-green leading-tight">{surah.englishNameTranslation}</h3>
-                  <p className="text-gray-400 font-serif text-lg text-right" dir="rtl">{surah.name}</p>
+                
+                {/* Progress Bar */}
+                <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                  <div 
+                    className="h-full bg-emerald-500 rounded-full transition-all duration-500" 
+                    style={{ width: `${(readSurahs.size / 114) * 100}%` }}
+                  />
                 </div>
-              </div>
-              
-              <div className="mt-6 flex items-center justify-between text-[10px] font-bold text-gray-400 uppercase tracking-widest relative z-10">
-                <span className="flex items-center gap-2">
-                  <Volume2 size={12} className="text-iqra-gold" />
-                  {surah.numberOfAyahs} versets • {surah.revelationType === "Meccan" ? "Mecquoise" : "Médinoise"}
-                </span>
-                <span className="text-iqra-gold group-hover:translate-x-2 transition-transform">Voir le texte →</span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      )}
 
-      <AnimatePresence>
-        {selectedSurah && (
-          <motion.div 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-iqra-green/95 backdrop-blur-2xl p-4 sm:p-8"
-          >
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9, y: 40 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 40 }}
-              className="bg-white w-full max-w-4xl h-[85vh] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col relative"
-            >
-              {loadingSurah ? (
-                <div className="flex-1 flex items-center justify-center">
-                  <div className="w-12 h-12 border-4 border-iqra-gold border-t-transparent rounded-full animate-spin"></div>
+                {/* Filter Controls */}
+                <div className="flex gap-2">
+                  <select 
+                    value={filterType}
+                    onChange={(e) => setFilterType(e.target.value as "all" | "meccan" | "medinan")}
+                    className="flex-1 text-xs bg-gray-50 border border-gray-200 rounded-lg py-2 px-3 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+                  >
+                    <option value="all">Toutes</option>
+                    <option value="meccan">Mecquoises</option>
+                    <option value="medinan">Médinoises</option>
+                  </select>
+                  <button
+                    onClick={() => setShowUnreadOnly(!showUnreadOnly)}
+                    className={`text-xs px-3 py-2 rounded-lg border transition-all flex items-center gap-1 ${
+                      showUnreadOnly 
+                        ? "bg-emerald-50 border-emerald-300 text-emerald-700" 
+                        : "bg-gray-50 border-gray-200 text-gray-500"
+                    }`}
+                  >
+                    <Eye size={14} />
+                    Non lues
+                  </button>
+                  {readSurahs.size > 0 && (
+                    <button
+                      onClick={resetProgress}
+                      className="text-xs px-3 py-2 rounded-lg border bg-gray-50 border-gray-200 text-gray-500 hover:text-red-500 hover:border-red-300 transition-all"
+                      title="Recommencer"
+                    >
+                      ↺
+                    </button>
+                  )}
                 </div>
-              ) : (
-                <>
-                  <div className="bg-iqra-gold/10 p-8 border-b border-iqra-gold/10 relative">
+              </div>
+
+              {/* Surah List */}
+              <div className="max-h-[60vh] lg:max-h-[70vh] overflow-y-auto">
+                {filteredSurahs.length === 0 ? (
+                  <div className="p-8 text-center text-gray-400 text-sm">
+                    Aucune sourate ne correspond à votre recherche.
+                  </div>
+                ) : (
+                  filteredSurahs.map((surah) => (
+                    <button
+                      key={surah.number}
+                      onClick={() => openSurah(surah)}
+                      className={`w-full flex items-center gap-3 p-4 border-b border-gray-50 hover:bg-emerald-50 transition-all text-left ${
+                        selectedSurah?.number === surah.number ? "bg-emerald-50 border-l-4 border-l-emerald-500" : ""
+                      }`}
+                    >
+                      <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-sm font-bold text-gray-600 shrink-0">
+                        {readSurahs.has(surah.number) ? (
+                          <CheckCircle size={16} className="text-emerald-500" />
+                        ) : (
+                          surah.number
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center justify-between">
+                          <h3 className="font-semibold text-gray-800 text-sm truncate">{surah.englishNameTranslation}</h3>
+                          <span className="text-sm font-serif text-gray-600 ml-2" dir="rtl">{surah.name}</span>
+                        </div>
+                        <p className="text-xs text-gray-400 mt-0.5">{surah.numberOfAyahs} versets • {surah.revelationType === "Meccan" ? "Mecquoise" : "Médinoise"}</p>
+                      </div>
+                    </button>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Main Content - Surah Detail */}
+          <div className="flex-1 min-w-0">
+            {loadingSurah ? (
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-10 h-10 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                  <p className="text-gray-400 text-sm">Chargement des versets...</p>
+                </div>
+              </div>
+            ) : selectedSurah ? (
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden"
+              >
+                {/* Surah Header */}
+                <div className="p-6 md:p-8 border-b border-gray-100">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <div className="flex items-center gap-3 mb-2">
+                        <span className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center text-xl font-bold">
+                          {selectedSurah.number}
+                        </span>
+                        <div>
+                          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{selectedSurah.englishNameTranslation}</h2>
+                          <p className="text-lg text-emerald-600 font-serif" dir="rtl">{selectedSurah.name}</p>
+                        </div>
+                      </div>
+                      <p className="text-sm text-gray-500">
+                        {selectedSurah.ayahs.length} versets •{" "}
+                        {surahs.find(s => s.number === selectedSurah.number)?.revelationType === "Meccan" ? "Mecquoise" : "Médinoise"}
+                      </p>
+                    </div>
                     <button 
                       onClick={closeSurah}
-                      className="absolute top-6 right-6 w-12 h-12 bg-white text-iqra-green rounded-2xl shadow-lg flex items-center justify-center hover:scale-110 transition-all z-10 p-0"
+                      className="p-2 hover:bg-gray-100 rounded-xl transition-all lg:hidden"
                     >
-                      <X size={24} />
+                      <X size={20} className="text-gray-400" />
                     </button>
-
-                    <div className="flex items-end gap-6">
-                      <div className="w-20 h-20 bg-white text-iqra-gold rounded-3xl flex items-center justify-center text-3xl font-serif font-bold shadow-xl">
-                        {selectedSurah.number}
-                      </div>
-                      <div>
-                        <h2 className="text-4xl md:text-5xl font-serif font-bold text-iqra-green mb-1">{selectedSurah.englishNameTranslation}</h2>
-                        <p className="text-xl md:text-3xl text-iqra-gold font-serif" dir="rtl">{selectedSurah.name}</p>
-                      </div>
-                    </div>
                   </div>
 
-                  <div className="px-8 py-4 bg-gray-50 flex flex-wrap items-center justify-between gap-6">
+                  {/* Navigation */}
+                  <div className="flex items-center gap-3 mt-4">
+                    <button
+                      onClick={goPrevSurah}
+                      disabled={selectedSurah.number === 1}
+                      className="flex items-center gap-1 text-sm text-gray-500 hover:text-emerald-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                    >
+                      <ArrowLeft size={16} />
+                      {selectedSurah.number > 1 && surahs.find(s => s.number === selectedSurah.number - 1)?.englishNameTranslation}
+                    </button>
+                    <span className="text-gray-300">|</span>
+                    <button
+                      onClick={goNextSurah}
+                      disabled={selectedSurah.number === 114}
+                      className="flex items-center gap-1 text-sm text-gray-500 hover:text-emerald-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                    >
+                      {selectedSurah.number < 114 && surahs.find(s => s.number === selectedSurah.number + 1)?.englishNameTranslation}
+                      <ArrowRight size={16} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Bismillah */}
+                {selectedSurah.number !== 9 && (
+                  <div className="text-center py-6 border-b border-gray-50">
+                    <p className="text-2xl md:text-3xl text-gray-700" dir="rtl">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
+                  </div>
+                )}
+
+                {/* Verses */}
+                <div ref={surahContentRef} className="p-6 md:p-8 space-y-8">
+                  {selectedSurah.ayahs.map((ayah, idx) => (
+                    <div
+                      key={ayah.numberInSurah}
+                      ref={(el) => { ayahRefs.current[idx] = el; }}
+                      className={`group rounded-2xl p-4 md:p-6 transition-all cursor-pointer ${
+                        currentAyahIndex === idx && isPlaying
+                          ? "bg-amber-50 border border-amber-200"
+                          : "hover:bg-gray-50 border border-transparent"
+                      }`}
+                      onClick={() => playAyahAudio(idx)}
+                    >
+                      {/* Arabic Text */}
+                      <div className="flex items-start gap-4 mb-4">
+                        <span className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shrink-0 transition-all ${
+                          currentAyahIndex === idx && isPlaying
+                            ? "bg-amber-400 text-white"
+                            : "bg-emerald-100 text-emerald-700 group-hover:bg-amber-100 group-hover:text-amber-700"
+                        }`}>
+                          {ayah.numberInSurah}
+                        </span>
+                        <p 
+                          className="text-gray-900 font-serif text-2xl md:text-3xl leading-[2] md:leading-[2.2] flex-1" 
+                          dir="rtl"
+                        >
+                          {ayah.arabic}
+                        </p>
+                      </div>
+                      
+                      {/* French Translation */}
+                      <p className="text-gray-500 text-sm md:text-base leading-relaxed pl-14 italic">
+                        {ayah.french}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Footer Navigation */}
+                <div className="p-6 border-t border-gray-100 flex items-center justify-between bg-gray-50">
+                  <button
+                    onClick={goPrevSurah}
+                    disabled={selectedSurah.number === 1}
+                    className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                  >
+                    <ArrowLeft size={16} />
+                    {selectedSurah.number > 1 && surahs.find(s => s.number === selectedSurah.number - 1)?.englishNameTranslation}
+                  </button>
+                  <span className="text-xs text-gray-400">
+                    Sourate {selectedSurah.number} / 114
+                  </span>
+                  <button
+                    onClick={goNextSurah}
+                    disabled={selectedSurah.number === 114}
+                    className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                  >
+                    {selectedSurah.number < 114 && surahs.find(s => s.number === selectedSurah.number + 1)?.englishNameTranslation}
+                    <ArrowRight size={16} />
+                  </button>
+                </div>
+
+                {/* Audio Player */}
+                {selectedSurah.ayahs.length > 0 && (
+                  <div className="p-4 bg-white border-t border-gray-100">
                     <div className="flex items-center gap-4">
                       <button 
                         onClick={playPreviousAyah}
-                        disabled={currentAyahIndex === 0 && audioMode === "ayah"}
-                        className="w-10 h-10 bg-gray-100 text-iqra-green rounded-full flex items-center justify-center hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                        disabled={currentAyahIndex <= 0}
+                        className="w-10 h-10 bg-gray-100 text-emerald-600 rounded-full flex items-center justify-center hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                       >
                         <ArrowLeft size={18} />
                       </button>
+                      
                       <button 
                         onClick={togglePlay}
-                        className="w-16 h-16 bg-iqra-green text-white rounded-full flex items-center justify-center shadow-xl hover:scale-105 active:scale-95 transition-all"
+                        className="w-14 h-14 bg-emerald-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-emerald-700 active:scale-95 transition-all"
                       >
-                        {isPlaying ? <Pause size={28} /> : <Play size={28} className="ml-1" fill="currentColor" />}
+                        {isPlaying ? <Pause size={24} /> : <Play size={24} className="ml-1" fill="currentColor" />}
                       </button>
+                      
                       <button 
                         onClick={playNextAyah}
-                        disabled={selectedSurah && currentAyahIndex >= selectedSurah.ayahs.length - 1 && audioMode === "ayah"}
-                        className="w-10 h-10 bg-gray-100 text-iqra-green rounded-full flex items-center justify-center hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                        disabled={currentAyahIndex >= selectedSurah.ayahs.length - 1}
+                        className="w-10 h-10 bg-gray-100 text-emerald-600 rounded-full flex items-center justify-center hover:bg-gray-200 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                       >
                         <ArrowRight size={18} />
                       </button>
-                      <div>
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1 mb-1">
-                          {audioMode === "surah" ? "Récitation complète" : `Verset ${currentAyahIndex + 1}`}
-                        </p>
-                        <div className="w-48 h-2 bg-gray-200 rounded-full overflow-hidden">
-                          <div className="h-full bg-iqra-gold" style={{ width: `${progress}%` }} />
+
+                      {/* Progress Bar */}
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3">
+                          <span className="text-xs text-gray-400 font-mono">
+                            {currentAyahIndex >= 0 ? `V. ${currentAyahIndex + 1}` : ""}
+                          </span>
+                          <div 
+                            className="flex-1 h-1.5 bg-gray-200 rounded-full overflow-hidden cursor-pointer"
+                            onClick={(e) => {
+                              if (audioRef.current && audioRef.current.duration) {
+                                const rect = e.currentTarget.getBoundingClientRect();
+                                const pct = (e.clientX - rect.left) / rect.width;
+                                audioRef.current.currentTime = pct * audioRef.current.duration;
+                              }
+                            }}
+                          >
+                            <div 
+                              className="h-full bg-amber-500 rounded-full transition-all" 
+                              style={{ width: `${progress}%` }}
+                            />
+                          </div>
+                          <span className="text-xs text-gray-400 font-mono">
+                            {audioRef.current?.duration ? formatTime(audioRef.current.currentTime || 0) : "0:00"}
+                          </span>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="flex items-center gap-3">
-                      <button 
-                        onClick={() => {
-                          setAudioMode("surah");
-                          playSurahAudio();
-                        }}
-                        className={`px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest transition-all border ${
-                          audioMode === "surah" ? "bg-iqra-green text-white border-iqra-green" : "bg-white border-gray-100 text-gray-400 hover:border-iqra-gold"
-                        }`}
-                      >
-                        <span className="flex items-center gap-2">
-                          <Volume2 size={14} />
-                          Sourate
-                        </span>
-                      </button>
-                      <button 
-                        onClick={() => setIsLooping(!isLooping)}
-                        className={`p-3 rounded-xl flex items-center gap-2 transition-all border ${
-                          isLooping ? "bg-iqra-gold/20 border-iqra-gold text-iqra-green" : "bg-white border-gray-100 text-gray-400"
-                        }`}
-                      >
-                        <RotateCcw size={18} className={isLooping ? "animate-spin" : ""} />
-                        <span className="text-[10px] font-bold uppercase tracking-widest">Répéter</span>
-                      </button>
+                      {/* Speed indicator */}
+                      <span className="text-xs text-gray-400">1x</span>
                     </div>
+                    
+                    {audioError && (
+                      <p className="text-xs text-red-500 mt-2">Erreur de chargement audio. Veuillez réessayer.</p>
+                    )}
                   </div>
-
-                  <div ref={surahContentRef} className="flex-grow overflow-y-auto p-8 md:p-12 space-y-12">
-                    <div className="text-center">
-                      {selectedSurah.number !== 9 && (
-                        <p className="text-[10px] font-bold text-gray-300 uppercase tracking-[0.3em] mb-10">بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</p>
-                      )}
-                      
-                      <div className="mb-16 space-y-8">
-                        {selectedSurah.ayahs.map((ayah, idx) => (
-                          <button
-                            key={ayah.numberInSurah}
-                            ref={(el) => { ayahRefs.current[idx] = el; }}
-                            onClick={() => playAyahAudio(idx)}
-                            className={`group/ayah block w-full text-right px-6 py-4 rounded-2xl transition-all hover:bg-iqra-gold/5 ${
-                              currentAyahIndex === idx && isPlaying && audioMode === "ayah" ? "bg-iqra-gold/10 border border-iqra-gold/30" : "border border-transparent"
-                            }`}
-                            dir="rtl"
-                          >
-                            <div className="flex items-start gap-4">
-                              <span className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-colors mt-2 ${
-                                currentAyahIndex === idx && isPlaying && audioMode === "ayah"
-                                  ? "bg-iqra-gold text-iqra-green"
-                                  : "bg-iqra-green/10 text-iqra-green group-hover/ayah:bg-iqra-gold group-hover/ayah:text-iqra-green"
-                              }`}>
-                                {ayah.numberInSurah}
-                              </span>
-                              <p className="text-gray-900 font-serif text-3xl md:text-4xl leading-[2.2] md:leading-[2.2] flex-grow">
-                                {ayah.arabic}
-                              </p>
-                            </div>
-                            <p className="text-gray-500 text-sm md:text-base leading-relaxed mt-4 text-left italic" dir="ltr">
-                              {ayah.french}
-                            </p>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div className="text-center py-12 border-t border-gray-50 text-gray-400 text-sm font-medium">
-                      Sourate {selectedSurah.englishNameTranslation} • N° {selectedSurah.number} • {selectedSurah.ayahs.length} versets
-                    </div>
+                )}
+              </motion.div>
+            ) : (
+              /* Welcome State */
+              <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-16 text-center">
+                <div className="max-w-md mx-auto">
+                  <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <BookOpen size={36} className="text-emerald-600" />
                   </div>
-                </>
-              )}
-
-              <audio 
-                ref={audioRef} 
-                onTimeUpdate={handleTimeUpdate}
-                onEnded={handleEnded}
-                onError={() => {
-                  setIsPlaying(false);
-                }}
-              />
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {filteredSurahs.length === 0 && surahs.length > 0 && (
-        <div className="text-center py-20 px-4 bg-white rounded-[3rem] shadow-inner mt-10">
-          <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <Search size={32} className="text-gray-300" />
+                  <h2 className="text-2xl font-bold text-gray-800 mb-3">Choisissez une sourate</h2>
+                  <p className="text-gray-500 text-sm">Sélectionnez une sourate dans la liste à gauche pour commencer la lecture et l'écoute.</p>
+                </div>
+              </div>
+            )}
           </div>
-          <p className="text-gray-400 font-medium text-xl">Aucune sourate ne correspond à "{searchQuery}".</p>
-          <button onClick={() => setSearchQuery("")} className="mt-6 text-iqra-gold font-bold uppercase tracking-widest text-sm hover:underline">Voir tout le Coran</button>
         </div>
-      )}
+      </div>
+
+      {/* Audio Element */}
+      <audio 
+        ref={audioRef} 
+        onTimeUpdate={handleTimeUpdate}
+        onEnded={handleEnded}
+        onError={() => {
+          setIsPlaying(false);
+          setAudioError(true);
+        }}
+      />
     </div>
   );
 }

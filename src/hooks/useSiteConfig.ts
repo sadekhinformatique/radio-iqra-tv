@@ -1,6 +1,59 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
 
+const THEMES = {
+  dark: {
+    '--modern-bg-dark': '#0f1923',
+    '--modern-card-bg': 'rgba(255, 255, 255, 0.05)',
+    '--modern-text-primary': '#ffffff',
+    '--modern-text-secondary': '#a0a8b3',
+    '--modern-border-color': 'rgba(255, 255, 255, 0.1)',
+    '--modern-header-bg': 'rgba(15, 25, 35, 0.95)',
+    '--modern-primary': '#4ade80',
+    '--modern-gold': '#fbbf24',
+  },
+  light: {
+    '--modern-bg-dark': '#f5f7fa',
+    '--modern-card-bg': '#ffffff',
+    '--modern-text-primary': '#1a1a2e',
+    '--modern-text-secondary': '#6b7280',
+    '--modern-border-color': 'rgba(0, 0, 0, 0.1)',
+    '--modern-header-bg': 'rgba(255, 255, 255, 0.95)',
+    '--modern-primary': '#2e7d32',
+    '--modern-gold': '#D4AF37',
+  }
+};
+
+function applyThemeVariables(theme: 'dark' | 'light') {
+  const vars = THEMES[theme];
+  if (!vars) return;
+  Object.entries(vars).forEach(([key, value]) => {
+    document.documentElement.style.setProperty(key, value);
+  });
+  document.documentElement.setAttribute('data-theme', theme);
+}
+
+export function useTheme() {
+  const [theme, setTheme] = useState<'dark' | 'light' | 'auto'>('dark');
+
+  useEffect(() => {
+    const stored = localStorage.getItem('modern_theme') as 'dark' | 'light' | 'auto';
+    if (stored) setTheme(stored);
+  }, []);
+
+  useEffect(() => {
+    if (theme === 'auto') {
+      const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      applyThemeVariables(systemTheme);
+    } else {
+      applyThemeVariables(theme);
+    }
+    localStorage.setItem('modern_theme', theme);
+  }, [theme]);
+
+  return { theme, setTheme };
+}
+
 export interface SiteConfig {
   site_name: string;
   logo_url: string;
@@ -21,6 +74,7 @@ export interface SiteConfig {
   radio_stream_url: string;
   youtube_api_key: string;
   use_modern_ui: boolean;
+  modern_theme: 'dark' | 'light' | 'auto';
 }
 
 const DEFAULT_CONFIG: SiteConfig = {
@@ -42,7 +96,8 @@ const DEFAULT_CONFIG: SiteConfig = {
   secondary_color: "#D4AF37",
   radio_stream_url: "https://stream.radio.co/s8f8f8f8f8/listen",
   youtube_api_key: "",
-  use_modern_ui: false
+  use_modern_ui: false,
+  modern_theme: 'dark'
 };
 
 export function useSiteConfig() {
@@ -65,6 +120,10 @@ export function useSiteConfig() {
           // Apply dynamic colors to CSS variables
           document.documentElement.style.setProperty('--iqra-green', data.primary_color || DEFAULT_CONFIG.primary_color);
           document.documentElement.style.setProperty('--iqra-gold', data.secondary_color || DEFAULT_CONFIG.secondary_color);
+          
+          // Apply modern theme CSS variables
+          const theme = data.modern_theme || 'dark';
+          applyThemeVariables(theme);
           
           // Apply title and favicon
           if (data.site_name) document.title = data.site_name;
