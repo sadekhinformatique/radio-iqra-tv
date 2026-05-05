@@ -6,10 +6,21 @@ import { toPng } from "html-to-image";
 interface SurahMeta {
   number: number;
   name: string;
+  frenchName: string;
   englishName: string;
   englishNameTranslation: string;
   numberOfAyahs: number;
   revelationType: string;
+}
+
+interface SurahDetail {
+  number: number;
+  name: string;
+  frenchName: string;
+  englishName: string;
+  englishNameTranslation: string;
+  numberOfRevelation?: number;
+  ayahs: Ayah[];
 }
 
 interface Ayah {
@@ -109,7 +120,7 @@ export default function Coran() {
     try {
       const res = await fetch(`/quran/surah_${surah.number}.json`);
       const data = await res.json();
-      setSelectedSurah(data);
+      setSelectedSurah({ ...data, frenchName: surah.frenchName });
       markSurahAsRead(surah.number);
     } catch (err) {
       console.error("Error loading surah detail:", err);
@@ -252,7 +263,7 @@ export default function Coran() {
 
   const shareViaClipboard = async () => {
     if (!shareAyah) return;
-    const text = `"${shareAyah.ayah.french}"\n— ${shareAyah.surah.englishNameTranslation}, Verset ${shareAyah.ayah.numberInSurah}\n\nradio-iqra.tv`;
+    const text = `"${shareAyah.ayah.french}"\n— ${shareAyah.surah.frenchName}, Verset ${shareAyah.ayah.numberInSurah}\n\nradio-iqra.tv`;
     try {
       await navigator.clipboard.writeText(text);
     } catch {
@@ -379,10 +390,10 @@ export default function Coran() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">
-                          <h3 className="font-semibold text-gray-800 text-sm truncate">{surah.englishNameTranslation}</h3>
+                          <h3 className="font-semibold text-gray-800 text-sm truncate">{surah.frenchName}</h3>
                           <span className="text-sm font-serif text-gray-600 ml-2" dir="rtl">{surah.name}</span>
                         </div>
-                        <p className="text-xs text-gray-400 mt-0.5">{surah.numberOfAyahs} versets • {surah.revelationType === "Meccan" ? "Mecquoise" : "Médinoise"}</p>
+                        <p className="text-xs text-gray-400 mt-0.5">{surah.englishNameTranslation} • {surah.numberOfAyahs} versets • {surah.revelationType === "Meccan" ? "Mecquoise" : "Médinoise"}</p>
                       </div>
                     </button>
                   ))
@@ -415,8 +426,9 @@ export default function Coran() {
                           {selectedSurah.number}
                         </span>
                         <div>
-                          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{selectedSurah.englishNameTranslation}</h2>
-                          <p className="text-lg text-emerald-600 font-serif" dir="rtl">{selectedSurah.name}</p>
+                          <h2 className="text-2xl md:text-3xl font-bold text-gray-900">{selectedSurah.frenchName}</h2>
+                          <p className="text-sm text-emerald-600">{selectedSurah.englishNameTranslation}</p>
+                          <p className="text-lg text-gray-500 font-serif" dir="rtl">{selectedSurah.name}</p>
                         </div>
                       </div>
                       <p className="text-sm text-gray-500">
@@ -440,7 +452,7 @@ export default function Coran() {
                       className="flex items-center gap-1 text-sm text-gray-500 hover:text-emerald-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                     >
                       <ArrowLeft size={16} />
-                      {selectedSurah.number > 1 && surahs.find(s => s.number === selectedSurah.number - 1)?.englishNameTranslation}
+                      {selectedSurah.number > 1 && surahs.find(s => s.number === selectedSurah.number - 1)?.frenchName}
                     </button>
                     <span className="text-gray-300">|</span>
                     <button
@@ -448,7 +460,7 @@ export default function Coran() {
                       disabled={selectedSurah.number === 114}
                       className="flex items-center gap-1 text-sm text-gray-500 hover:text-emerald-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                     >
-                      {selectedSurah.number < 114 && surahs.find(s => s.number === selectedSurah.number + 1)?.englishNameTranslation}
+                      {selectedSurah.number < 114 && surahs.find(s => s.number === selectedSurah.number + 1)?.frenchName}
                       <ArrowRight size={16} />
                     </button>
                   </div>
@@ -519,7 +531,7 @@ export default function Coran() {
                     className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                   >
                     <ArrowLeft size={16} />
-                    {selectedSurah.number > 1 && surahs.find(s => s.number === selectedSurah.number - 1)?.englishNameTranslation}
+                    {selectedSurah.number > 1 && surahs.find(s => s.number === selectedSurah.number - 1)?.frenchName}
                   </button>
                   <span className="text-xs text-gray-400">
                     Sourate {selectedSurah.number} / 114
@@ -529,7 +541,7 @@ export default function Coran() {
                     disabled={selectedSurah.number === 114}
                     className="flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-emerald-600 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
                   >
-                    {selectedSurah.number < 114 && surahs.find(s => s.number === selectedSurah.number + 1)?.englishNameTranslation}
+                    {selectedSurah.number < 114 && surahs.find(s => s.number === selectedSurah.number + 1)?.frenchName}
                     <ArrowRight size={16} />
                   </button>
                 </div>
@@ -668,7 +680,7 @@ export default function Coran() {
                         {/* Surah badge */}
                         <div className="bg-amber-400/10 border border-amber-400/20 rounded-full px-4 sm:px-6 py-1.5 sm:py-2">
                           <span className="text-amber-400 text-[10px] sm:text-xs md:text-sm font-semibold tracking-wider uppercase">
-                            {shareAyah.surah.englishNameTranslation} — Verset {shareAyah.ayah.numberInSurah}
+                            {shareAyah.surah.frenchName} — Verset {shareAyah.ayah.numberInSurah}
                           </span>
                         </div>
 
@@ -747,7 +759,7 @@ export default function Coran() {
           <div style={{ position: "absolute", inset: 100, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
             <div style={{ background: "rgba(212,175,55,0.15)", border: "1px solid rgba(212,175,55,0.3)", borderRadius: 50, padding: "12px 32px", marginBottom: 40 }}>
               <span style={{ color: "#d4af37", fontSize: 28, fontWeight: 600, letterSpacing: 2 }}>
-                {shareAyah?.surah.englishNameTranslation.toUpperCase()} — Verset {shareAyah?.ayah.numberInSurah}
+                {shareAyah?.surah.frenchName.toUpperCase()} — Verset {shareAyah?.ayah.numberInSurah}
               </span>
             </div>
 
