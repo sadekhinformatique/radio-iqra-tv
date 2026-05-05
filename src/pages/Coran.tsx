@@ -27,12 +27,12 @@ interface SurahDetail {
   ayahs: Ayah[];
 }
 
-const ISLAMIC_NETWORK_AUDIO_BASE = "https://download.quranicaudio.com/quran/mishaari_raashid_al_3afaasee";
+const EVERYAYAH_AUDIO_BASE = "https://everyayah.com/data/Alafasy_128kbps";
 
 function getVerseAudioUrl(surahNumber: number, verseNumber: number): string {
   const surah = String(surahNumber).padStart(3, "0");
   const verse = String(verseNumber).padStart(3, "0");
-  return `${ISLAMIC_NETWORK_AUDIO_BASE}/${surah}${verse}.mp3`;
+  return `${EVERYAYAH_AUDIO_BASE}/${surah}${verse}.mp3`;
 }
 
 export default function Coran() {
