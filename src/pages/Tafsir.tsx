@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BookOpen, Search, Calendar, ArrowLeft, ExternalLink } from "lucide-react";
+import { BookOpen, Search, Calendar, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Link } from "react-router-dom";
 
@@ -172,14 +172,12 @@ export default function Tafsir() {
 
                     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                       {entries.map((entry) => (
-                        <motion.a
+                        <motion.div
                           key={entry.id}
-                          href={`https://decouvrir-islam.org/tafsir/${entry.slug}/`}
-                          target="_blank"
-                          rel="noopener noreferrer"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
-                          className="group bg-white rounded-xl border border-gray-100 p-5 hover:border-emerald-200 hover:shadow-md transition-all"
+                          className="group bg-white rounded-xl border border-gray-100 p-5 hover:border-emerald-200 hover:shadow-md transition-all cursor-pointer"
+                          onClick={() => window.location.href = `/tafsir/${entry.slug}`}
                         >
                           <h3 className="font-semibold text-gray-800 text-sm mb-2 group-hover:text-emerald-700 transition-colors line-clamp-2">
                             {entry.title}
@@ -197,9 +195,9 @@ export default function Tafsir() {
                           )}
                           <div className="flex items-center gap-1 mt-3 text-xs text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity">
                             Lire le tafsir
-                            <ExternalLink size={12} />
+                            <ArrowLeft size={12} className="rotate-180" />
                           </div>
-                        </motion.a>
+                        </motion.div>
                       ))}
                     </div>
                   </motion.div>
