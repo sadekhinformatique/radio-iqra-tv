@@ -639,11 +639,11 @@ export default function Coran() {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden"
+              className="bg-white rounded-3xl shadow-2xl max-w-lg w-full overflow-hidden max-h-[95vh] flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
-              <div className="p-5 border-b border-gray-100 flex items-center justify-between">
+              <div className="p-5 border-b border-gray-100 flex items-center justify-between shrink-0">
                 <h3 className="text-lg font-bold text-gray-800">Partager ce verset</h3>
                 <button
                   onClick={() => setShareAyah(null)}
@@ -653,85 +653,117 @@ export default function Coran() {
                 </button>
               </div>
 
-              {/* Preview Card (hidden but rendered for download) */}
-              <div className="p-5">
-                <div 
-                  ref={shareCardRef}
-                  className="relative overflow-hidden rounded-2xl"
-                  style={{ width: 1080, height: 1080, transform: "scale(0.35)", transformOrigin: "top left" }}
-                >
-                  {/* Background */}
-                  <div style={{ width: 1080, height: 1080, background: "linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)", position: "relative", fontFamily: "'Amiri', 'Traditional Arabic', serif" }}>
-                    {/* Decorative corners */}
-                    <div style={{ position: "absolute", top: 40, left: 40, width: 80, height: 80, border: "3px solid rgba(212,175,55,0.3)", borderRadius: "50%" }} />
-                    <div style={{ position: "absolute", bottom: 40, right: 40, width: 80, height: 80, border: "3px solid rgba(212,175,55,0.3)", borderRadius: "50%" }} />
-                    <div style={{ position: "absolute", top: 60, right: 60, width: 40, height: 40, border: "2px solid rgba(212,175,55,0.2)", borderRadius: "50%" }} />
-                    <div style={{ position: "absolute", bottom: 60, left: 60, width: 40, height: 40, border: "2px solid rgba(212,175,55,0.2)", borderRadius: "50%" }} />
+              {/* Scrollable Content */}
+              <div className="overflow-y-auto flex-1">
+                <div className="p-5">
+                  {/* Responsive Preview Card */}
+                  <div className="w-full aspect-square rounded-2xl overflow-hidden relative">
+                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-700 flex flex-col items-center justify-center p-6 sm:p-8 md:p-10">
+                      {/* Decorative corners */}
+                      <div className="absolute top-3 left-3 w-10 h-10 sm:w-14 sm:h-14 border-2 border-amber-400/30 rounded-full" />
+                      <div className="absolute bottom-3 right-3 w-10 h-10 sm:w-14 sm:h-14 border-2 border-amber-400/30 rounded-full" />
+                      <div className="absolute top-5 right-5 w-6 h-6 sm:w-8 sm:h-8 border border-amber-400/20 rounded-full" />
+                      <div className="absolute bottom-5 left-5 w-6 h-6 sm:w-8 sm:h-8 border border-amber-400/20 rounded-full" />
 
-                    {/* Content container */}
-                    <div style={{ position: "absolute", inset: 100, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-                      {/* Surah name badge */}
-                      <div style={{ background: "rgba(212,175,55,0.15)", border: "1px solid rgba(212,175,55,0.3)", borderRadius: 50, padding: "12px 32px", marginBottom: 40 }}>
-                        <span style={{ color: "#d4af37", fontSize: 28, fontWeight: 600, letterSpacing: 2 }}>
-                          {shareAyah.surah.englishNameTranslation.toUpperCase()} — Verset {shareAyah.ayah.numberInSurah}
-                        </span>
+                      {/* Content */}
+                      <div className="flex flex-col items-center justify-center flex-1 w-full gap-3 sm:gap-4 md:gap-5">
+                        {/* Surah badge */}
+                        <div className="bg-amber-400/15 border border-amber-400/30 rounded-full px-4 sm:px-6 py-1.5 sm:py-2">
+                          <span className="text-amber-400 text-[10px] sm:text-xs md:text-sm font-semibold tracking-wider">
+                            {shareAyah.surah.englishNameTranslation.toUpperCase()} — V. {shareAyah.ayah.numberInSurah}
+                          </span>
+                        </div>
+
+                        {/* Arabic text */}
+                        <p className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl leading-[1.8] md:leading-[2] text-center px-2 sm:px-4" dir="rtl" style={{ fontFamily: "'Amiri', 'Traditional Arabic', serif" }}>
+                          {shareAyah.ayah.arabic}
+                        </p>
+
+                        {/* Divider */}
+                        <div className="w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
+
+                        {/* French translation */}
+                        <p className="text-white/80 text-xs sm:text-sm md:text-base leading-relaxed text-center px-4 sm:px-6 italic">
+                          {shareAyah.ayah.french}
+                        </p>
                       </div>
 
-                      {/* Arabic text */}
-                      <p style={{ color: "#ffffff", fontSize: 52, lineHeight: 1.6, textAlign: "center", direction: "rtl", padding: "0 60px", marginBottom: 48, maxWidth: 900 }}>
-                        {shareAyah.ayah.arabic}
-                      </p>
-
-                      {/* Divider */}
-                      <div style={{ width: 120, height: 2, background: "linear-gradient(90deg, transparent, #d4af37, transparent)", marginBottom: 40 }} />
-
-                      {/* French translation */}
-                      <p style={{ color: "rgba(255,255,255,0.85)", fontSize: 30, lineHeight: 1.7, textAlign: "center", fontStyle: "italic", padding: "0 80px", maxWidth: 850 }}>
-                        {shareAyah.ayah.french}
-                      </p>
-                    </div>
-
-                    {/* Footer branding */}
-                    <div style={{ position: "absolute", bottom: 40, left: 0, right: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-                      <div style={{ width: 80, height: 3, background: "linear-gradient(90deg, transparent, #d4af37, transparent)" }} />
-                      <span style={{ color: "#d4af37", fontSize: 32, fontWeight: 800, letterSpacing: 4 }}>RADIO IQRA TV</span>
-                      <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 20, letterSpacing: 1 }}>radio-iqra.tv</span>
+                      {/* Footer branding */}
+                      <div className="flex flex-col items-center gap-1 mt-auto pt-2 sm:pt-3">
+                        <div className="w-12 sm:w-16 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
+                        <span className="text-amber-400 text-sm sm:text-base md:text-lg font-extrabold tracking-[0.2em] sm:tracking-[0.3em]">RADIO IQRA TV</span>
+                        <span className="text-white/40 text-[10px] sm:text-xs tracking-wider">radio-iqra.tv</span>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Action Buttons */}
-                <div className="mt-6 space-y-3">
-                  <button
-                    onClick={downloadShareImage}
-                    disabled={shareDownloading}
-                    className="w-full py-3.5 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
-                  >
-                    {shareDownloading ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        Génération...
-                      </>
-                    ) : (
-                      <>
-                        <Download size={18} />
-                        Télécharger l'image
-                      </>
-                    )}
-                  </button>
-                  <button
-                    onClick={shareViaClipboard}
-                    className="w-full py-3.5 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition-all flex items-center justify-center gap-2"
-                  >
-                    <Share2 size={18} />
-                    Copier le texte
-                  </button>
+                  {/* Action Buttons */}
+                  <div className="mt-5 space-y-3">
+                    <button
+                      onClick={downloadShareImage}
+                      disabled={shareDownloading}
+                      className="w-full py-3.5 bg-emerald-600 text-white rounded-xl font-semibold hover:bg-emerald-700 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                    >
+                      {shareDownloading ? (
+                        <>
+                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          Génération...
+                        </>
+                      ) : (
+                        <>
+                          <Download size={18} />
+                          Télécharger l'image
+                        </>
+                      )}
+                    </button>
+                    <button
+                      onClick={shareViaClipboard}
+                      className="w-full py-3.5 bg-gray-100 text-gray-700 rounded-xl font-semibold hover:bg-gray-200 transition-all flex items-center justify-center gap-2"
+                    >
+                      <Share2 size={18} />
+                      Copier le texte
+                    </button>
+                  </div>
                 </div>
               </div>
             </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Hidden card for high-res download */}
+      <div className="fixed -left-[9999px] -top-[9999px]" aria-hidden="true">
+        <div ref={shareCardRef} style={{ width: 1080, height: 1080, background: "linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%)", position: "relative", fontFamily: "'Amiri', 'Traditional Arabic', serif" }}>
+          <div style={{ position: "absolute", top: 40, left: 40, width: 80, height: 80, border: "3px solid rgba(212,175,55,0.3)", borderRadius: "50%" }} />
+          <div style={{ position: "absolute", bottom: 40, right: 40, width: 80, height: 80, border: "3px solid rgba(212,175,55,0.3)", borderRadius: "50%" }} />
+          <div style={{ position: "absolute", top: 60, right: 60, width: 40, height: 40, border: "2px solid rgba(212,175,55,0.2)", borderRadius: "50%" }} />
+          <div style={{ position: "absolute", bottom: 60, left: 60, width: 40, height: 40, border: "2px solid rgba(212,175,55,0.2)", borderRadius: "50%" }} />
+
+          <div style={{ position: "absolute", inset: 100, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+            <div style={{ background: "rgba(212,175,55,0.15)", border: "1px solid rgba(212,175,55,0.3)", borderRadius: 50, padding: "12px 32px", marginBottom: 40 }}>
+              <span style={{ color: "#d4af37", fontSize: 28, fontWeight: 600, letterSpacing: 2 }}>
+                {shareAyah?.surah.englishNameTranslation.toUpperCase()} — Verset {shareAyah?.ayah.numberInSurah}
+              </span>
+            </div>
+
+            <p style={{ color: "#ffffff", fontSize: 52, lineHeight: 1.6, textAlign: "center", direction: "rtl", padding: "0 60px", marginBottom: 48, maxWidth: 900 }}>
+              {shareAyah?.ayah.arabic}
+            </p>
+
+            <div style={{ width: 120, height: 2, background: "linear-gradient(90deg, transparent, #d4af37, transparent)", marginBottom: 40 }} />
+
+            <p style={{ color: "rgba(255,255,255,0.85)", fontSize: 30, lineHeight: 1.7, textAlign: "center", fontStyle: "italic", padding: "0 80px", maxWidth: 850 }}>
+              {shareAyah?.ayah.french}
+            </p>
+          </div>
+
+          <div style={{ position: "absolute", bottom: 40, left: 0, right: 0, display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
+            <div style={{ width: 80, height: 3, background: "linear-gradient(90deg, transparent, #d4af37, transparent)" }} />
+            <span style={{ color: "#d4af37", fontSize: 32, fontWeight: 800, letterSpacing: 4 }}>RADIO IQRA TV</span>
+            <span style={{ color: "rgba(255,255,255,0.5)", fontSize: 20, letterSpacing: 1 }}>radio-iqra.tv</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
