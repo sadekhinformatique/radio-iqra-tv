@@ -658,41 +658,46 @@ export default function Coran() {
                 <div className="p-5">
                   {/* Responsive Preview Card */}
                   <div className="w-full aspect-square rounded-2xl overflow-hidden relative">
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-700 flex flex-col items-center justify-center p-6 sm:p-8 md:p-10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-700 flex flex-col items-center justify-center p-8 sm:p-12 md:p-16">
                       {/* Decorative corners */}
-                      <div className="absolute top-3 left-3 w-10 h-10 sm:w-14 sm:h-14 border-2 border-amber-400/30 rounded-full" />
-                      <div className="absolute bottom-3 right-3 w-10 h-10 sm:w-14 sm:h-14 border-2 border-amber-400/30 rounded-full" />
-                      <div className="absolute top-5 right-5 w-6 h-6 sm:w-8 sm:h-8 border border-amber-400/20 rounded-full" />
-                      <div className="absolute bottom-5 left-5 w-6 h-6 sm:w-8 sm:h-8 border border-amber-400/20 rounded-full" />
+                      <div className="absolute top-4 left-4 w-12 h-12 sm:w-16 sm:h-16 border-2 border-amber-400/20 rounded-full" />
+                      <div className="absolute bottom-4 right-4 w-12 h-12 sm:w-16 sm:h-16 border-2 border-amber-400/20 rounded-full" />
 
                       {/* Content */}
-                      <div className="flex flex-col items-center justify-center flex-1 w-full gap-3 sm:gap-4 md:gap-5">
+                      <div className="flex flex-col items-center justify-center flex-1 w-full gap-4 sm:gap-6">
                         {/* Surah badge */}
-                        <div className="bg-amber-400/15 border border-amber-400/30 rounded-full px-4 sm:px-6 py-1.5 sm:py-2">
-                          <span className="text-amber-400 text-[10px] sm:text-xs md:text-sm font-semibold tracking-wider">
-                            {shareAyah.surah.englishNameTranslation.toUpperCase()} — V. {shareAyah.ayah.numberInSurah}
+                        <div className="bg-amber-400/10 border border-amber-400/20 rounded-full px-4 sm:px-6 py-1.5 sm:py-2">
+                          <span className="text-amber-400 text-[10px] sm:text-xs md:text-sm font-semibold tracking-wider uppercase">
+                            {shareAyah.surah.englishNameTranslation} — Verset {shareAyah.ayah.numberInSurah}
                           </span>
                         </div>
 
                         {/* Arabic text */}
-                        <p className="text-white text-lg sm:text-xl md:text-2xl lg:text-3xl leading-[1.8] md:leading-[2] text-center px-2 sm:px-4" dir="rtl" style={{ fontFamily: "'Amiri', 'Traditional Arabic', serif" }}>
+                        <p className="text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl leading-[1.8] sm:leading-[2] text-center px-4 sm:px-8" dir="rtl" style={{ fontFamily: "'Amiri', 'Traditional Arabic', serif" }}>
                           {shareAyah.ayah.arabic}
                         </p>
 
                         {/* Divider */}
-                        <div className="w-16 sm:w-24 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
+                        <div className="w-20 sm:w-28 h-px bg-gradient-to-r from-transparent via-amber-400/50 to-transparent" />
 
                         {/* French translation */}
-                        <p className="text-white/80 text-xs sm:text-sm md:text-base leading-relaxed text-center px-4 sm:px-6 italic">
+                        <p className="text-white/70 text-xs sm:text-sm md:text-base leading-relaxed sm:leading-relaxed text-center px-6 sm:px-10 italic max-w-[85%]">
                           {shareAyah.ayah.french}
                         </p>
                       </div>
 
-                      {/* Footer branding */}
-                      <div className="flex flex-col items-center gap-1 mt-auto pt-2 sm:pt-3">
-                        <div className="w-12 sm:w-16 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent" />
-                        <span className="text-amber-400 text-sm sm:text-base md:text-lg font-extrabold tracking-[0.2em] sm:tracking-[0.3em]">RADIO IQRA TV</span>
-                        <span className="text-white/40 text-[10px] sm:text-xs tracking-wider">radio-iqra.tv</span>
+                      {/* Footer branding - small logo centered at bottom */}
+                      <div className="flex flex-col items-center gap-0.5 mt-auto pt-4 sm:pt-6">
+                        <div className="w-10 sm:w-14 h-px bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
+                        <div className="flex items-center gap-1.5 sm:gap-2">
+                          {/* Small decorative icon */}
+                          <svg width="12" height="12" viewBox="0 0 32 32" fill="none" className="text-amber-400/50">
+                            <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="1.5"/>
+                            <path d="M16 4 L18 14 L28 16 L18 18 L16 28 L14 18 L4 16 L14 14 Z" fill="currentColor" opacity="0.5"/>
+                          </svg>
+                          <span className="text-amber-400/60 text-[10px] sm:text-xs font-semibold tracking-[0.15em] sm:tracking-[0.2em]">RADIO IQRA TV</span>
+                        </div>
+                        <span className="text-white/25 text-[9px] sm:text-[10px] tracking-wider">radio-iqra.tv</span>
                       </div>
                     </div>
                   </div>
