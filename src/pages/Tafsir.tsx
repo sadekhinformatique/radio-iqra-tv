@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BookOpen, Search, Calendar, ArrowLeft } from "lucide-react";
+import { BookOpen, Search, Calendar, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Link } from "react-router-dom";
 
@@ -20,14 +20,8 @@ export default function Tafsir() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSurah, setSelectedSurah] = useState<number | null>(null);
-  const [surahs, setSurahs] = useState<{ number: number; frenchName: string; name: string }[]>([]);
 
   useEffect(() => {
-    fetch("/quran/surahs.json")
-      .then((res) => res.json())
-      .then((data) => setSurahs(data))
-      .catch(console.error);
-
     fetch("/tafsir/tafsir-data.json")
       .then((res) => res.json())
       .then((data) => {
@@ -60,57 +54,63 @@ export default function Tafsir() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="w-12 h-12 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div>
+      <div className="min-h-screen bg-[#faf8f4] flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-2 border-amber-600/30 border-t-amber-600 rounded-full animate-spin mx-auto" />
+          <p className="mt-4 text-sm text-gray-400 font-serif">Chargement des tafsirs…</p>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Link to="/coran" className="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-emerald-600 mb-6 transition-all">
-          <ArrowLeft size={16} />
-          Retour au Coran
-        </Link>
+    <div className="min-h-screen bg-[#faf8f4]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+        {/* Header */}
+        <div className="mb-10">
+          <Link to="/coran" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-amber-600 mb-6 transition-colors font-serif">
+            ← Retour au Coran
+          </Link>
 
-        <div className="mb-8">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center">
+          <div className="flex items-start gap-4 mb-4">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100/50 border border-amber-200/50 text-amber-700 flex items-center justify-center flex-shrink-0">
               <BookOpen size={24} />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Tafsir du Coran</h1>
-              <p className="text-sm text-gray-500">Exégèse et Commentaires en Français</p>
+              <h1 className="text-3xl sm:text-4xl font-serif font-semibold text-gray-900 tracking-tight">
+                Tafsir du Coran
+              </h1>
+              <p className="text-sm text-gray-400 font-serif mt-0.5">Exégèse et Commentaires en Français</p>
             </div>
           </div>
-          <p className="text-gray-600 mt-3">
-            Collection de <span className="font-semibold text-emerald-600">{data.length}</span> études d'exégèse coranique, regroupées par sourate — sources Ibn Kathir, Tabari et tradition prophétique.
+          <p className="text-gray-500 mt-4 max-w-2xl leading-relaxed">
+            Collection de <span className="font-semibold text-amber-700">{data.length}</span> études d'exégèse coranique, regroupées par sourate — sources Ibn Kathir, Tabari et tradition prophétique.
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-8">
-          <div className="flex flex-col sm:flex-row gap-4">
+        {/* Filters */}
+        <div className="bg-white rounded-2xl border border-gray-100 p-5 mb-8 shadow-sm">
+          <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300" size={16} />
               <input
                 type="text"
-                placeholder="Rechercher un tafsir..."
+                placeholder="Rechercher un verset, un thème…"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm"
+                className="w-full pl-9 pr-4 py-2.5 border border-gray-150 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-400 text-sm bg-gray-50/50 font-serif placeholder:text-gray-300"
               />
             </div>
-            <div className="sm:w-64">
+            <div className="sm:w-60">
               <select
                 value={selectedSurah ?? ""}
                 onChange={(e) => setSelectedSurah(e.target.value ? Number(e.target.value) : null)}
-                className="w-full px-4 py-2.5 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm bg-white"
+                className="w-full px-4 py-2.5 border border-gray-150 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-400 text-sm bg-gray-50/50 font-serif"
               >
                 <option value="">Toutes les sourates</option>
                 {surahOptions.map((s) => (
                   <option key={s.number} value={s.number}>
-                    {s.name} ({s.number})
+                    {s.number}. {s.name}
                   </option>
                 ))}
               </select>
@@ -121,18 +121,20 @@ export default function Tafsir() {
                   setSearchQuery("");
                   setSelectedSurah(null);
                 }}
-                className="px-4 py-2.5 text-sm text-emerald-600 hover:bg-emerald-50 rounded-xl transition-all border border-emerald-200"
+                className="px-4 py-2.5 text-sm text-amber-600 hover:bg-amber-50 rounded-xl transition-colors border border-amber-200/60 font-serif"
               >
-                RÃ©initialiser
+                Réinitialiser
               </button>
             )}
           </div>
         </div>
 
-        <div className="text-sm text-gray-500 mb-6">
-          {filtered.length} rÃ©sultat{filtered.length !== 1 ? "s" : ""}
+        {/* Results count */}
+        <div className="text-sm text-gray-400 mb-6 font-serif">
+          {filtered.length} résultat{filtered.length !== 1 ? "s" : ""}
         </div>
 
+        {/* Content */}
         <AnimatePresence mode="wait">
           {Object.keys(groupedBySurah).length === 0 ? (
             <motion.div
@@ -140,62 +142,75 @@ export default function Tafsir() {
               animate={{ opacity: 1 }}
               className="text-center py-20"
             >
-              <BookOpen size={48} className="mx-auto text-gray-300 mb-4" />
-              <h3 className="text-lg font-semibold text-gray-600">Aucun rÃ©sultat trouvÃ©</h3>
-              <p className="text-sm text-gray-400 mt-1">Essayez une autre recherche</p>
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-amber-50 flex items-center justify-center">
+                <BookOpen size={28} className="text-amber-600/40" />
+              </div>
+              <h3 className="text-lg font-serif font-semibold text-gray-600">Aucun résultat trouvé</h3>
+              <p className="text-sm text-gray-400 mt-1 font-serif">Essayez une autre recherche</p>
             </motion.div>
           ) : (
             Object.entries(groupedBySurah)
               .sort(([a], [b]) => Number(a) - Number(b))
               .map(([surahNum, entries]: [string, TafsirEntry[]]) => {
                 const firstEntry = entries[0];
+                const numPadded = Number(surahNum).toString().padStart(2, "0");
                 return (
                   <motion.div
                     key={surahNum}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mb-8"
+                    className="mb-10"
                   >
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-sm font-bold">
-                        {surahNum}
+                    {/* Surah header */}
+                    <div className="flex items-center gap-3 mb-5">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-amber-600 font-serif text-base font-semibold">{numPadded}</span>
+                        <span className="w-6 h-px bg-amber-600/30" />
                       </div>
                       <div>
-                        <h2 className="text-lg font-bold text-gray-900">
-                          {firstEntry.surahNameFr}{" "}
-                          <span className="text-emerald-600 font-serif" dir="rtl">{firstEntry.surahNameAr}</span>
+                        <h2 className="text-base font-serif font-semibold text-gray-800">
+                          {firstEntry.surahNameFr}
+                          {firstEntry.surahNameAr && (
+                            <span className="ml-2 text-amber-600/80 font-arabic" dir="rtl">{firstEntry.surahNameAr}</span>
+                          )}
                         </h2>
-                        <p className="text-xs text-gray-400">{entries.length} tafsir{entries.length !== 1 ? "s" : ""}</p>
                       </div>
-                      <div className="ml-auto h-px flex-1 bg-gradient-to-r from-emerald-200 to-transparent max-w-32" />
+                      <span className="ml-auto text-xs text-gray-300 font-serif">{entries.length} tafsir{entries.length !== 1 ? "s" : ""}</span>
+                      <div className="h-px flex-1 bg-gradient-to-r from-gray-200/60 to-transparent max-w-24 ml-4" />
                     </div>
 
+                    {/* Cards grid */}
                     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                       {entries.map((entry) => (
                         <motion.div
                           key={entry.id}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
-                          className="group bg-white rounded-xl border border-gray-100 p-5 hover:border-emerald-200 hover:shadow-md transition-all cursor-pointer"
-                          onClick={() => window.location.href = `/tafsir/${entry.slug}`}
+                          onClick={() => (window.location.href = `/tafsir/${entry.slug}`)}
+                          className="group bg-white rounded-xl border border-gray-100 p-5 hover:border-amber-200/60 hover:shadow-lg hover:shadow-amber-600/[0.04] transition-all cursor-pointer relative overflow-hidden"
                         >
-                          <h3 className="font-semibold text-gray-800 text-sm mb-2 group-hover:text-emerald-700 transition-colors line-clamp-2">
+                          {/* Top accent line */}
+                          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                          <h3 className="font-serif font-semibold text-gray-800 text-sm mb-3 group-hover:text-amber-700 transition-colors line-clamp-2 leading-snug">
                             {entry.title}
                           </h3>
-                          <div className="flex items-center gap-2 text-xs text-gray-400">
-                            <span className="bg-gray-100 px-2 py-0.5 rounded-full">
-                              Verset{entry.verses.length > 1 ? "s" : ""}: {entry.verses.length > 5 ? `${entry.verses[0]}-${entry.verses[entry.verses.length - 1]}` : entry.verses.join(", ")}
+
+                          <div className="flex flex-wrap items-center gap-2">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-amber-50 text-amber-700/80 font-serif">
+                              {entry.verses.length > 5 ? `${entry.verses[0]}–${entry.verses[entry.verses.length - 1]}` : entry.verses.join(", ")}
                             </span>
+                            {entry.date && (
+                              <span className="inline-flex items-center gap-1 text-xs text-gray-300 font-serif">
+                                <Calendar size={11} />
+                                {entry.date}
+                              </span>
+                            )}
                           </div>
-                          {entry.date && (
-                            <div className="flex items-center gap-1 mt-2 text-xs text-gray-300">
-                              <Calendar size={12} />
-                              {entry.date}
-                            </div>
-                          )}
-                          <div className="flex items-center gap-1 mt-3 text-xs text-emerald-600 opacity-0 group-hover:opacity-100 transition-opacity">
+
+                          <div className="flex items-center gap-1 mt-3 text-xs text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity font-serif">
                             Lire le tafsir
-                            <ArrowLeft size={12} className="rotate-180" />
+                            <ChevronRight size={12} />
                           </div>
                         </motion.div>
                       ))}
@@ -206,6 +221,12 @@ export default function Tafsir() {
           )}
         </AnimatePresence>
       </div>
+
+      <style>{`
+        .font-arabic {
+          font-family: 'Amiri', 'Traditional Arabic', serif;
+        }
+      `}</style>
     </div>
   );
 }
