@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Radio, Youtube, BookOpen, MessageSquare, Mic2, Info, Home } from "lucide-react";
+import { Menu, X, Radio, Youtube, BookOpen, MessageSquare, Mic2, Info, Home, ScrollText } from "lucide-react";
 import { useState } from "react";
 import { useSiteConfig } from "../hooks/useSiteConfig";
 
@@ -8,6 +8,7 @@ const navLinks = [
   { name: "Radio", path: "/radio", icon: Radio },
   { name: "Youtube", path: "/youtube", icon: Youtube },
   { name: "Coran", path: "/coran", icon: BookOpen },
+  { name: "Tafsir", path: "/tafsir", icon: ScrollText },
   { name: "Podcasts", path: "/podcasts", icon: Mic2 },
   { name: "Conseils", path: "/conseils", icon: MessageSquare },
   { name: "Contact", path: "/contact", icon: MessageSquare },

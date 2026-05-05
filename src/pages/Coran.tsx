@@ -1,7 +1,8 @@
-import { BookOpen, Play, Search, Pause, ArrowLeft, ArrowRight, X, CheckCircle, Eye, Share2, Download } from "lucide-react";
+import { BookOpen, Play, Search, Pause, ArrowLeft, ArrowRight, X, CheckCircle, Eye, Share2, Download, ScrollText } from "lucide-react";
 import { useEffect, useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { toPng } from "html-to-image";
+import { Link } from "react-router-dom";
 
 interface SurahMeta {
   number: number;
@@ -288,6 +289,16 @@ export default function Coran() {
             <p className="text-2xl mb-4" dir="rtl">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
             <h1 className="text-3xl md:text-5xl font-bold mb-3">Lire et écouter <span className="text-amber-400 italic">le Coran</span></h1>
             <p className="text-emerald-200 max-w-2xl mx-auto text-sm md:text-base">Texte arabe, traduction française de Muhammad Hamidullah, audio par Mishary Rashid Alafasy — accessible sans compte.</p>
+          </div>
+
+          <div className="flex justify-center">
+            <Link
+              to="/tafsir"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white hover:bg-white/20 transition-all font-semibold text-sm"
+            >
+              <ScrollText size={18} />
+              Accéder au Tafsir (Exégèse du Coran)
+            </Link>
           </div>
 
           {/* Search Bar */}

@@ -23,6 +23,7 @@ export default function ModernHeader() {
         <nav className="hidden md:flex items-center gap-8">
           <Link to="/" className={`text-sm font-semibold transition-colors ${path === '/' ? 'text-modern-gold border-b-2 border-modern-gold pb-1' : 'hover:text-modern-gold'}`}>Accueil</Link>
           <Link to="/coran" className={`text-sm font-semibold transition-colors ${path === '/coran' ? 'text-modern-gold border-b-2 border-modern-gold pb-1' : 'hover:text-modern-gold'}`}>Coran</Link>
+          <Link to="/tafsir" className={`text-sm font-semibold transition-colors ${path === '/tafsir' ? 'text-modern-gold border-b-2 border-modern-gold pb-1' : 'hover:text-modern-gold'}`}>Tafsir</Link>
           <Link to="/youtube" className={`text-sm font-semibold transition-colors ${path === '/youtube' ? 'text-modern-gold border-b-2 border-modern-gold pb-1' : 'hover:text-modern-gold'}`}>Émissions</Link>
           <Link to="/podcasts" className={`text-sm font-semibold transition-colors ${path === '/podcasts' ? 'text-modern-gold border-b-2 border-modern-gold pb-1' : 'hover:text-modern-gold'}`}>Podcasts</Link>
         </nav>
