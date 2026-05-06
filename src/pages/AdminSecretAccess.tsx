@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { supabase } from "../lib/supabase";
-import { Lock, User, LogIn, LayoutDashboard, Plus, Pencil, Trash2, X, Music, Save, Loader2, FileText, Image as ImageIcon, BookOpen, Volume2, Clock, CalendarRange, Mail, CheckCircle2 } from "lucide-react";
+import { Lock, User, LogIn, LayoutDashboard, Plus, Pencil, Trash2, X, Music, Save, Loader2, FileText, Image as ImageIcon, BookOpen, Volume2, Clock, CalendarRange, Mail, CheckCircle2, Palette, Check } from "lucide-react";
+import { TAFSIR_THEMES } from "../hooks/useSiteConfig";
 
 interface Message {
   id: string;
@@ -120,6 +121,7 @@ export default function AdminSecretAccess() {
     youtube_api_key: "",
     use_modern_ui: false,
     modern_theme: 'dark' as const,
+    tafsir_theme: 'aube-doree',
   });
 
   const [uploadFile, setUploadFile] = useState<File | null>(null);
@@ -1048,6 +1050,65 @@ export default function AdminSecretAccess() {
                           <option value="auto">Automatique (système)</option>
                         </select>
                      </div>
+
+                    {/* Tafsir Theme Selector */}
+                    <div className="md:col-span-2 pt-6">
+                       <h3 className="text-sm font-bold text-iqra-gold uppercase tracking-widest mb-2 border-l-4 border-iqra-gold pl-4 flex items-center gap-2">
+                         <Palette size={16} />
+                         Thème des pages Tafsir
+                       </h3>
+                       <p className="text-xs text-gray-400 pl-6 mb-4">Choisissez un thème islamique moderne pour les pages de tafsir. L'aperçu est en direct.</p>
+                    </div>
+                    <div className="md:col-span-2 grid grid-cols-2 lg:grid-cols-3 gap-3">
+                      {TAFSIR_THEMES.map((theme) => {
+                        const isSelected = configFormData.tafsir_theme === theme.id;
+                        return (
+                          <button
+                            key={theme.id}
+                            type="button"
+                            onClick={() => setConfigFormData({...configFormData, tafsir_theme: theme.id})}
+                            className={`relative rounded-2xl overflow-hidden border-2 transition-all duration-200 text-left ${
+                              isSelected
+                                ? 'border-iqra-gold shadow-lg shadow-amber-500/20 scale-[1.02]'
+                                : 'border-gray-200 hover:border-gray-300 hover:shadow-md'
+                            }`}
+                          >
+                            {/* Preview header */}
+                            <div className="h-16 px-3 pt-2.5 pb-2 flex items-end gap-2" style={{ background: `linear-gradient(135deg, ${theme.preview.bg}, ${theme.preview.card})` }}>
+                              <div className="w-5 h-5 rounded-full flex items-center justify-center" style={{ background: theme.preview.primary + '30' }}>
+                                <div className="w-2.5 h-2.5 rounded-full" style={{ background: theme.preview.primary }} />
+                              </div>
+                              <div className="flex gap-1">
+                                <div className="w-4 h-1.5 rounded-full" style={{ background: theme.preview.text + '40' }} />
+                                <div className="w-6 h-1.5 rounded-full" style={{ background: theme.preview.text + '20' }} />
+                              </div>
+                            </div>
+                            {/* Preview cards */}
+                            <div className="p-2.5 space-y-1.5" style={{ background: theme.preview.bg }}>
+                              <div className="rounded-lg p-2 space-y-1.5" style={{ background: theme.preview.card, border: `1px solid ${theme.preview.primary}25` }}>
+                                <div className="w-3/4 h-1.5 rounded-full" style={{ background: theme.preview.text + '50' }} />
+                                <div className="w-1/2 h-1 rounded-full" style={{ background: theme.preview.textMuted + '40' }} />
+                              </div>
+                              <div className="flex gap-1">
+                                <div className="w-8 h-3 rounded-full" style={{ background: theme.preview.primary + '20', border: `1px solid ${theme.preview.primary}40` }} />
+                                <div className="w-10 h-3 rounded-full" style={{ background: theme.preview.accent + '15', border: `1px solid ${theme.preview.accent}30` }} />
+                              </div>
+                            </div>
+                            {/* Label */}
+                            <div className="px-3 py-2 border-t" style={{ borderColor: theme.preview.primary + '15', background: theme.preview.card }}>
+                              <p className="text-[11px] font-bold" style={{ color: theme.preview.text }}>{theme.name}</p>
+                              <p className="text-[9px] leading-tight mt-0.5 line-clamp-2" style={{ color: theme.preview.textMuted }}>{theme.description}</p>
+                            </div>
+                            {/* Selected check */}
+                            {isSelected && (
+                              <div className="absolute top-2 right-2 w-5 h-5 rounded-full bg-iqra-gold flex items-center justify-center shadow-md">
+                                <Check size={12} className="text-white" />
+                              </div>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
 
                     {/* Footer */}
                     <div className="md:col-span-2 pt-4">

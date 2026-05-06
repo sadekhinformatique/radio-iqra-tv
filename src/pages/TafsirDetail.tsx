@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { BookOpen, Calendar, BookMarked, ChevronRight } from "lucide-react";
+import { applyTafsirTheme } from "../hooks/useSiteConfig";
 
 interface TafsirDetail {
   id: number;
@@ -20,6 +21,11 @@ export default function TafsirDetail() {
   const [entry, setEntry] = useState<TafsirDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("tafsir_theme");
+    if (stored) applyTafsirTheme(stored);
+  }, []);
 
   useEffect(() => {
     if (!slug) return;
@@ -47,10 +53,13 @@ export default function TafsirDetail() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#faf8f4] flex items-center justify-center">
+      <div className="tafsir-detail-page flex items-center justify-center" style={{ minHeight: "60vh" }}>
         <div className="text-center">
-          <div className="w-12 h-12 border-2 border-amber-600/30 border-t-amber-600 rounded-full animate-spin mx-auto" />
-          <p className="mt-4 text-sm text-gray-400 font-serif">Chargement du tafsir…</p>
+          <div className="w-12 h-12 border-2 rounded-full animate-spin mx-auto" style={{
+            borderColor: "var(--tafsir-primary, #c9a227)30",
+            borderTopColor: "var(--tafsir-primary, #c9a227)",
+          }} />
+          <p className="mt-4 text-sm" style={{ color: "var(--tafsir-text-muted, #9ca3af)" }}>Chargement du tafsir…</p>
         </div>
       </div>
     );
@@ -58,16 +67,22 @@ export default function TafsirDetail() {
 
   if (error || !entry) {
     return (
-      <div className="min-h-screen bg-[#faf8f4] flex items-center justify-center">
+      <div className="tafsir-detail-page flex items-center justify-center" style={{ minHeight: "60vh" }}>
         <div className="text-center max-w-md">
-          <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-amber-50 flex items-center justify-center">
-            <BookOpen size={28} className="text-amber-600/50" />
+          <div className="w-16 h-16 mx-auto mb-6 rounded-full flex items-center justify-center" style={{
+            background: "var(--tafsir-primary-soft, rgba(201,162,39,0.08))",
+          }}>
+            <BookOpen size={28} style={{ color: "var(--tafsir-text-muted, #9ca3af)" }} />
           </div>
-          <h2 className="text-2xl font-serif font-semibold text-gray-800 mb-2">Tafsir non trouvé</h2>
-          <p className="text-gray-500 mb-6">Ce tafsir n'est pas disponible pour le moment.</p>
+          <h2 className="text-2xl font-serif font-semibold mb-2" style={{ color: "var(--tafsir-text, #1a1a1a)" }}>Tafsir non trouvé</h2>
+          <p className="mb-6" style={{ color: "var(--tafsir-text-secondary, #6b7280)" }}>Ce tafsir n'est pas disponible pour le moment.</p>
           <Link
             to="/tafsir"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-amber-600 text-white rounded-full text-sm font-medium hover:bg-amber-700 transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-colors"
+            style={{
+              background: "var(--tafsir-primary, #c9a227)",
+              color: "#fff",
+            }}
           >
             ← Retour à la liste des tafsirs
           </Link>
@@ -77,56 +92,70 @@ export default function TafsirDetail() {
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8f4]">
+    <div className="tafsir-detail-page">
       <div className="max-w-[800px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Breadcrumb */}
         <nav className="py-4 text-sm" aria-label="Fil d'Ariane">
-          <ol className="flex flex-wrap items-center gap-1 text-gray-400">
+          <ol className="flex flex-wrap items-center gap-1" style={{ color: "var(--tafsir-text-muted, #9ca3af)" }}>
             <li>
-              <Link to="/tafsir" className="hover:text-amber-600 transition-colors">Tafsir</Link>
+              <Link to="/tafsir" className="hover:opacity-70 transition-colors">Tafsir</Link>
             </li>
             <li><ChevronRight size={12} className="inline" /></li>
             <li>
-              <Link to={`/tafsir?s=${entry.surahNumber}`} className="hover:text-amber-600 transition-colors">
+              <Link to={`/tafsir?s=${entry.surahNumber}`} className="hover:opacity-70 transition-colors">
                 {entry.surahNameFr}
               </Link>
             </li>
             <li><ChevronRight size={12} className="inline" /></li>
-            <li className="text-gray-700 font-medium truncate max-w-[200px]">{entry.title}</li>
+            <li className="truncate max-w-[200px] font-medium" style={{ color: "var(--tafsir-text, #1a1a1a)" }}>{entry.title}</li>
           </ol>
         </nav>
 
         {/* Article Hero */}
-        <header className="pb-8 border-b border-gray-200 mb-10">
+        <header className="pb-8 mb-10" style={{ borderBottom: "1px solid var(--tafsir-border, rgba(0,0,0,0.06))" }}>
           {/* Section eyebrow */}
           <div className="flex items-center gap-3 mb-5">
-            <span className="text-amber-600 font-serif text-lg font-semibold">{surahNum}</span>
-            <span className="w-8 h-px bg-amber-600/40" />
-            <span className="text-gray-500 font-serif">{entry.surahNameFr}</span>
+            <span className="font-serif text-lg font-semibold" style={{ color: "var(--tafsir-primary, #c9a227)" }}>{surahNum}</span>
+            <span className="w-8 h-px" style={{ background: "var(--tafsir-primary, #c9a227)40" }} />
+            <span className="font-serif" style={{ color: "var(--tafsir-text-secondary, #6b7280)" }}>{entry.surahNameFr}</span>
           </div>
 
           {/* Title */}
-          <h1 className="font-serif text-[clamp(1.75rem,4vw,2.75rem)] font-medium leading-[1.1] tracking-tight text-gray-900 mb-5">
+          <h1 className="font-serif text-[clamp(1.75rem,4vw,2.75rem)] font-medium leading-[1.1] tracking-tight mb-5" style={{
+            color: "var(--tafsir-text, #1a1a1a)",
+          }}>
             {entry.title}
           </h1>
 
           {/* Meta badges */}
           <div className="flex flex-wrap gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-gray-200 rounded-full text-sm text-gray-500 bg-white">
-              <BookMarked size={14} className="text-amber-600" />
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm" style={{
+              border: "1px solid var(--tafsir-border, rgba(0,0,0,0.06))",
+              background: "var(--tafsir-card, #ffffff)",
+              color: "var(--tafsir-text-secondary, #6b7280)",
+            }}>
+              <BookMarked size={14} style={{ color: "var(--tafsir-primary, #c9a227)" }} />
               <span className="font-medium">{entry.surahNameFr}</span>
               {entry.surahNameAr && (
-                <span className="font-arabic text-base text-gray-700" dir="rtl">{entry.surahNameAr}</span>
+                <span className="font-arabic text-base" style={{ color: "var(--tafsir-text, #1a1a1a)" }} dir="rtl">{entry.surahNameAr}</span>
               )}
               <span className="opacity-60">({entry.surahNumber})</span>
             </span>
 
-            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-gray-200 rounded-full text-sm text-gray-500 bg-white">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm" style={{
+              border: "1px solid var(--tafsir-border, rgba(0,0,0,0.06))",
+              background: "var(--tafsir-card, #ffffff)",
+              color: "var(--tafsir-text-secondary, #6b7280)",
+            }}>
               Versets {verseRange}
             </span>
 
             {entry.date && (
-              <time className="inline-flex items-center gap-1.5 px-3 py-1.5 border border-gray-200 rounded-full text-sm text-gray-400 bg-white">
+              <time className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm" style={{
+                border: "1px solid var(--tafsir-border, rgba(0,0,0,0.06))",
+                background: "var(--tafsir-card, #ffffff)",
+                color: "var(--tafsir-text-muted, #9ca3af)",
+              }}>
                 <Calendar size={13} />
                 {entry.date}
               </time>
@@ -142,11 +171,19 @@ export default function TafsirDetail() {
 
         {/* CTA */}
         <div className="mt-16 mb-12 text-center">
-          <div className="inline-flex flex-col items-center gap-4 p-8 bg-gradient-to-br from-amber-50 to-emerald-50 rounded-2xl border border-amber-100/50">
-            <h3 className="font-serif text-xl text-gray-800">Continuer la lecture</h3>
+          <div className="inline-flex flex-col items-center gap-4 p-8 rounded-2xl" style={{
+            background: "var(--tafsir-gradient-hero, linear-gradient(135deg, #faf8f4, #f3f0ea))",
+            border: "1px solid var(--tafsir-card-border, rgba(201,162,39,0.12))",
+          }}>
+            <h3 className="font-serif text-xl" style={{ color: "var(--tafsir-text, #1a1a1a)" }}>Continuer la lecture</h3>
             <Link
               to="/tafsir"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-amber-600 text-white rounded-full font-medium hover:bg-amber-700 transition-colors shadow-lg shadow-amber-600/20"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-colors shadow-lg"
+              style={{
+                background: "var(--tafsir-primary, #c9a227)",
+                color: "#fff",
+                boxShadow: `0 8px 24px var(--tafsir-primary, #c9a227)30`,
+              }}
             >
               <BookOpen size={18} />
               Explorer tous les tafsirs
@@ -155,19 +192,26 @@ export default function TafsirDetail() {
         </div>
       </div>
 
-      {/* Article content styles */}
+      {/* Theme-aware article styles */}
       <style>{`
+        .tafsir-detail-page {
+          min-height: 100vh;
+          background: var(--tafsir-bg, #faf8f4);
+        }
+        .font-arabic {
+          font-family: 'Amiri', 'Traditional Arabic', serif;
+        }
         .article-content {
           font-family: 'Georgia', 'Times New Roman', serif;
           font-size: 1.125rem;
           line-height: 1.75;
-          color: #374151;
+          color: var(--tafsir-text-secondary, #6b7280);
         }
         .article-content h1 {
           font-family: 'Georgia', serif;
           font-size: 1.5rem;
           font-weight: 600;
-          color: #111827;
+          color: var(--tafsir-text, #1a1a1a);
           margin: 2rem 0 1rem;
           line-height: 1.3;
         }
@@ -175,12 +219,12 @@ export default function TafsirDetail() {
           font-family: 'Georgia', serif;
           font-size: 1.35rem;
           font-weight: 600;
-          color: #111827;
+          color: var(--tafsir-text, #1a1a1a);
           margin: 2.5rem 0 1rem;
           padding-bottom: 0.5rem;
-          border-bottom: 1px solid #e5e7eb;
           position: relative;
           line-height: 1.35;
+          border-bottom: 1px solid var(--tafsir-border, rgba(0,0,0,0.06));
         }
         .article-content h2::after {
           content: '';
@@ -189,39 +233,39 @@ export default function TafsirDetail() {
           left: 0;
           width: 50px;
           height: 1px;
-          background: #c9a227;
+          background: var(--tafsir-primary, #c9a227);
         }
         .article-content h3 {
           font-family: 'Georgia', serif;
           font-size: 1.15rem;
           font-weight: 600;
-          color: #c9a227;
+          color: var(--tafsir-primary, #c9a227);
           margin: 2rem 0 0.75rem;
           line-height: 1.35;
         }
         .article-content h4 {
           font-size: 1.05rem;
           font-weight: 600;
-          color: #374151;
+          color: var(--tafsir-text, #1a1a1a);
           margin: 1.5rem 0 0.75rem;
         }
         .article-content p {
           margin-bottom: 1.25rem;
-          color: #4b5563;
+          color: var(--tafsir-text-secondary, #6b7280);
         }
         .article-content strong, .article-content b {
           font-weight: 600;
-          color: #111827;
+          color: var(--tafsir-text, #1a1a1a);
         }
         .article-content blockquote {
           font-style: italic;
           font-size: 1.05rem;
           line-height: 1.7;
-          color: #6b7280;
+          color: var(--tafsir-text-secondary, #6b7280);
           padding: 1rem 1.25rem;
           margin: 1.5rem 0;
-          background: linear-gradient(to right, rgba(201, 162, 39, 0.08), transparent);
-          border-left: 3px solid #c9a227;
+          background: var(--tafsir-blockquote-bg, linear-gradient(to right, rgba(201,162,39,0.06), transparent));
+          border-left: 3px solid var(--tafsir-blockquote-border, #c9a227);
           border-radius: 0 0.5rem 0.5rem 0;
         }
         .article-content blockquote p {
@@ -239,23 +283,23 @@ export default function TafsirDetail() {
           line-height: 1.7;
         }
         .article-content li::marker {
-          color: #c9a227;
+          color: var(--tafsir-primary, #c9a227);
         }
         .article-content hr {
           border: none;
           height: 1px;
-          background: linear-gradient(to right, transparent, #d1d5db, transparent);
+          background: var(--tafsir-divider, linear-gradient(to right, transparent, rgba(0,0,0,0.1), transparent));
           margin: 2rem 0;
         }
         .article-content a {
-          color: #c9a227;
+          color: var(--tafsir-primary, #c9a227);
           text-decoration: underline;
-          text-decoration-color: rgba(201, 162, 39, 0.3);
+          text-decoration-color: color-mix(in srgb, var(--tafsir-primary, #c9a227) 30%, transparent);
           text-underline-offset: 2px;
           transition: text-decoration-color 150ms;
         }
         .article-content a:hover {
-          text-decoration-color: #c9a227;
+          text-decoration-color: var(--tafsir-primary, #c9a227);
         }
         .article-content em {
           font-style: italic;
@@ -264,26 +308,23 @@ export default function TafsirDetail() {
           font-family: 'SF Mono', 'Fira Code', monospace;
           font-size: 0.875em;
           padding: 0.15em 0.4em;
-          background: #f3f4f6;
+          background: var(--tafsir-bg-alt, #f3f0ea);
           border-radius: 0.25rem;
-          color: #9a7a1c;
+          color: var(--tafsir-primary, #c9a227);
         }
         .article-content pre {
           font-family: 'SF Mono', 'Fira Code', monospace;
           font-size: 0.875rem;
           padding: 1.25rem;
-          background: #f9fafb;
+          background: var(--tafsir-bg-alt, #f3f0ea);
           border-radius: 0.5rem;
           overflow-x: auto;
           margin: 1.5rem 0;
-          border: 1px solid #e5e7eb;
+          border: 1px solid var(--tafsir-border, rgba(0,0,0,0.06));
         }
         .article-content pre code {
           padding: 0;
           background: none;
-        }
-        .font-arabic {
-          font-family: 'Amiri', 'Traditional Arabic', serif;
         }
         @media (max-width: 640px) {
           .article-content {

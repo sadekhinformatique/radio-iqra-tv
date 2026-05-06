@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { BookOpen, Search, Calendar, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { Link } from "react-router-dom";
+import { applyTafsirTheme } from "../hooks/useSiteConfig";
 
 interface TafsirEntry {
   id: number;
@@ -20,6 +21,11 @@ export default function Tafsir() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSurah, setSelectedSurah] = useState<number | null>(null);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("tafsir_theme");
+    if (stored) applyTafsirTheme(stored);
+  }, []);
 
   useEffect(() => {
     fetch("/tafsir/tafsir-data.json")
@@ -54,58 +60,84 @@ export default function Tafsir() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#faf8f4] flex items-center justify-center">
+      <div className="tafsir-page flex items-center justify-center" style={{ minHeight: "60vh" }}>
         <div className="text-center">
-          <div className="w-12 h-12 border-2 border-amber-600/30 border-t-amber-600 rounded-full animate-spin mx-auto" />
-          <p className="mt-4 text-sm text-gray-400 font-serif">Chargement des tafsirs…</p>
+          <div className="w-12 h-12 border-2 rounded-full animate-spin mx-auto" style={{
+            borderColor: "var(--tafsir-primary, #c9a227)30",
+            borderTopColor: "var(--tafsir-primary, #c9a227)",
+          }} />
+          <p className="mt-4 text-sm" style={{ color: "var(--tafsir-text-muted, #9ca3af)" }}>Chargement des tafsirs…</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#faf8f4]">
+    <div className="tafsir-page">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {/* Header */}
         <div className="mb-10">
-          <Link to="/coran" className="inline-flex items-center gap-1.5 text-sm text-gray-400 hover:text-amber-600 mb-6 transition-colors font-serif">
+          <Link to="/coran" className="inline-flex items-center gap-1.5 text-sm transition-colors mb-6" style={{
+            color: "var(--tafsir-text-muted, #9ca3af)",
+          }}>
             ← Retour au Coran
           </Link>
 
           <div className="flex items-start gap-4 mb-4">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-50 to-amber-100/50 border border-amber-200/50 text-amber-700 flex items-center justify-center flex-shrink-0">
+            <div className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0" style={{
+              background: "var(--tafsir-primary-soft, rgba(201,162,39,0.08))",
+              color: "var(--tafsir-primary, #c9a227)",
+              border: "1px solid var(--tafsir-card-border, rgba(201,162,39,0.12))",
+            }}>
               <BookOpen size={24} />
             </div>
             <div>
-              <h1 className="text-3xl sm:text-4xl font-serif font-semibold text-gray-900 tracking-tight">
+              <h1 className="text-3xl sm:text-4xl font-serif font-semibold tracking-tight" style={{
+                color: "var(--tafsir-text, #1a1a1a)",
+              }}>
                 Tafsir du Coran
               </h1>
-              <p className="text-sm text-gray-400 font-serif mt-0.5">Exégèse et Commentaires en Français</p>
+              <p className="text-sm mt-0.5 font-serif" style={{ color: "var(--tafsir-text-muted, #9ca3af)" }}>
+                Exégèse et Commentaires en Français
+              </p>
             </div>
           </div>
-          <p className="text-gray-500 mt-4 max-w-2xl leading-relaxed">
-            Collection de <span className="font-semibold text-amber-700">{data.length}</span> études d'exégèse coranique, regroupées par sourate — sources Ibn Kathir, Tabari et tradition prophétique.
+          <p className="mt-4 max-w-2xl leading-relaxed" style={{ color: "var(--tafsir-text-secondary, #6b7280)" }}>
+            Collection de <span className="font-semibold" style={{ color: "var(--tafsir-primary, #c9a227)" }}>{data.length}</span> études d'exégèse coranique, regroupées par sourate — sources Ibn Kathir, Tabari et tradition prophétique.
           </p>
         </div>
 
         {/* Filters */}
-        <div className="bg-white rounded-2xl border border-gray-100 p-5 mb-8 shadow-sm">
+        <div className="rounded-2xl p-5 mb-8 shadow-sm" style={{
+          background: "var(--tafsir-card, #ffffff)",
+          border: "1px solid var(--tafsir-border, rgba(0,0,0,0.06))",
+        }}>
           <div className="flex flex-col sm:flex-row gap-3">
             <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300" size={16} />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2" size={16} style={{ color: "var(--tafsir-text-muted, #9ca3af)" }} />
               <input
                 type="text"
                 placeholder="Rechercher un verset, un thème…"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2.5 border border-gray-150 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-400 text-sm bg-gray-50/50 font-serif placeholder:text-gray-300"
+                className="w-full pl-9 pr-4 py-2.5 rounded-xl focus:outline-none text-sm font-serif placeholder-opacity-50"
+                style={{
+                  background: "var(--tafsir-bg-alt, #f3f0ea)",
+                  border: "1px solid var(--tafsir-border, rgba(0,0,0,0.06))",
+                  color: "var(--tafsir-text, #1a1a1a)",
+                }}
               />
             </div>
             <div className="sm:w-60">
               <select
                 value={selectedSurah ?? ""}
                 onChange={(e) => setSelectedSurah(e.target.value ? Number(e.target.value) : null)}
-                className="w-full px-4 py-2.5 border border-gray-150 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-400 text-sm bg-gray-50/50 font-serif"
+                className="w-full px-4 py-2.5 rounded-xl focus:outline-none text-sm font-serif"
+                style={{
+                  background: "var(--tafsir-bg-alt, #f3f0ea)",
+                  border: "1px solid var(--tafsir-border, rgba(0,0,0,0.06))",
+                  color: "var(--tafsir-text, #1a1a1a)",
+                }}
               >
                 <option value="">Toutes les sourates</option>
                 {surahOptions.map((s) => (
@@ -121,7 +153,11 @@ export default function Tafsir() {
                   setSearchQuery("");
                   setSelectedSurah(null);
                 }}
-                className="px-4 py-2.5 text-sm text-amber-600 hover:bg-amber-50 rounded-xl transition-colors border border-amber-200/60 font-serif"
+                className="px-4 py-2.5 text-sm rounded-xl transition-colors font-serif"
+                style={{
+                  color: "var(--tafsir-primary, #c9a227)",
+                  border: "1px solid var(--tafsir-card-border, rgba(201,162,39,0.12))",
+                }}
               >
                 Réinitialiser
               </button>
@@ -130,7 +166,7 @@ export default function Tafsir() {
         </div>
 
         {/* Results count */}
-        <div className="text-sm text-gray-400 mb-6 font-serif">
+        <div className="text-sm mb-6 font-serif" style={{ color: "var(--tafsir-text-muted, #9ca3af)" }}>
           {filtered.length} résultat{filtered.length !== 1 ? "s" : ""}
         </div>
 
@@ -142,11 +178,13 @@ export default function Tafsir() {
               animate={{ opacity: 1 }}
               className="text-center py-20"
             >
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-amber-50 flex items-center justify-center">
-                <BookOpen size={28} className="text-amber-600/40" />
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center" style={{
+                background: "var(--tafsir-primary-soft, rgba(201,162,39,0.08))",
+              }}>
+                <BookOpen size={28} style={{ color: "var(--tafsir-text-muted, #9ca3af)" }} />
               </div>
-              <h3 className="text-lg font-serif font-semibold text-gray-600">Aucun résultat trouvé</h3>
-              <p className="text-sm text-gray-400 mt-1 font-serif">Essayez une autre recherche</p>
+              <h3 className="text-lg font-serif font-semibold" style={{ color: "var(--tafsir-text-secondary, #6b7280)" }}>Aucun résultat trouvé</h3>
+              <p className="text-sm mt-1 font-serif" style={{ color: "var(--tafsir-text-muted, #9ca3af)" }}>Essayez une autre recherche</p>
             </motion.div>
           ) : (
             Object.entries(groupedBySurah)
@@ -164,19 +202,21 @@ export default function Tafsir() {
                     {/* Surah header */}
                     <div className="flex items-center gap-3 mb-5">
                       <div className="flex items-center gap-2.5">
-                        <span className="text-amber-600 font-serif text-base font-semibold">{numPadded}</span>
-                        <span className="w-6 h-px bg-amber-600/30" />
+                        <span className="font-serif text-base font-semibold" style={{ color: "var(--tafsir-primary, #c9a227)" }}>{numPadded}</span>
+                        <span className="w-6 h-px" style={{ background: "var(--tafsir-primary, #c9a227)40" }} />
                       </div>
                       <div>
-                        <h2 className="text-base font-serif font-semibold text-gray-800">
+                        <h2 className="text-base font-serif font-semibold" style={{ color: "var(--tafsir-text, #1a1a1a)" }}>
                           {firstEntry.surahNameFr}
                           {firstEntry.surahNameAr && (
-                            <span className="ml-2 text-amber-600/80 font-arabic" dir="rtl">{firstEntry.surahNameAr}</span>
+                            <span className="ml-2 font-arabic" style={{ color: "var(--tafsir-primary, #c9a227)" }} dir="rtl">{firstEntry.surahNameAr}</span>
                           )}
                         </h2>
                       </div>
-                      <span className="ml-auto text-xs text-gray-300 font-serif">{entries.length} tafsir{entries.length !== 1 ? "s" : ""}</span>
-                      <div className="h-px flex-1 bg-gradient-to-r from-gray-200/60 to-transparent max-w-24 ml-4" />
+                      <span className="ml-auto text-xs font-serif" style={{ color: "var(--tafsir-text-muted, #9ca3af)" }}>{entries.length} tafsir{entries.length !== 1 ? "s" : ""}</span>
+                      <div className="h-px flex-1 max-w-24 ml-4" style={{
+                        background: "var(--tafsir-divider, linear-gradient(to right, transparent, rgba(0,0,0,0.1), transparent))",
+                      }} />
                     </div>
 
                     {/* Cards grid */}
@@ -187,28 +227,48 @@ export default function Tafsir() {
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           onClick={() => (window.location.href = `/tafsir/${entry.slug}`)}
-                          className="group bg-white rounded-xl border border-gray-100 p-5 hover:border-amber-200/60 hover:shadow-lg hover:shadow-amber-600/[0.04] transition-all cursor-pointer relative overflow-hidden"
+                          className="group rounded-xl p-5 cursor-pointer relative overflow-hidden transition-all duration-200"
+                          style={{
+                            background: "var(--tafsir-card, #ffffff)",
+                            border: "1px solid var(--tafsir-border, rgba(0,0,0,0.06))",
+                            boxShadow: "var(--tafsir-shadow, 0 4px 24px rgba(0,0,0,0.06))",
+                          }}
+                          onMouseEnter={(e) => {
+                            (e.currentTarget as HTMLDivElement).style.borderColor = "var(--tafsir-card-border, rgba(201,162,39,0.12))";
+                          }}
+                          onMouseLeave={(e) => {
+                            (e.currentTarget as HTMLDivElement).style.borderColor = "var(--tafsir-border, rgba(0,0,0,0.06))";
+                          }}
                         >
                           {/* Top accent line */}
-                          <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500 via-amber-600 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                          <div className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity" style={{
+                            background: "linear-gradient(90deg, var(--tafsir-primary, #c9a227), var(--tafsir-primary-light, #d9b84a), var(--tafsir-primary, #c9a227))",
+                          }} />
 
-                          <h3 className="font-serif font-semibold text-gray-800 text-sm mb-3 group-hover:text-amber-700 transition-colors line-clamp-2 leading-snug">
+                          <h3 className="font-serif font-semibold text-sm mb-3 group-hover:text-emerald-700 transition-colors line-clamp-2 leading-snug" style={{
+                            color: "var(--tafsir-text, #1a1a1a)",
+                          }}>
                             {entry.title}
                           </h3>
 
                           <div className="flex flex-wrap items-center gap-2">
-                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs bg-amber-50 text-amber-700/80 font-serif">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-serif" style={{
+                              background: "var(--tafsir-badge-bg, rgba(201,162,39,0.08))",
+                              color: "var(--tafsir-badge-text, #9a7a1c)",
+                            }}>
                               {entry.verses.length > 5 ? `${entry.verses[0]}–${entry.verses[entry.verses.length - 1]}` : entry.verses.join(", ")}
                             </span>
                             {entry.date && (
-                              <span className="inline-flex items-center gap-1 text-xs text-gray-300 font-serif">
+                              <span className="inline-flex items-center gap-1 text-xs font-serif" style={{ color: "var(--tafsir-text-muted, #9ca3af)" }}>
                                 <Calendar size={11} />
                                 {entry.date}
                               </span>
                             )}
                           </div>
 
-                          <div className="flex items-center gap-1 mt-3 text-xs text-amber-600 opacity-0 group-hover:opacity-100 transition-opacity font-serif">
+                          <div className="flex items-center gap-1 mt-3 text-xs opacity-0 group-hover:opacity-100 transition-opacity font-serif" style={{
+                            color: "var(--tafsir-primary, #c9a227)",
+                          }}>
                             Lire le tafsir
                             <ChevronRight size={12} />
                           </div>
@@ -223,8 +283,25 @@ export default function Tafsir() {
       </div>
 
       <style>{`
+        .tafsir-page {
+          min-height: 100vh;
+          background: var(--tafsir-bg, #faf8f4);
+          font-family: 'Georgia', 'Times New Roman', serif;
+        }
         .font-arabic {
           font-family: 'Amiri', 'Traditional Arabic', serif;
+        }
+        .tafsir-page input,
+        .tafsir-page select {
+          font-size: 16px;
+        }
+        .tafsir-page input::placeholder {
+          color: var(--tafsir-text-muted, #9ca3af);
+        }
+        .tafsir-page input:focus,
+        .tafsir-page select:focus {
+          border-color: var(--tafsir-primary, #c9a227) !important;
+          box-shadow: 0 0 0 2px var(--tafsir-primary-soft, rgba(201,162,39,0.15));
         }
       `}</style>
     </div>
