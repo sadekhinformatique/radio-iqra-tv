@@ -365,15 +365,24 @@ export function useSiteConfig() {
 
         if (error) throw error;
         if (data) {
-          setConfig(data);
+          const mergedConfig: SiteConfig = {
+            ...DEFAULT_CONFIG,
+            ...data,
+            modern_theme: data.modern_theme || localStorage.getItem('modern_theme') || DEFAULT_CONFIG.modern_theme,
+            tafsir_theme: data.tafsir_theme || localStorage.getItem('tafsir_theme') || DEFAULT_CONFIG.tafsir_theme,
+          };
+          setConfig(mergedConfig);
           
           document.documentElement.style.setProperty('--iqra-green', data.primary_color || DEFAULT_CONFIG.primary_color);
           document.documentElement.style.setProperty('--iqra-gold', data.secondary_color || DEFAULT_CONFIG.secondary_color);
           
-          const theme = data.modern_theme || 'dark';
-          applyThemeVariables(theme);
+          const theme = mergedConfig.modern_theme;
+          const resolvedTheme = theme === 'auto'
+            ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+            : theme;
+          applyThemeVariables(resolvedTheme);
 
-          const tafsirTheme = data.tafsir_theme || DEFAULT_CONFIG.tafsir_theme;
+          const tafsirTheme = mergedConfig.tafsir_theme;
           applyTafsirTheme(tafsirTheme);
           
           if (data.site_name) document.title = data.site_name;

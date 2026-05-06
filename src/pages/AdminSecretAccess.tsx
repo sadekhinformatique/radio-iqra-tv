@@ -231,7 +231,8 @@ export default function AdminSecretAccess() {
         radio_stream_url: data.radio_stream_url || "",
         youtube_api_key: data.youtube_api_key || "",
         use_modern_ui: data.use_modern_ui || false,
-        modern_theme: data.modern_theme || 'dark',
+        modern_theme: data.modern_theme || localStorage.getItem('modern_theme') || 'dark',
+        tafsir_theme: data.tafsir_theme || localStorage.getItem('tafsir_theme') || 'aube-doree',
       });
     }
   };
@@ -612,7 +613,12 @@ export default function AdminSecretAccess() {
     setStatusMsg({ type: "", text: "" });
 
     try {
-      const updateData = { ...configFormData, updated_at: new Date().toISOString() };
+      const { modern_theme, tafsir_theme, ...dbFields } = configFormData;
+      
+      if (modern_theme) localStorage.setItem('modern_theme', modern_theme);
+      if (tafsir_theme) localStorage.setItem('tafsir_theme', tafsir_theme);
+      
+      const updateData = { ...dbFields, updated_at: new Date().toISOString() };
       
       const { error } = await supabase
         .from('site_config')
