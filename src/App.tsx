@@ -18,6 +18,12 @@ const YouTube = lazy(() => import("./pages/YouTube"));
 const AdminSecretAccess = lazy(() => import("./pages/AdminSecretAccess"));
 const LearningProgram = lazy(() => import("./pages/LearningProgram"));
 const ModernCoranLearning = lazy(() => import("./pages/ModernCoranLearning"));
+const LearningHome = lazy(() => import("./pages/learning/LearningHome"));
+const AlphabetLearning = lazy(() => import("./pages/learning/AlphabetLearning"));
+const LevelView = lazy(() => import("./pages/learning/LevelView"));
+const QuizView = lazy(() => import("./pages/learning/QuizView"));
+const UserDashboard = lazy(() => import("./pages/learning/UserDashboard"));
+const MemorizationView = lazy(() => import("./pages/learning/MemorizationView"));
 
 const PageLoader = () => (
   <div className="min-h-[60vh] flex items-center justify-center">
@@ -42,7 +48,12 @@ function AppContent() {
           <Route path="/" element={<ModernHome />} />
           <Route path="/listen-live" element={<ModernListenLive />} />
           <Route path="/coran" element={<Coran />} />
-          <Route path="/apprentissage" element={<LearningProgram />} />
+          <Route path="/apprentissage" element={<LearningHome />} />
+          <Route path="/learning/alphabet" element={<AlphabetLearning />} />
+          <Route path="/learning/level/:id" element={<LevelView />} />
+          <Route path="/learning/quiz/:id" element={<QuizView />} />
+          <Route path="/learning/dashboard" element={<UserDashboard />} />
+          <Route path="/learning/memorisation" element={<MemorizationView />} />
           <Route path="/coran-apprentissage" element={<ModernCoranLearning />} />
           <Route path="/youtube" element={<YouTube />} />
           <Route path="/podcasts" element={<Podcasts />} />

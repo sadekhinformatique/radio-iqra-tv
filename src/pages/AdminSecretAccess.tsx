@@ -130,6 +130,7 @@ export default function AdminSecretAccess() {
                 { id: "articles", label: "Blog", icon: FileText },
                 { id: "sourates", label: "Coran", icon: BookOpen },
                 { id: "grille", label: "Grille TV", icon: CalendarRange },
+                { id: "learning", label: "Apprentissage", icon: GraduationCap },
                 { id: "messages", label: "Messages", icon: Mail, badge: messages.filter(m => !m.is_read).length },
                 { id: "config", label: "Réglages", icon: Save },
               ].map(item => (
@@ -205,6 +206,34 @@ export default function AdminSecretAccess() {
                          </div>
                       </div>
                     ))}
+                 </motion.div>
+               )}
+
+               {activeTab === "learning" && (
+                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-8">
+                    <div className="bg-[#0B0F19] p-10 rounded-[48px] border border-white/5 flex items-center justify-between">
+                       <div>
+                          <h3 className="text-xl font-black uppercase mb-2">Structure Éducative</h3>
+                          <p className="text-gray-500 text-xs font-bold uppercase tracking-widest">Gérez les niveaux, modules et leçons de la plateforme.</p>
+                       </div>
+                       <button className="px-8 py-4 bg-[#D4AF37] text-[#0B0F19] font-black rounded-2xl flex items-center gap-3 uppercase text-[10px] tracking-widest">
+                          <Plus size={18} /> Nouveau Niveau
+                       </button>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                       {/* Placeholder pour les niveaux */}
+                       {[1,2,3,4,5,6,7].map(n => (
+                         <div key={n} className="bg-[#0B0F19] p-8 rounded-[40px] border border-white/5 hover:border-[#D4AF37]/30 transition-all group">
+                            <div className="w-12 h-12 rounded-2xl bg-[#D4AF37]/10 text-[#D4AF37] flex items-center justify-center mb-6"><GraduationCap size={24}/></div>
+                            <h4 className="text-lg font-black uppercase tracking-tight mb-2">Niveau {n}</h4>
+                            <p className="text-gray-500 text-[10px] font-bold uppercase tracking-widest mb-6">12 Leçons • 3 Modules</p>
+                            <div className="flex gap-2">
+                               <button className="flex-1 py-3 bg-white/5 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-white/10 transition-all">Éditer</button>
+                               <button className="p-3 bg-red-500/10 text-red-400 rounded-xl hover:bg-red-500/20 transition-all"><Trash2 size={16}/></button>
+                            </div>
+                         </div>
+                       ))}
+                    </div>
                  </motion.div>
                )}
 
