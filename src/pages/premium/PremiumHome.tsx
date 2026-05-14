@@ -125,7 +125,7 @@ export default function PremiumHome() {
 
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <button onClick={() => setIsPlaying(!isPlaying)} className="w-12 h-12 rounded-full bg-amber-600 text-white flex items-center justify-center hover:bg-amber-500 transition-all shadow-lg">
+                      <button onClick={() => setIsPlaying(!isPlaying)} className="w-12 h-12 rounded-full bg-gold-600 text-white flex items-center justify-center hover:bg-gold-500 transition-all shadow-lg">
                         {isPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" className="ml-0.5" />}
                       </button>
                       <div className="flex items-center gap-2">
@@ -191,10 +191,10 @@ export default function PremiumHome() {
       <section className="max-w-7xl mx-auto px-4 lg:px-8 mb-16">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
-            <div className="w-1 h-6 bg-amber-500 rounded-full" />
+            <div className="w-1 h-6 bg-gold-500 rounded-full" />
             <h2 className="text-2xl font-cairo font-bold text-white">Podcasts populaires</h2>
           </div>
-          <Link to="/podcasts" className="text-sm text-amber-400 hover:text-amber-300 flex items-center gap-1">Voir tout <ChevronRight size={16} /></Link>
+          <Link to="/podcasts" className="text-sm text-gold-400 hover:text-gold-300 flex items-center gap-1">Voir tout <ChevronRight size={16} /></Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {(latestPodcasts.length > 0 ? latestPodcasts.slice(0, 6) : [
@@ -205,15 +205,15 @@ export default function PremiumHome() {
             { id: 5, title: "Les piliers de la foi" },
             { id: 6, title: "La spiritualité au quotidien" },
           ]).map((podcast: any, i) => (
-            <div key={podcast.id || i} className="glass-card rounded-xl overflow-hidden group hover:border-amber-500/30 transition-all duration-500 cursor-pointer flex items-center gap-4 p-4">
+            <div key={podcast.id || i} className="glass-card rounded-xl overflow-hidden group hover:border-gold-500/30 transition-all duration-500 cursor-pointer flex items-center gap-4 p-4">
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-emerald-900/30 to-night-700 flex items-center justify-center flex-shrink-0">
-                <Mic2 size={22} className="text-amber-400/60" />
+                <Mic2 size={22} className="text-gold-400/60" />
               </div>
               <div className="flex-1 min-w-0">
                 <h3 className="text-sm font-bold text-white line-clamp-1">{podcast.title || podcast.titre}</h3>
                 <p className="text-xs text-gray-500 mt-0.5">{podcast.category || 'Podcast'}</p>
               </div>
-              <button className="w-9 h-9 rounded-full bg-white/10 hover:bg-amber-600 text-white flex items-center justify-center transition-all flex-shrink-0 opacity-0 group-hover:opacity-100">
+              <button className="w-9 h-9 rounded-full bg-white/10 hover:bg-gold-600 text-white flex items-center justify-center transition-all flex-shrink-0 opacity-0 group-hover:opacity-100">
                 <Play size={16} fill="currentColor" className="ml-0.5" />
               </button>
             </div>
@@ -288,7 +288,7 @@ export default function PremiumHome() {
               </div>
               <p className="text-[10px] text-gray-500 mt-1">49% de l'objectif</p>
             </div>
-            <Link to="/contact" className="w-full py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2">
+            <Link to="/contact" className="w-full py-2.5 bg-gold-600 hover:bg-gold-500 text-white text-sm font-bold rounded-xl transition-all flex items-center justify-center gap-2">
               <Heart size={14} /> Faire un don
             </Link>
           </div>

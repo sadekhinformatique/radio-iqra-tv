@@ -62,7 +62,7 @@ export default function PremiumHeader() {
               {isDark ? <Sun size={18} /> : <Moon size={18} />}
             </button>
             <Link to="/contact"
-              className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-amber-600 hover:bg-amber-500 text-white text-sm font-bold rounded-full transition-all duration-300 shadow-lg shadow-amber-600/25">
+              className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-gold-600 hover:bg-gold-500 text-white text-sm font-bold rounded-full transition-all duration-300 shadow-lg shadow-gold-600/25">
               <Heart size={16} />
               Faire un don
             </Link>
@@ -84,7 +84,7 @@ export default function PremiumHeader() {
               </Link>
             );
           })}
-          <Link to="/contact" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-amber-600/10 text-amber-400 font-bold mt-2">
+          <Link to="/contact" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-gold-600/10 text-gold-400 font-bold mt-2">
             <Heart size={18} /> Faire un don
           </Link>
         </div>
