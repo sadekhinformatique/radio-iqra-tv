@@ -1,16 +1,17 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useSiteConfig } from '../../hooks/useSiteConfig';
-import { Menu, X, Search, Sun, Moon, Heart, Play, Headphones, Radio as RadioIcon, Tv } from 'lucide-react';
+import { Menu, X, Search, Sun, Moon, Heart, Play, Headphones, Radio as RadioIcon, Tv, BookOpen, GraduationCap, FileText } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const navItems = [
   { label: 'Accueil', path: '/', icon: <Play size={16} /> },
   { label: 'Live TV', path: '/youtube', icon: <Tv size={16} /> },
   { label: 'Radio', path: '/radio', icon: <RadioIcon size={16} /> },
+  { label: 'Coran', path: '/coran', icon: <BookOpen size={16} /> },
+  { label: 'Apprentissage', path: '/apprentissage', icon: <GraduationCap size={16} /> },
   { label: 'Podcasts', path: '/podcasts', icon: <Headphones size={16} /> },
-  { label: 'Conférenciers', path: '/conseils', icon: <X size={16} /> },
-  { label: 'À propos', path: '/a-propos', icon: <X size={16} /> },
+  { label: 'Articles', path: '/conseils', icon: <FileText size={16} /> },
 ];
 
 export default function PremiumHeader() {

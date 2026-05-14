@@ -1,6 +1,6 @@
-﻿import { useState, useEffect } from "react";
-import { motion } from "motion/react";
-import { Youtube, Users, Calendar, Play, ExternalLink, Loader2, AlertCircle } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import { Youtube, Users, Calendar, Play, ExternalLink, Loader2, AlertCircle, Tv, Sparkles } from "lucide-react";
 import { useSiteConfig } from "../hooks/useSiteConfig";
 
 interface YouTubeChannel {
@@ -50,7 +50,7 @@ export default function YouTube() {
     const apiKey = config.youtube_api_key;
     if (!channelId || !apiKey) {
       setLoading(false);
-      if (!apiKey && channelId) setError("Cle API YouTube manquante.");
+      if (!apiKey && channelId) setError("Clé API YouTube manquante.");
       return;
     }
     async function fetchData() {
@@ -75,7 +75,7 @@ export default function YouTube() {
         }
       } catch (err: any) {
         console.error("YouTube API error:", err);
-        setError("Impossible de charger les donnees YouTube.");
+        setError("Impossible de charger les données YouTube.");
       } finally {
         setLoading(false);
       }
@@ -84,16 +84,21 @@ export default function YouTube() {
   }, [config.youtube_url, config.youtube_api_key]);
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center"><Loader2 className="animate-spin text-gold-400" size={48} /></div>;
+    return (
+      <div className="min-h-screen pt-32 flex flex-col items-center justify-center bg-night">
+        <div className="w-12 h-12 border-4 border-gold border-t-transparent rounded-full animate-spin mb-4" />
+        <p className="text-gold font-black uppercase tracking-widest text-xs">Connexion à YouTube...</p>
+      </div>
+    );
   }
 
   if (error || !channel) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center max-w-2xl mx-auto">
-        <AlertCircle size={64} className="text-red-400 mb-6" />
-        <h2 className="text-2xl font-bold text-white mb-4">Configuration YouTube</h2>
-        <p className="text-gray-400 mb-8">{error || "Veuillez configurer l'URL de votre chaine YouTube dans le panneau d'administration."}</p>
-        <a href="/" className="px-8 py-3 bg-emerald-600 text-white font-semibold rounded-xl shadow-lg hover:scale-105 transition-all">Retour</a>
+      <div className="min-h-screen flex flex-col items-center justify-center p-8 text-center max-w-2xl mx-auto bg-night">
+        <AlertCircle size={64} className="text-red-500 mb-6" />
+        <h2 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter">Configuration YouTube</h2>
+        <p className="text-gray-400 mb-8 text-lg">{error || "Veuillez configurer l'URL de votre chaine YouTube dans le panneau d'administration."}</p>
+        <a href="/" className="px-10 py-4 bg-primary text-gold font-black uppercase tracking-widest text-xs rounded-full gold-glow">Retour</a>
       </div>
     );
   }
@@ -102,97 +107,137 @@ export default function YouTube() {
   const gridVideos = liveVideo ? latestVideos.slice(0, 6) : latestVideos.slice(1, 7);
 
   return (
-    <div className="min-h-screen pt-24 pb-20">
-      <div className="relative h-48 md:h-72 overflow-hidden">
+    <div className="min-h-screen pt-24 pb-20 bg-night">
+      {/* Channel Header */}
+      <div className="relative h-64 md:h-96 overflow-hidden">
         {channel.brandingSettings?.image?.bannerExternalUrl ? (
-          <img src={channel.brandingSettings.image.bannerExternalUrl} alt="" className="w-full h-full object-cover opacity-50" />
+          <img src={channel.brandingSettings.image.bannerExternalUrl} alt="" className="w-full h-full object-cover opacity-40 scale-105" />
         ) : (
-          <div className="w-full h-full bg-gradient-premium" />
+          <div className="w-full h-full bg-gradient-to-br from-primary to-night opacity-50" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-night-900 via-night-900/60 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 max-w-7xl mx-auto px-4 lg:px-8 pb-6 flex items-end gap-5">
-          <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-full border-2 border-white/20 overflow-hidden bg-night-800 shadow-xl flex-shrink-0">
-            <img src={channel.snippet.thumbnails.high.url} alt={channel.snippet.title} className="w-full h-full object-cover" />
-          </div>
-          <div className="flex-1">
-            <h1 className="text-2xl lg:text-3xl font-bold text-white">{channel.snippet.title}</h1>
-            <div className="flex items-center gap-4 text-gray-400 text-sm mt-1">
-              <span className="flex items-center gap-1.5"><Users size={14} className="text-gold-400" /> {formatSubscribers(channel.statistics.subscriberCount)} abonnes</span>
-              <span className="flex items-center gap-1.5"><Youtube size={14} className="text-gold-400" /> {channel.statistics.videoCount} videos</span>
+        <div className="absolute inset-0 bg-gradient-to-t from-night via-night/50 to-transparent" />
+        
+        <div className="absolute bottom-0 left-0 right-0 max-w-7xl mx-auto px-4 lg:px-8 pb-10">
+          <div className="flex flex-col md:row items-center md:items-end gap-8">
+            <div className="w-28 h-28 lg:w-36 lg:h-36 rounded-[40px] border-4 border-white/10 overflow-hidden bg-night shadow-2xl flex-shrink-0 gold-glow">
+              <img src={channel.snippet.thumbnails.high.url} alt={channel.snippet.title} className="w-full h-full object-cover" />
             </div>
+            <div className="flex-1 text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start gap-3 mb-2">
+                 <h1 className="text-3xl lg:text-5xl font-black text-white uppercase tracking-tighter">{channel.snippet.title}</h1>
+                 <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
+                    <div className="w-2 h-2 bg-white rounded-full" />
+                 </div>
+              </div>
+              <div className="flex flex-wrap items-center justify-center md:justify-start gap-6 text-gray-400 font-bold uppercase tracking-widest text-[10px]">
+                <span className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full"><Users size={14} className="text-gold" /> {formatSubscribers(channel.statistics.subscriberCount)} abonnés</span>
+                <span className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full"><Youtube size={14} className="text-red-500" /> {channel.statistics.videoCount} vidéos</span>
+                <span className="flex items-center gap-2 px-3 py-1 bg-white/5 rounded-full"><Tv size={14} className="text-emerald-400" /> Direct TV</span>
+              </div>
+            </div>
+            <a 
+              href={config.youtube_url} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="px-10 py-4 bg-red-600 hover:bg-red-500 text-white font-black uppercase tracking-widest text-xs rounded-full transition-all flex items-center gap-3 shadow-2xl"
+            >
+              S'abonner <ExternalLink size={16} />
+            </a>
           </div>
-          <a href={config.youtube_url} target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white font-semibold rounded-xl transition-all flex items-center gap-2 text-sm flex-shrink-0">
-            S'abonner <ExternalLink size={14} />
-          </a>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-16">
         {heroVideo && (
-          <section className="mb-16">
-            <div className="flex items-center gap-3 mb-8">
-              <div className="w-1 h-6 bg-gold-500 rounded-full" />
-              <h2 className="text-2xl font-cairo font-bold text-white">
-                {liveVideo ? "En Direct" : "Derniere Video"}
-              </h2>
-              {liveVideo && <span className="bg-red-600 text-white text-[10px] font-bold px-2 py-1 rounded-full animate-pulse uppercase tracking-wider">Live</span>}
+          <section className="mb-24">
+            <div className="flex items-center justify-between mb-12">
+               <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/20 flex items-center justify-center text-gold">
+                    <Tv size={24} />
+                  </div>
+                  <h2 className="text-3xl lg:text-4xl font-black text-white uppercase tracking-tighter">
+                    {liveVideo ? "En Direct" : "Dernière Diffusion"}
+                  </h2>
+               </div>
+               {liveVideo && (
+                 <div className="flex items-center gap-3 px-4 py-2 bg-red-600/10 border border-red-600/20 rounded-full">
+                    <span className="w-2 h-2 bg-red-600 rounded-full animate-pulse" />
+                    <span className="text-[10px] font-black text-red-600 uppercase tracking-widest">Live Now</span>
+                 </div>
+               )}
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-              <div className="lg:col-span-3">
-                <div className="aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl border border-white/5">
+            
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+              <div className="lg:col-span-8">
+                <div className="aspect-video bg-black rounded-[40px] overflow-hidden shadow-2xl border-4 border-white/5 gold-glow">
                   <iframe
-                    src={"https://www.youtube.com/embed/" + (typeof heroVideo.id === "string" ? heroVideo.id : heroVideo.id.videoId) + "?autoplay=0"}
+                    src={"https://www.youtube.com/embed/" + (typeof heroVideo.id === "string" ? heroVideo.id : heroVideo.id.videoId) + "?autoplay=0&rel=0"}
                     title={heroVideo.snippet.title}
                     className="w-full h-full"
                     allowFullScreen
                   />
                 </div>
               </div>
-              <div className="lg:col-span-2 flex flex-col justify-center">
-                <div className="flex items-center gap-2 text-gold-400 text-xs font-bold uppercase tracking-wider mb-3">
-                  <Calendar size={14} />
+              <div className="lg:col-span-4 flex flex-col justify-center">
+                <div className="flex items-center gap-3 text-gold text-xs font-black uppercase tracking-[0.2em] mb-6">
+                  <Calendar size={16} />
                   {new Date(heroVideo.snippet.publishedAt).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
                 </div>
-                <h3 className="text-xl lg:text-2xl font-bold text-white mb-4">{heroVideo.snippet.title}</h3>
-                <p className="text-gray-400 mb-6 line-clamp-4 leading-relaxed">{heroVideo.snippet.description}</p>
-                <a href={"https://www.youtube.com/watch?v=" + (typeof heroVideo.id === "string" ? heroVideo.id : heroVideo.id.videoId)} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl transition-all w-max">
-                  Regarder <ExternalLink size={18} />
-                </a>
+                <h3 className="text-3xl lg:text-4xl font-black text-white mb-6 uppercase tracking-tighter leading-tight">{heroVideo.snippet.title}</h3>
+                <p className="text-gray-400 text-lg mb-10 line-clamp-6 leading-relaxed font-medium">{heroVideo.snippet.description}</p>
+                <div className="flex gap-4">
+                   <a href={"https://www.youtube.com/watch?v=" + (typeof heroVideo.id === "string" ? heroVideo.id : heroVideo.id.videoId)} target="_blank" rel="noopener noreferrer" className="flex-1 text-center py-4 bg-white/5 hover:bg-white/10 text-white font-black uppercase tracking-widest text-xs rounded-2xl transition-all border border-white/10">
+                    YouTube <ExternalLink size={16} className="inline ml-2" />
+                  </a>
+                </div>
               </div>
             </div>
           </section>
         )}
 
         <section>
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <div className="w-1 h-6 bg-gold-500 rounded-full" />
-              <h2 className="text-2xl font-cairo font-bold text-white">Videos Recentes</h2>
+          <div className="flex items-center justify-between mb-12">
+            <div className="flex items-center gap-4">
+               <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-red-500">
+                 <Youtube size={24} />
+               </div>
+               <h2 className="text-3xl lg:text-4xl font-black text-white uppercase tracking-tighter">Vidéos Récentes</h2>
             </div>
-            <a href={config.youtube_url} target="_blank" rel="noopener noreferrer" className="text-gold-400 text-sm hover:text-gold-300 flex items-center gap-1">
-              Voir tout <ExternalLink size={14} />
+            <a href={config.youtube_url} target="_blank" rel="noopener noreferrer" className="px-6 py-2 bg-white/5 hover:bg-white/10 text-gold font-black uppercase tracking-widest text-[10px] rounded-full transition-all border border-white/5">
+              Voir la chaîne
             </a>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {gridVideos.map((video, idx) => {
               const videoId = typeof video.id === "string" ? video.id : video.id.videoId;
               return (
-                <motion.div key={videoId} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.05 }} viewport={{ once: true }} className="group">
-                  <a href={"https://www.youtube.com/watch?v=" + videoId} target="_blank" rel="noopener noreferrer" className="block glass-card rounded-xl overflow-hidden hover:border-emerald-500/30 transition-all duration-500">
+                <motion.div 
+                  key={videoId} 
+                  initial={{ opacity: 0, y: 20 }} 
+                  whileInView={{ opacity: 1, y: 0 }} 
+                  transition={{ delay: idx * 0.05 }} 
+                  viewport={{ once: true }} 
+                  className="group"
+                >
+                  <a href={"https://www.youtube.com/watch?v=" + videoId} target="_blank" rel="noopener noreferrer" className="block glass-card rounded-[32px] overflow-hidden border-white/5 hover:border-gold/30 transition-all duration-500 shadow-xl">
                     <div className="aspect-video relative overflow-hidden">
-                      <img src={video.snippet.thumbnails.high.url} alt={video.snippet.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                      <div className="absolute inset-0 bg-night-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <div className="w-12 h-12 rounded-full bg-gold-500 text-night-900 flex items-center justify-center shadow-xl">
-                          <Play size={22} fill="currentColor" className="ml-0.5" />
+                      <img src={video.snippet.thumbnails.high.url} alt={video.snippet.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                      <div className="absolute inset-0 bg-night/60 opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-center justify-center backdrop-blur-sm">
+                        <div className="w-16 h-16 rounded-full bg-gold text-night flex items-center justify-center shadow-2xl scale-75 group-hover:scale-100 transition-transform duration-500">
+                          <Play size={28} fill="currentColor" className="ml-1" />
                         </div>
                       </div>
+                      <div className="absolute top-4 right-4 px-3 py-1 bg-night/80 backdrop-blur-md rounded-full border border-white/10">
+                         <span className="text-[8px] font-black text-gold uppercase tracking-[0.2em]">HD</span>
+                      </div>
                     </div>
-                    <div className="p-4">
-                      <div className="flex items-center gap-1 text-gray-500 text-[10px] font-bold uppercase mb-1">
-                        <Calendar size={10} />
+                    <div className="p-8">
+                      <div className="flex items-center gap-3 text-gray-500 text-[10px] font-black uppercase tracking-[0.2em] mb-4">
+                        <Sparkles size={12} className="text-gold" />
                         {new Date(video.snippet.publishedAt).toLocaleDateString("fr-FR", { month: "short", year: "numeric" })}
                       </div>
-                      <h4 className="font-bold text-white text-sm line-clamp-2 group-hover:text-gold-400 transition-colors">{video.snippet.title}</h4>
+                      <h4 className="text-xl font-black text-white leading-tight uppercase tracking-tight group-hover:text-gold transition-colors line-clamp-2">{video.snippet.title}</h4>
                     </div>
                   </a>
                 </motion.div>
@@ -204,3 +249,4 @@ export default function YouTube() {
     </div>
   );
 }
+
