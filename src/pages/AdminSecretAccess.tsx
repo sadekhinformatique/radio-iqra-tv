@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { supabase } from "../lib/supabase";
+import { motion, AnimatePresence } from "motion/react";
 import { Lock, User, LogIn, LayoutDashboard, Plus, Pencil, Trash2, X, Music, Save, Loader2, FileText, Image as ImageIcon, BookOpen, Volume2, Clock, CalendarRange, Mail, CheckCircle2 } from "lucide-react";
 
 interface Message {
@@ -59,7 +60,7 @@ export default function AdminSecretAccess() {
   const [error, setError] = useState<string | null>(null);
 
   // Tabs
-  const [activeTab, setActiveTab] = useState<"podcasts" | "articles" | "sourates" | "grille" | "config" | "messages">("podcasts");
+  const [activeTab, setActiveTab] = useState<"dashboard" | "podcasts" | "articles" | "sourates" | "grille" | "config" | "messages">("dashboard");
 
   // Dashboard State
   const [podcasts, setPodcasts] = useState<Podcast[]>([]);
@@ -113,12 +114,30 @@ export default function AdminSecretAccess() {
     telegram_url: "",
     twitter_url: "",
     instagram_url: "",
+    facebook_url: "",
+    youtube_url: "",
+    whatsapp_number: "",
+    telegram_url: "",
     footer_text: "",
     primary_color: "#2e7d32",
     secondary_color: "#D4AF37",
     radio_stream_url: "",
     youtube_api_key: "",
     use_modern_ui: false,
+    hero_title_1: "",
+    hero_title_2: "",
+    hero_subtitle: "",
+    hero_image_url: "",
+    donation_title: "",
+    donation_description: "",
+    donation_goal: 0,
+    donation_current: 0,
+    about_history: "",
+    about_mission: "",
+    about_vision: "",
+    prayer_location: "",
+    daily_quote: "",
+    daily_quote_author: "",
   });
 
   const [uploadFile, setUploadFile] = useState<File | null>(null);
@@ -126,29 +145,24 @@ export default function AdminSecretAccess() {
   const [statusMsg, setStatusMsg] = useState({ type: "", text: "" });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Protection noindex
   useEffect(() => {
     const meta = document.createElement("meta");
     meta.name = "robots";
     meta.content = "noindex, nofollow";
     document.head.appendChild(meta);
-    return () => {
-      document.head.removeChild(meta);
-    };
+    return () => { document.head.removeChild(meta); };
   }, []);
 
   useEffect(() => {
     if (!supabase) return;
     const checkSession = async () => {
-      const { data: { session } } = await supabase!.auth.getSession();
+      const { data: { session } } = await supabase.auth.getSession();
       setUser(session?.user ?? null);
     };
     checkSession();
-
-    const { data: { subscription } } = supabase!.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
     });
-
     return () => subscription.unsubscribe();
   }, []);
 
@@ -164,125 +178,47 @@ export default function AdminSecretAccess() {
   }, [user, activeTab]);
 
   const fetchMessages = async () => {
-    const { data, error } = await supabase
-      .from('contact_messages')
-      .select('*')
-      .order('created_at', { ascending: false });
-    
-    if (error) {
-      console.error("Error fetching messages:", error);
-    } else {
-      setMessages(data || []);
-    }
+    const { data, error } = await supabase.from('contact_messages').select('*').order('created_at', { ascending: false });
+    if (!error) setMessages(data || []);
   };
 
   const markMessageAsRead = async (id: string) => {
-    const { error } = await supabase
-      .from('contact_messages')
-      .update({ is_read: true })
-      .eq('id', id);
-    
-    if (!error) {
-      fetchMessages();
-    }
+    const { error } = await supabase.from('contact_messages').update({ is_read: true }).eq('id', id);
+    if (!error) fetchMessages();
   };
 
   const deleteMessage = async (id: string) => {
     if (!window.confirm("Supprimer ce message ?")) return;
-    const { error } = await supabase
-      .from('contact_messages')
-      .delete()
-      .eq('id', id);
-    
-    if (!error) {
-      fetchMessages();
-    }
+    const { error } = await supabase.from('contact_messages').delete().eq('id', id);
+    if (!error) fetchMessages();
   };
 
   const fetchConfig = async () => {
-    const { data, error } = await supabase
-      .from('site_config')
-      .select('*')
-      .eq('id', 1)
-      .single();
-    
-    if (error) {
-      console.error("Error fetching config:", error);
-    } else if (data) {
+    const { data, error } = await supabase.from('site_config').select('*').eq('id', 1).single();
+    if (!error && data) {
       setSiteConfig(data);
-      setConfigFormData({
-        site_name: data.site_name || "",
-        primary_phone: data.primary_phone || "",
-        secondary_phone: data.secondary_phone || "",
-        email: data.email || "",
-        address: data.address || "",
-        facebook_url: data.facebook_url || "",
-        youtube_url: data.youtube_url || "",
-        whatsapp_number: data.whatsapp_number || "",
-        telegram_url: data.telegram_url || "",
-        twitter_url: data.twitter_url || "",
-        instagram_url: data.instagram_url || "",
-        footer_text: data.footer_text || "",
-        primary_color: data.primary_color || "#2e7d32",
-        secondary_color: data.secondary_color || "#D4AF37",
-        radio_stream_url: data.radio_stream_url || "",
-        youtube_api_key: data.youtube_api_key || "",
-        use_modern_ui: data.use_modern_ui || false,
-      });
+      setConfigFormData({ ...data });
     }
   };
 
   const fetchPodcasts = async () => {
-    const { data, error } = await supabase
-      .from('podcasts')
-      .select('*')
-      .order('date', { ascending: false });
-    
-    if (error) {
-      console.error("Error fetching podcasts:", error);
-    } else {
-      setPodcasts(data || []);
-    }
+    const { data, error } = await supabase.from('podcasts').select('*').order('date', { ascending: false });
+    if (!error) setPodcasts(data || []);
   };
 
   const fetchArticles = async () => {
-    const { data, error } = await supabase
-      .from('articles')
-      .select('*')
-      .order('date', { ascending: false });
-    
-    if (error) {
-      console.error("Error fetching articles:", error);
-    } else {
-      setArticles(data || []);
-    }
+    const { data, error } = await supabase.from('articles').select('*').order('date', { ascending: false });
+    if (!error) setArticles(data || []);
   };
 
   const fetchSourates = async () => {
-    const { data, error } = await supabase
-      .from('sourates')
-      .select('*')
-      .order('number', { ascending: true });
-    
-    if (error) {
-      console.error("Error fetching sourates:", error);
-    } else {
-      setSourates(data || []);
-    }
+    const { data, error } = await supabase.from('sourates').select('*').order('number', { ascending: true });
+    if (!error) setSourates(data || []);
   };
 
   const fetchGrille = async () => {
-    const { data, error } = await supabase
-      .from('grille')
-      .select('*')
-      .order('day', { ascending: true })
-      .order('start_time', { ascending: true });
-    
-    if (error) {
-      console.error("Error fetching grille:", error);
-    } else {
-      setGrilleItems(data || []);
-    }
+    const { data, error } = await supabase.from('grille').select('*').order('day', { ascending: true }).order('start_time', { ascending: true });
+    if (!error) setGrilleItems(data || []);
   };
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -290,1031 +226,568 @@ export default function AdminSecretAccess() {
     setLoading(true);
     setError(null);
     try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+      const { error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) throw error;
     } catch (err: any) {
-      setError(err.message || "Une erreur est survenue lors de la connexion");
+      setError(err.message || "Erreur de connexion");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleLogout = async () => {
-    await supabase.auth.signOut();
-  };
-
   const resetForm = () => {
-    setPodcastFormData({
-      title: "",
-      category: "Prêche",
-      date: new Date().toISOString().split('T')[0],
-      duration: "",
-    });
-    setArticleFormData({
-      title: "",
-      content: "",
-      date: new Date().toISOString().split('T')[0],
-    });
-    setSourateFormData({
-      number: sourates.length + 1,
-      name_ar: "",
-      name_fr: "",
-      text_ar: "",
-      translation_fr: "",
-    });
-    setGrilleFormData({
-      day: "Lundi",
-      start_time: "08:00",
-      end_time: "09:00",
-      title: "",
-      description: "",
-    });
+    setPodcastFormData({ title: "", category: "Prêche", date: new Date().toISOString().split('T')[0], duration: "" });
+    setArticleFormData({ title: "", content: "", date: new Date().toISOString().split('T')[0] });
+    setSourateFormData({ number: sourates.length + 1, name_ar: "", name_fr: "", text_ar: "", translation_fr: "" });
+    setGrilleFormData({ day: "Lundi", start_time: "08:00", end_time: "09:00", title: "", description: "" });
     setUploadFile(null);
     setEditingId(null);
     setIsFormOpen(false);
     if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
-  const handleEditPodcast = (podcast: Podcast) => {
-    setPodcastFormData({
-      title: podcast.title || "",
-      category: podcast.category || "Prêche",
-      date: podcast.date || new Date().toISOString().split('T')[0],
-      duration: podcast.duration || "",
-    });
-    setEditingId(podcast.id);
-    setIsFormOpen(true);
-  };
+  const handleEditPodcast = (p: Podcast) => { setPodcastFormData({ title: p.title, category: p.category, date: p.date, duration: p.duration }); setEditingId(p.id); setIsFormOpen(true); };
+  const handleEditArticle = (a: Article) => { setArticleFormData({ title: a.title, content: a.content, date: a.date }); setEditingId(a.id); setIsFormOpen(true); };
+  const handleEditSourate = (s: Sourate) => { setSourateFormData({ number: s.number, name_ar: s.name_ar, name_fr: s.name_fr, text_ar: s.text_ar, translation_fr: s.translation_fr }); setEditingId(s.id); setIsFormOpen(true); };
+  const handleEditGrille = (i: GrilleItem) => { setGrilleFormData({ day: i.day, start_time: i.start_time, end_time: i.end_time, title: i.title, description: i.description }); setEditingId(i.id); setIsFormOpen(true); };
 
-  const handleEditArticle = (article: Article) => {
-    setArticleFormData({
-      title: article.title || "",
-      content: article.content || "",
-      date: article.date || new Date().toISOString().split('T')[0],
-    });
-    setEditingId(article.id);
-    setIsFormOpen(true);
-  };
-
-  const handleEditSourate = (sourate: Sourate) => {
-    setSourateFormData({
-      number: sourate.number,
-      name_ar: sourate.name_ar || "",
-      name_fr: sourate.name_fr || "",
-      text_ar: sourate.text_ar || "",
-      translation_fr: sourate.translation_fr || "",
-    });
-    setEditingId(sourate.id);
-    setIsFormOpen(true);
-  };
-
-  const handleEditGrille = (item: GrilleItem) => {
-    setGrilleFormData({
-      day: item.day || "Lundi",
-      start_time: item.start_time || "08:00",
-      end_time: item.end_time || "09:00",
-      title: item.title || "",
-      description: item.description || "",
-    });
-    setEditingId(item.id);
-    setIsFormOpen(true);
-  };
-
-  const handleDeletePodcast = async (podcast: Podcast) => {
-    if (!window.confirm(`Supprimer le podcast "${podcast.title}" ?`)) return;
-
+  const handleDeletePodcast = async (p: Podcast) => {
+    if (!window.confirm("Supprimer ce podcast ?")) return;
     try {
-      if (podcast.audio_url.includes('podcasts-audio')) {
-        const parts = podcast.audio_url.split('/');
-        const filePath = parts[parts.length - 1];
-        if (filePath) {
-          await supabase.storage.from('podcasts-audio').remove([filePath]);
-        }
-      }
-
-      const { error } = await supabase.from('podcasts').delete().eq('id', podcast.id);
+      const { error } = await supabase.from('podcasts').delete().eq('id', p.id);
       if (error) throw error;
-
-      setStatusMsg({ type: "success", text: "Podcast supprimé avec succès" });
       fetchPodcasts();
-    } catch (err: any) {
-      setStatusMsg({ type: "error", text: "Erreur lors de la suppression: " + err.message });
-    }
+    } catch (err: any) { setStatusMsg({ type: "error", text: err.message }); }
   };
 
-  const handleDeleteArticle = async (article: Article) => {
-    if (!window.confirm(`Supprimer l'article "${article.title}" ?`)) return;
-
+  const handleDeleteArticle = async (a: Article) => {
+    if (!window.confirm("Supprimer cet article ?")) return;
     try {
-      if (article.image_url.includes('articles-images')) {
-        const parts = article.image_url.split('/');
-        const filePath = parts[parts.length - 1];
-        if (filePath) {
-          await supabase.storage.from('articles-images').remove([filePath]);
-        }
-      }
-
-      const { error } = await supabase.from('articles').delete().eq('id', article.id);
+      const { error } = await supabase.from('articles').delete().eq('id', a.id);
       if (error) throw error;
-
-      setStatusMsg({ type: "success", text: "Article supprimé avec succès" });
       fetchArticles();
-    } catch (err: any) {
-      setStatusMsg({ type: "error", text: "Erreur lors de la suppression: " + err.message });
-    }
+    } catch (err: any) { setStatusMsg({ type: "error", text: err.message }); }
   };
 
-  const handleDeleteSourate = async (sourate: Sourate) => {
-    if (!window.confirm(`Supprimer la sourate "${sourate.name_fr}" ?`)) return;
-
+  const handleDeleteSourate = async (s: Sourate) => {
+    if (!window.confirm("Supprimer cette sourate ?")) return;
     try {
-      if (sourate.audio_url && sourate.audio_url.includes('sourates-audio')) {
-        const parts = sourate.audio_url.split('/');
-        const filePath = parts[parts.length - 1];
-        if (filePath) {
-          await supabase.storage.from('sourates-audio').remove([filePath]);
-        }
-      }
-
-      const { error } = await supabase.from('sourates').delete().eq('id', sourate.id);
+      const { error } = await supabase.from('sourates').delete().eq('id', s.id);
       if (error) throw error;
-
-      setStatusMsg({ type: "success", text: "Sourate supprimée avec succès" });
       fetchSourates();
-    } catch (err: any) {
-      setStatusMsg({ type: "error", text: "Erreur lors de la suppression: " + err.message });
-    }
+    } catch (err: any) { setStatusMsg({ type: "error", text: err.message }); }
   };
 
-  const handleDeleteGrille = async (item: GrilleItem) => {
-    if (!window.confirm(`Supprimer l'émission "${item.title}" ?`)) return;
-
+  const handleDeleteGrille = async (i: GrilleItem) => {
+    if (!window.confirm("Supprimer cette émission ?")) return;
     try {
-      const { error } = await supabase.from('grille').delete().eq('id', item.id);
+      const { error } = await supabase.from('grille').delete().eq('id', i.id);
       if (error) throw error;
-      setStatusMsg({ type: "success", text: "Émission supprimée" });
       fetchGrille();
-    } catch (err: any) {
-      setStatusMsg({ type: "error", text: "Erreur: " + err.message });
-    }
+    } catch (err: any) { setStatusMsg({ type: "error", text: err.message }); }
   };
 
   const handlePodcastSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormLoading(true);
-    setStatusMsg({ type: "", text: "" });
-
     try {
-      let audioUrl = "";
+      let audio_url = "";
       if (uploadFile) {
-        const fileExt = uploadFile.name.split('.').pop();
-        const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
-        const { error: uploadError } = await supabase.storage
-          .from('podcasts-audio')
-          .upload(fileName, uploadFile);
+        const path = `podcasts/${Date.now()}-${uploadFile.name}`;
+        const { error: uploadError } = await supabase.storage.from('podcasts-audio').upload(path, uploadFile);
         if (uploadError) throw uploadError;
-        const { data: { publicUrl } } = supabase.storage.from('podcasts-audio').getPublicUrl(fileName);
-        audioUrl = publicUrl;
+        const { data: { publicUrl } } = supabase.storage.from('podcasts-audio').getPublicUrl(path);
+        audio_url = publicUrl;
       }
-
       if (editingId) {
-        const updateData: any = { ...podcastFormData };
-        if (audioUrl) updateData.audio_url = audioUrl;
-        const { error } = await supabase.from('podcasts').update(updateData).eq('id', editingId);
-        if (error) throw error;
-        setStatusMsg({ type: "success", text: "Podcast mis à jour !" });
+        const data = audio_url ? { ...podcastFormData, audio_url } : podcastFormData;
+        await supabase.from('podcasts').update(data).eq('id', editingId);
       } else {
-        if (!audioUrl) throw new Error("Un fichier MP3 est requis");
-        const { error } = await supabase.from('podcasts').insert([{ ...podcastFormData, audio_url: audioUrl }]);
-        if (error) throw error;
-        setStatusMsg({ type: "success", text: "Podcast ajouté !" });
+        await supabase.from('podcasts').insert([{ ...podcastFormData, audio_url: audio_url || "" }]);
       }
       resetForm();
       fetchPodcasts();
-    } catch (err: any) {
-      setStatusMsg({ type: "error", text: "Erreur: " + err.message });
-    } finally {
-      setFormLoading(false);
-    }
+    } catch (err: any) { setStatusMsg({ type: "error", text: err.message }); } finally { setFormLoading(false); }
   };
 
   const handleArticleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormLoading(true);
-    setStatusMsg({ type: "", text: "" });
-
     try {
-      let imageUrl = "";
+      let image_url = "";
       if (uploadFile) {
-        const fileExt = uploadFile.name.split('.').pop();
-        const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
-        const { error: uploadError } = await supabase.storage
-          .from('articles-images')
-          .upload(fileName, uploadFile);
+        const path = `articles/${Date.now()}-${uploadFile.name}`;
+        const { error: uploadError } = await supabase.storage.from('articles-images').upload(path, uploadFile);
         if (uploadError) throw uploadError;
-        const { data: { publicUrl } } = supabase.storage.from('articles-images').getPublicUrl(fileName);
-        imageUrl = publicUrl;
+        const { data: { publicUrl } } = supabase.storage.from('articles-images').getPublicUrl(path);
+        image_url = publicUrl;
       }
-
       if (editingId) {
-        const updateData: any = { ...articleFormData };
-        if (imageUrl) updateData.image_url = imageUrl;
-        const { error } = await supabase.from('articles').update(updateData).eq('id', editingId);
-        if (error) throw error;
-        setStatusMsg({ type: "success", text: "Article mis à jour !" });
+        const data = image_url ? { ...articleFormData, image_url } : articleFormData;
+        await supabase.from('articles').update(data).eq('id', editingId);
       } else {
-        if (!imageUrl) throw new Error("Une image est requise");
-        const { error } = await supabase.from('articles').insert([{ ...articleFormData, image_url: imageUrl }]);
-        if (error) throw error;
-        setStatusMsg({ type: "success", text: "Article ajouté !" });
+        await supabase.from('articles').insert([{ ...articleFormData, image_url: image_url || "" }]);
       }
       resetForm();
       fetchArticles();
-    } catch (err: any) {
-      setStatusMsg({ type: "error", text: "Erreur: " + err.message });
-    } finally {
-      setFormLoading(false);
-    }
+    } catch (err: any) { setStatusMsg({ type: "error", text: err.message }); } finally { setFormLoading(false); }
   };
 
   const handleSourateSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormLoading(true);
-    setStatusMsg({ type: "", text: "" });
-
     try {
-      let audioUrl = "";
-      if (uploadFile) {
-        const fileExt = uploadFile.name.split('.').pop();
-        const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
-        const { error: uploadError } = await supabase.storage
-          .from('sourates-audio')
-          .upload(fileName, uploadFile);
-        if (uploadError) throw uploadError;
-        const { data: { publicUrl } } = supabase.storage.from('sourates-audio').getPublicUrl(fileName);
-        audioUrl = publicUrl;
-      }
-
-      if (editingId) {
-        const updateData: any = { ...sourateFormData };
-        if (audioUrl) updateData.audio_url = audioUrl;
-        const { error } = await supabase.from('sourates').update(updateData).eq('id', editingId);
-        if (error) throw error;
-        setStatusMsg({ type: "success", text: "Sourate mise à jour !" });
-      } else {
-        const { error } = await supabase.from('sourates').insert([{ ...sourateFormData, audio_url: audioUrl || "" }]);
-        if (error) throw error;
-        setStatusMsg({ type: "success", text: "Sourate ajoutée !" });
-      }
+      if (editingId) await supabase.from('sourates').update(sourateFormData).eq('id', editingId);
+      else await supabase.from('sourates').insert([sourateFormData]);
       resetForm();
       fetchSourates();
-    } catch (err: any) {
-      setStatusMsg({ type: "error", text: "Erreur: " + err.message });
-    } finally {
-      setFormLoading(false);
-    }
+    } catch (err: any) { setStatusMsg({ type: "error", text: err.message }); } finally { setFormLoading(false); }
   };
 
   const handleGrilleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormLoading(true);
-    setStatusMsg({ type: "", text: "" });
-
     try {
-      if (editingId) {
-        const { error } = await supabase.from('grille').update(grilleFormData).eq('id', editingId);
-        if (error) throw error;
-        setStatusMsg({ type: "success", text: "Grille mise à jour !" });
-      } else {
-        const { error } = await supabase.from('grille').insert([grilleFormData]);
-        if (error) throw error;
-        setStatusMsg({ type: "success", text: "Émission ajoutée !" });
-      }
+      if (editingId) await supabase.from('grille').update(grilleFormData).eq('id', editingId);
+      else await supabase.from('grille').insert([grilleFormData]);
       resetForm();
       fetchGrille();
-    } catch (err: any) {
-      setStatusMsg({ type: "error", text: "Erreur: " + err.message });
-    } finally {
-      setFormLoading(false);
-    }
+    } catch (err: any) { setStatusMsg({ type: "error", text: err.message }); } finally { setFormLoading(false); }
   };
 
   const handleConfigSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormLoading(true);
-    setStatusMsg({ type: "", text: "" });
-
     try {
-      const updateData = { ...configFormData, updated_at: new Date().toISOString() };
-      
-      const { error } = await supabase
-        .from('site_config')
-        .update(updateData)
-        .eq('id', 1);
-
-      if (error) throw error;
-      
-      setStatusMsg({ type: "success", text: "Configuration enregistrée !" });
+      await supabase.from('site_config').update(configFormData).eq('id', 1);
       fetchConfig();
-    } catch (err: any) {
-      setStatusMsg({ type: "error", text: "Erreur: " + err.message });
-    } finally {
-      setFormLoading(false);
-    }
+      setStatusMsg({ type: "success", text: "Configuration sauvegardée" });
+    } catch (err: any) { setStatusMsg({ type: "error", text: err.message }); } finally { setFormLoading(false); }
   };
 
   const handleAssetUpload = async (file: File, type: 'logos' | 'favicons') => {
-    if (!file) return;
     setFormLoading(true);
-    setStatusMsg({ type: "", text: "" });
-
     try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${type}-${Date.now()}.${fileExt}`;
-      const filePath = `${type}/${fileName}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from('site-assets')
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage.from('site-assets').getPublicUrl(filePath);
-      
-      const updateKey = type === 'logos' ? 'logo_url' : 'favicon_url';
-      const { error: dbError } = await supabase
-        .from('site_config')
-        .update({ [updateKey]: publicUrl })
-        .eq('id', 1);
-
-      if (dbError) throw dbError;
-
-      setStatusMsg({ type: "success", text: `${type === 'logos' ? 'Logo' : 'Favicon'} mis à jour !` });
+      const path = `${type}/${Date.now()}-${file.name}`;
+      await supabase.storage.from('site-assets').upload(path, file);
+      const { data: { publicUrl } } = supabase.storage.from('site-assets').getPublicUrl(path);
+      const key = type === 'logos' ? 'logo_url' : 'favicon_url';
+      await supabase.from('site_config').update({ [key]: publicUrl }).eq('id', 1);
       fetchConfig();
-    } catch (err: any) {
-      setStatusMsg({ type: "error", text: "Erreur upload: " + err.message });
-    } finally {
-      setFormLoading(false);
-    }
+    } catch (err: any) { setStatusMsg({ type: "error", text: err.message }); } finally { setFormLoading(false); }
   };
 
-  if (user) {
+  if (!user) {
     return (
-      <div className="min-h-screen bg-[#0B0F19] flex flex-col p-4 md:p-8">
-        <header className="max-w-6xl w-full mx-auto flex flex-col md:flex-row justify-between items-center mb-6 gap-6">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-[#D4AF37]/10 text-[#D4AF37] rounded-2xl flex items-center justify-center shadow-sm">
-              <LayoutDashboard size={24} />
-            </div>
-            <div>
-              <h1 className="text-3xl font-['Cairo'] font-bold text-white">Dashboard Admin</h1>
-              <p className="text-gray-500 text-sm font-['Inter']">{user.email}</p>
-            </div>
+      <div className="min-h-screen bg-[#070A11] flex items-center justify-center p-4 relative overflow-hidden">
+        <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-[#0F5132]/10 blur-[150px] rounded-full" />
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="w-full max-w-md relative z-10">
+          <div className="text-center mb-10">
+             <div className="w-20 h-20 bg-gradient-to-br from-[#0F5132] to-[#D4AF37] rounded-[28px] mx-auto flex items-center justify-center shadow-3xl mb-6">
+                <Lock size={32} className="text-white" />
+             </div>
+             <h1 className="text-3xl font-black text-white uppercase tracking-tighter">Admin Portal</h1>
           </div>
-          <div className="flex items-center gap-4">
-            {activeTab !== "config" && activeTab !== "messages" && (
-              <button 
-                onClick={() => setIsFormOpen(true)}
-                className="px-6 py-3 bg-[#D4AF37] text-[#0B0F19] font-bold rounded-2xl flex items-center gap-2 hover:scale-105 transition-all shadow-lg text-sm"
-              >
-                <Plus size={18} /> Nouveau {activeTab === "podcasts" ? "Podcast" : activeTab === "articles" ? "Article" : activeTab === "sourates" ? "Sourate" : "Émission"}
-              </button>
-            )}
-            <button 
-              onClick={handleLogout}
-              className="px-4 py-2 text-gray-500 hover:text-red-400 font-bold uppercase tracking-widest text-[10px] transition-colors"
-            >
-              Déconnexion
-            </button>
-          </div>
-        </header>
-
-        {/* Tab Navigation */}
-        <div className="max-w-6xl w-full mx-auto flex border-b border-white/10 mb-8 overflow-x-auto">
-          <button 
-            onClick={() => setActiveTab("podcasts")}
-            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 shrink-0 ${
-              activeTab === "podcasts" ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-300"
-            }`}
-          >
-            <div className="flex items-center gap-2">
-              <Music size={16} /> Podcasts
-            </div>
-          </button>
-          <button 
-            onClick={() => setActiveTab("articles")}
-            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 shrink-0 ${
-              activeTab === "articles" ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-300"
-            }`}
-          >
-            <div className="flex items-center gap-2">
-              <FileText size={16} /> Articles (Conseils)
-            </div>
-          </button>
-          <button 
-            onClick={() => setActiveTab("sourates")}
-            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 shrink-0 ${
-              activeTab === "sourates" ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-300"
-            }`}
-          >
-            <div className="flex items-center gap-2">
-              <BookOpen size={16} /> Coran
-            </div>
-          </button>
-          <button 
-            onClick={() => setActiveTab("grille")}
-            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 shrink-0 ${
-              activeTab === "grille" ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-300"
-            }`}
-          >
-            <div className="flex items-center gap-2">
-              <CalendarRange size={16} /> Grille
-            </div>
-          </button>
-          <button 
-            onClick={() => setActiveTab("config")}
-            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 shrink-0 ${
-              activeTab === "config" ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-300"
-            }`}
-          >
-            <div className="flex items-center gap-2">
-              <Clock size={16} /> Configuration
-            </div>
-          </button>
-          <button 
-            onClick={() => setActiveTab("messages")}
-            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 shrink-0 ${
-              activeTab === "messages" ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-300"
-            }`}
-          >
-            <div className="flex items-center gap-2">
-              <Mail size={16} /> Messages
-              {messages.filter(m => !m.is_read).length > 0 && (
-                <span className="bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full ml-1 animate-pulse">
-                  {messages.filter(m => !m.is_read).length}
-                </span>
-              )}
-            </div>
-          </button>
-        </div>
-
-        <main className="max-w-6xl w-full mx-auto flex-grow">
-          {statusMsg.text && (
-            <div className={`mb-8 p-4 rounded-2xl text-sm font-bold text-center border backdrop-blur-xl ${
-              statusMsg.type === "success" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" : "bg-red-500/10 text-red-400 border-red-500/20"
-            }`}>
-              {statusMsg.text}
-            </div>
-          )}
-
-          {activeTab === "podcasts" ? (
-            <div className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-xl overflow-hidden border border-white/10">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left">
-                  <thead className="bg-white/5">
-                    <tr>
-                      <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Podcast</th>
-                      <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Catégorie</th>
-                      <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Date</th>
-                      <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/5 font-medium text-gray-300">
-                    {podcasts.map(podcast => (
-                      <tr key={podcast.id} className="hover:bg-white/5 transition-colors">
-                        <td className="px-8 py-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-emerald-500/10 text-emerald-400 rounded-lg flex items-center justify-center">
-                              <Music size={14} />
-                            </div>
-                            <span className="text-white font-bold text-sm truncate max-w-[200px]">{podcast.title}</span>
-                          </div>
-                        </td>
-                        <td className="px-8 py-4">
-                          <span className="px-2 py-1 bg-white/5 rounded-md text-[10px] font-bold text-gray-400 uppercase">{podcast.category}</span>
-                        </td>
-                        <td className="px-8 py-4 text-xs font-mono text-gray-400">{podcast.date}</td>
-                        <td className="px-8 py-4 text-right">
-                          <div className="flex items-center justify-end gap-2">
-                            <button onClick={() => handleEditPodcast(podcast)} className="p-2 text-gray-500 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-all">
-                              <Pencil size={18} />
-                            </button>
-                            <button onClick={() => handleDeletePodcast(podcast)} className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all">
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          ) : activeTab === "articles" ? (
-            <div className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-xl overflow-hidden border border-white/10">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left">
-                  <thead className="bg-white/5">
-                    <tr>
-                      <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Article</th>
-                      <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Date</th>
-                      <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/5 font-medium text-gray-300">
-                    {articles.map(article => (
-                      <tr key={article.id} className="hover:bg-white/5 transition-colors">
-                        <td className="px-8 py-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-white/10">
-                              <img src={article.image_url} alt="" className="w-full h-full object-cover" />
-                            </div>
-                            <span className="text-white font-bold text-sm truncate max-w-[200px]">{article.title}</span>
-                          </div>
-                        </td>
-                        <td className="px-8 py-4 text-xs font-mono text-gray-400">{article.date}</td>
-                        <td className="px-8 py-4 text-right">
-                          <div className="flex items-center justify-end gap-2">
-                            <button onClick={() => handleEditArticle(article)} className="p-2 text-gray-500 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-all">
-                              <Pencil size={18} />
-                            </button>
-                            <button onClick={() => handleDeleteArticle(article)} className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all">
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          ) : activeTab === "sourates" ? (
-            <div className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-xl overflow-hidden border border-white/10">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left">
-                  <thead className="bg-white/5">
-                    <tr>
-                      <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Sourate</th>
-                      <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">N°</th>
-                      <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/5 font-medium text-gray-300">
-                    {sourates.map(sourate => (
-                      <tr key={sourate.id} className="hover:bg-white/5 transition-colors">
-                        <td className="px-8 py-4">
-                          <div className="flex flex-col">
-                            <span className="text-white font-bold text-sm">{sourate.name_fr}</span>
-                            <span className="text-xs text-gray-500 font-serif" dir="rtl">{sourate.name_ar}</span>
-                          </div>
-                        </td>
-                        <td className="px-8 py-4 text-xs font-mono text-gray-400">{sourate.number}</td>
-                        <td className="px-8 py-4 text-right">
-                          <div className="flex items-center justify-end gap-2">
-                            <button onClick={() => handleEditSourate(sourate)} className="p-2 text-gray-500 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-all">
-                              <Pencil size={18} />
-                            </button>
-                            <button onClick={() => handleDeleteSourate(sourate)} className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all">
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          ) : activeTab === "config" ? (
-            <div className="space-y-8 animate-in fade-in duration-500">
-              {/* Assets Section */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-white/5 backdrop-blur-xl p-8 rounded-3xl shadow-xl border border-white/10 flex flex-col items-center gap-6">
-                   <h3 className="text-xl font-['Cairo'] font-bold text-white">Logo du site</h3>
-                   <div className="w-48 h-48 bg-white/5 rounded-2xl flex items-center justify-center border-2 border-dashed border-white/10 overflow-hidden">
-                      {siteConfig?.logo_url ? (
-                        <img src={siteConfig.logo_url} alt="Logo" className="max-w-full max-h-full object-contain" />
-                      ) : (
-                        <ImageIcon size={48} className="text-gray-600" />
-                      )}
-                   </div>
-                   <input 
-                    type="file" 
-                    accept="image/*" 
-                    onChange={e => e.target.files?.[0] && handleAssetUpload(e.target.files[0], 'logos')}
-                    className="hidden" 
-                    id="logo-upload" 
-                   />
-                   <label htmlFor="logo-upload" className="px-6 py-2 bg-[#D4AF37] text-[#0B0F19] font-bold rounded-xl cursor-pointer hover:bg-[#D4AF37]/80 transition-colors text-sm">
-                     {formLoading ? "Chargement..." : "Changer le logo"}
-                   </label>
-                </div>
-
-                <div className="bg-white/5 backdrop-blur-xl p-8 rounded-3xl shadow-xl border border-white/10 flex flex-col items-center gap-6">
-                   <h3 className="text-xl font-['Cairo'] font-bold text-white">Favicon</h3>
-                   <div className="w-24 h-24 bg-white/5 rounded-2xl flex items-center justify-center border-2 border-dashed border-white/10 overflow-hidden">
-                      {siteConfig?.favicon_url ? (
-                        <img src={siteConfig.favicon_url} alt="Favicon" className="w-12 h-12 object-contain" />
-                      ) : (
-                        <ImageIcon size={24} className="text-gray-600" />
-                      )}
-                   </div>
-                   <input 
-                    type="file" 
-                    accept="image/x-icon,image/png,image/svg+xml" 
-                    onChange={e => e.target.files?.[0] && handleAssetUpload(e.target.files[0], 'favicons')}
-                    className="hidden" 
-                    id="favicon-upload" 
-                   />
-                   <label htmlFor="favicon-upload" className="px-6 py-2 bg-[#D4AF37] text-[#0B0F19] font-bold rounded-xl cursor-pointer hover:bg-[#D4AF37]/80 transition-colors text-sm">
-                     {formLoading ? "Chargement..." : "Changer le favicon"}
-                   </label>
-                </div>
-              </div>
-
-              {/* Main Config Form */}
-              <div className="bg-white/5 backdrop-blur-xl p-8 rounded-3xl shadow-xl border border-white/10">
-                <form onSubmit={handleConfigSubmit} className="space-y-8">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    {/* General Info */}
-                    <div className="md:col-span-2">
-                       <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-widest mb-4 border-l-4 border-[#D4AF37] pl-4">Informations Générales</h3>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Nom du site</label>
-                      <input type="text" value={configFormData.site_name} onChange={e => setConfigFormData({...configFormData, site_name: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Stream Radio URL</label>
-                      <input type="text" value={configFormData.radio_stream_url} onChange={e => setConfigFormData({...configFormData, radio_stream_url: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Couleur Primaire</label>
-                      <div className="flex gap-4">
-                        <input type="color" value={configFormData.primary_color} onChange={e => setConfigFormData({...configFormData, primary_color: e.target.value})} className="w-12 h-12 rounded-lg cursor-pointer border-none bg-transparent" />
-                        <input type="text" value={configFormData.primary_color} onChange={e => setConfigFormData({...configFormData, primary_color: e.target.value})} className="flex-grow bg-white/5 border border-white/10 rounded-2xl px-4 text-xs font-mono text-white" />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Couleur Secondaire</label>
-                      <div className="flex gap-4">
-                        <input type="color" value={configFormData.secondary_color} onChange={e => setConfigFormData({...configFormData, secondary_color: e.target.value})} className="w-12 h-12 rounded-lg cursor-pointer border-none bg-transparent" />
-                        <input type="text" value={configFormData.secondary_color} onChange={e => setConfigFormData({...configFormData, secondary_color: e.target.value})} className="flex-grow bg-white/5 border border-white/10 rounded-2xl px-4 text-xs font-mono text-white" />
-                      </div>
-                    </div>
-
-                    {/* Contact Info */}
-                    <div className="md:col-span-2 pt-4">
-                       <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-widest mb-4 border-l-4 border-[#D4AF37] pl-4">Coordonnées</h3>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Téléphone Principal</label>
-                      <input type="text" value={configFormData.primary_phone} onChange={e => setConfigFormData({...configFormData, primary_phone: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Téléphone Secondaire</label>
-                      <input type="text" value={configFormData.secondary_phone} onChange={e => setConfigFormData({...configFormData, secondary_phone: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Email</label>
-                      <input type="email" value={configFormData.email} onChange={e => setConfigFormData({...configFormData, email: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Adresse Physique</label>
-                      <input type="text" value={configFormData.address} onChange={e => setConfigFormData({...configFormData, address: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                    </div>
-
-                    {/* Social networks */}
-                    <div className="md:col-span-2 pt-4">
-                       <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-widest mb-4 border-l-4 border-[#D4AF37] pl-4">Réseaux Sociaux</h3>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Facebook URL</label>
-                      <input type="text" value={configFormData.facebook_url} onChange={e => setConfigFormData({...configFormData, facebook_url: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">YouTube URL</label>
-                      <input type="text" value={configFormData.youtube_url} onChange={e => setConfigFormData({...configFormData, youtube_url: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">WhatsApp (Numéro)</label>
-                      <input type="text" value={configFormData.whatsapp_number} onChange={e => setConfigFormData({...configFormData, whatsapp_number: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Telegram URL</label>
-                      <input type="text" value={configFormData.telegram_url} onChange={e => setConfigFormData({...configFormData, telegram_url: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">YouTube API Key (v3)</label>
-                      <input type="password" value={configFormData.youtube_api_key} onChange={e => setConfigFormData({...configFormData, youtube_api_key: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                    </div>
-
-                    {/* Theme & UI Options */}
-                    <div className="md:col-span-2 pt-4">
-                       <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-widest mb-4 border-l-4 border-[#D4AF37] pl-4">Apparence (Nouveau Design)</h3>
-                    </div>
-                    <div className="md:col-span-2 space-y-2">
-                       <label className="flex items-center gap-4 cursor-pointer">
-                         <div className={`w-14 h-8 rounded-full p-1 transition-colors ${configFormData.use_modern_ui ? 'bg-emerald-500' : 'bg-white/10'}`}>
-                           <div className={`w-6 h-6 bg-white rounded-full transition-transform shadow-sm ${configFormData.use_modern_ui ? 'translate-x-6' : 'translate-x-0'}`} />
-                         </div>
-                         <input 
-                           type="checkbox" 
-                           className="hidden" 
-                           checked={configFormData.use_modern_ui} 
-                           onChange={(e) => setConfigFormData({...configFormData, use_modern_ui: e.target.checked})} 
-                         />
-                         <div>
-                           <span className="font-bold text-gray-200 block text-sm">Activer le Nouveau Design du Lecteur (Option 1 & 2 & 3)</span>
-                           <span className="text-xs text-gray-500">Si activé, le bouton Play/Pause et l'interface du lecteur utiliseront les nouvelles propriétés Tailwind (Glassmorphism, glow effect, etc.).</span>
-                         </div>
-                       </label>
-                    </div>
-
-                    {/* Footer */}
-                    <div className="md:col-span-2 pt-4">
-                       <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-widest mb-4 border-l-4 border-[#D4AF37] pl-4">Pied de page</h3>
-                    </div>
-                    <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Texte du footer</label>
-                      <textarea rows={4} value={configFormData.footer_text} onChange={e => setConfigFormData({...configFormData, footer_text: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all resize-none placeholder-gray-600" />
-                    </div>
-                  </div>
-
-                  <div className="flex justify-end gap-4 p-4 bg-white/5 rounded-3xl">
-                     <button type="submit" disabled={formLoading} className="px-8 py-4 bg-[#D4AF37] text-[#0B0F19] font-bold rounded-2xl shadow-xl hover:bg-[#D4AF37]/90 transition-all flex items-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
-                        {formLoading ? <Loader2 className="animate-spin" size={20} /> : <><Save size={20} /> Enregistrer la configuration</>}
-                     </button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          ) : activeTab === "messages" ? (
-            <div className="space-y-6 animate-in fade-in duration-500">
-               {messages.length === 0 ? (
-                 <div className="bg-white/5 backdrop-blur-xl p-12 rounded-3xl text-center shadow-xl border border-white/10">
-                    <Mail size={48} className="mx-auto text-gray-600 mb-4" />
-                    <p className="text-gray-500 font-bold uppercase tracking-widest text-sm">Aucun message reçu pour le moment</p>
-                 </div>
-               ) : (
-                 <div className="grid grid-cols-1 gap-4">
-                   {messages.map((msg) => (
-                     <div key={msg.id} className={`bg-white/5 backdrop-blur-xl p-6 rounded-3xl shadow-lg border-l-8 ${msg.is_read ? 'border-white/5' : 'border-[#D4AF37]'} flex flex-col md:flex-row justify-between gap-4`}>
-                        <div className="flex-grow">
-                           <div className="flex items-center gap-3 mb-2">
-                              <h4 className="font-bold text-white text-lg">{msg.name}</h4>
-                              <span className="text-xs text-gray-500 font-mono">{new Date(msg.created_at).toLocaleString('fr-FR')}</span>
-                              {!msg.is_read && <span className="text-[10px] bg-[#D4AF37] text-[#0B0F19] font-bold px-2 py-0.5 rounded-full uppercase">Nouveau</span>}
-                           </div>
-                           <p className="text-xs font-bold text-gray-500 uppercase mb-3 px-2 py-1 bg-white/5 rounded-lg inline-block">Sujet: {msg.subject}</p>
-                           <p className="text-gray-300 text-sm leading-relaxed italic border-l-2 border-white/10 pl-4 py-1">{msg.message}</p>
-                           <div className="mt-4 flex items-center gap-2 text-xs text-emerald-400 font-bold italic">
-                              <Mail size={14} /> {msg.email}
-                           </div>
-                        </div>
-                        <div className="flex md:flex-col justify-end gap-2 shrink-0">
-                           {!msg.is_read && (
-                             <button 
-                               onClick={() => markMessageAsRead(msg.id)}
-                               className="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl hover:bg-emerald-500/20 transition-colors"
-                               title="Marquer comme lu"
-                             >
-                               <CheckCircle2 size={20} />
-                             </button>
-                           )}
-                           <button 
-                             onClick={() => deleteMessage(msg.id)}
-                             className="p-3 bg-red-500/10 text-red-400 rounded-xl hover:bg-red-500/20 transition-colors"
-                             title="Supprimer"
-                           >
-                             <Trash2 size={20} />
-                           </button>
-                        </div>
-                     </div>
-                   ))}
-                 </div>
-               )}
-            </div>
-          ) : (
-            <div className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-xl overflow-hidden border border-white/10">
-              <div className="overflow-x-auto">
-                <table className="w-full text-left">
-                  <thead className="bg-white/5">
-                    <tr>
-                      <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Émission</th>
-                      <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Jour</th>
-                      <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Horaire</th>
-                      <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-white/5 font-medium text-gray-300">
-                    {grilleItems.map(item => (
-                      <tr key={item.id} className="hover:bg-white/5 transition-colors">
-                        <td className="px-8 py-4">
-                          <span className="text-white font-bold text-sm">{item.title}</span>
-                        </td>
-                        <td className="px-8 py-4">
-                          <span className="text-xs text-gray-400">{item.day}</span>
-                        </td>
-                        <td className="px-8 py-4 text-xs font-mono text-gray-400">
-                          {item.start_time} - {item.end_time}
-                        </td>
-                        <td className="px-8 py-4 text-right">
-                          <div className="flex items-center justify-end gap-2">
-                            <button onClick={() => handleEditGrille(item)} className="p-2 text-gray-500 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-all">
-                              <Pencil size={18} />
-                            </button>
-                            <button onClick={() => handleDeleteGrille(item)} className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all">
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          )}
-        </main>
-
-        {/* Modal Form */}
-        {isFormOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
-            <div className="bg-[#111827] w-full max-w-xl rounded-3xl shadow-2xl p-8 border border-white/10 animate-in zoom-in-95 duration-300 overflow-y-auto max-h-[90vh]">
-              <div className="flex justify-between items-center mb-8">
-                <h2 className="text-2xl font-['Cairo'] font-bold text-white">
-                  {editingId ? "Modifier" : "Ajouter"} {activeTab === "podcasts" ? "un podcast" : activeTab === "articles" ? "un article" : activeTab === "sourates" ? "une sourate" : "une émission"}
-                </h2>
-                <button onClick={resetForm} className="text-gray-500 hover:text-gray-300 transition-colors">
-                  <X size={24} />
-                </button>
-              </div>
-
-              {activeTab === "podcasts" ? (
-                <form onSubmit={handlePodcastSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Titre</label>
-                      <input type="text" required value={podcastFormData.title} onChange={e => setPodcastFormData({...podcastFormData, title: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Catégorie</label>
-                      <select value={podcastFormData.category} onChange={e => setPodcastFormData({...podcastFormData, category: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all">
-                        {CATEGORIES.map(c => <option key={c} value={c} className="bg-[#111827]">{c}</option>)}
-                      </select>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Date</label>
-                      <input type="date" required value={podcastFormData.date} onChange={e => setPodcastFormData({...podcastFormData, date: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Durée (ex: 25:10)</label>
-                      <input type="text" required value={podcastFormData.duration} onChange={e => setPodcastFormData({...podcastFormData, duration: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                    </div>
-                    <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Fichier MP3</label>
-                      <input type="file" accept="audio/*" ref={fileInputRef} onChange={e => setUploadFile(e.target.files?.[0] || null)} className="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-[#D4AF37]/10 file:text-[#D4AF37] hover:file:bg-[#D4AF37]/20" />
-                    </div>
-                  </div>
-                  <button type="submit" disabled={formLoading} className="w-full bg-[#D4AF37] text-[#0B0F19] font-bold py-4 rounded-2xl shadow-xl hover:bg-[#D4AF37]/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
-                    {formLoading ? <Loader2 className="animate-spin" size={20} /> : <><Save size={20} /> Enregistrer</>}
-                  </button>
-                </form>
-              ) : activeTab === "articles" ? (
-                <form onSubmit={handleArticleSubmit} className="space-y-6">
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Titre</label>
-                    <input type="text" required value={articleFormData.title} onChange={e => setArticleFormData({...articleFormData, title: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Contenu</label>
-                    <textarea required rows={5} value={articleFormData.content} onChange={e => setArticleFormData({...articleFormData, content: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all resize-none placeholder-gray-600" />
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Date</label>
-                      <input type="date" required value={articleFormData.date} onChange={e => setArticleFormData({...articleFormData, date: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Image</label>
-                      <input type="file" accept="image/*" ref={fileInputRef} onChange={e => setUploadFile(e.target.files?.[0] || null)} className="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-[#D4AF37]/10 file:text-[#D4AF37] hover:file:bg-[#D4AF37]/20" />
-                    </div>
-                  </div>
-                  <button type="submit" disabled={formLoading} className="w-full bg-[#D4AF37] text-[#0B0F19] font-bold py-4 rounded-2xl shadow-xl hover:bg-[#D4AF37]/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
-                    {formLoading ? <Loader2 className="animate-spin" size={20} /> : <><Save size={20} /> Enregistrer</>}
-                  </button>
-                </form>
-              ) : activeTab === "sourates" ? (
-                <form onSubmit={handleSourateSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Numéro</label>
-                      <input type="number" required value={sourateFormData.number} onChange={e => setSourateFormData({...sourateFormData, number: parseInt(e.target.value)})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Nom Arabe</label>
-                      <input type="text" required value={sourateFormData.name_ar} dir="rtl" onChange={e => setSourateFormData({...sourateFormData, name_ar: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all font-serif" />
-                    </div>
-                    <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Nom Français</label>
-                      <input type="text" required value={sourateFormData.name_fr} onChange={e => setSourateFormData({...sourateFormData, name_fr: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                    </div>
-                    <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Texte Arabe</label>
-                      <textarea required rows={4} dir="rtl" value={sourateFormData.text_ar} onChange={e => setSourateFormData({...sourateFormData, text_ar: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all resize-none font-serif text-xl" />
-                    </div>
-                    <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Traduction Française</label>
-                      <textarea required rows={4} value={sourateFormData.translation_fr} onChange={e => setSourateFormData({...sourateFormData, translation_fr: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all resize-none placeholder-gray-600" />
-                    </div>
-                    <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Fichier Audio</label>
-                      <input type="file" accept="audio/*" ref={fileInputRef} onChange={e => setUploadFile(e.target.files?.[0] || null)} className="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-[#D4AF37]/10 file:text-[#D4AF37] hover:file:bg-[#D4AF37]/20" />
-                    </div>
-                  </div>
-                  <button type="submit" disabled={formLoading} className="w-full bg-[#D4AF37] text-[#0B0F19] font-bold py-4 rounded-2xl shadow-xl hover:bg-[#D4AF37]/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
-                    {formLoading ? <Loader2 className="animate-spin" size={20} /> : <><Save size={20} /> Enregistrer</>}
-                  </button>
-                </form>
-              ) : (
-                <form onSubmit={handleGrilleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Jour</label>
-                      <select value={grilleFormData.day} onChange={e => setGrilleFormData({...grilleFormData, day: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all">
-                        {DAYS.map(d => <option key={d} value={d} className="bg-[#111827]">{d}</option>)}
-                      </select>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Titre</label>
-                      <input type="text" required value={grilleFormData.title} onChange={e => setGrilleFormData({...grilleFormData, title: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Début (ex: 08:00)</label>
-                      <input type="time" required value={grilleFormData.start_time} onChange={e => setGrilleFormData({...grilleFormData, start_time: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Fin (ex: 09:30)</label>
-                      <input type="time" required value={grilleFormData.end_time} onChange={e => setGrilleFormData({...grilleFormData, end_time: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all" />
-                    </div>
-                    <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Description</label>
-                      <textarea rows={3} value={grilleFormData.description} onChange={e => setGrilleFormData({...grilleFormData, description: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all resize-none placeholder-gray-600" />
-                    </div>
-                  </div>
-                  <button type="submit" disabled={formLoading} className="w-full bg-[#D4AF37] text-[#0B0F19] font-bold py-4 rounded-2xl shadow-xl hover:bg-[#D4AF37]/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
-                    {formLoading ? <Loader2 className="animate-spin" size={20} /> : <><Save size={20} /> Enregistrer</>}
-                  </button>
-                </form>
-              )}
-            </div>
-          </div>
-        )}
+          <form onSubmit={handleLogin} className="bg-[#0B0F19] p-10 rounded-[48px] border border-white/5 space-y-8 shadow-3xl">
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-white" placeholder="Email" required />
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-white" placeholder="Password" required />
+            {error && <p className="text-red-400 text-xs text-center">{error}</p>}
+            <button type="submit" disabled={loading} className="w-full py-5 bg-[#D4AF37] text-[#0B0F19] font-black rounded-2xl uppercase tracking-widest">{loading ? "..." : "Entrer"}</button>
+          </form>
+        </motion.div>
       </div>
     );
   }
 
+  const menuItems = [
+    { id: "dashboard", label: "Tableau de Bord", icon: LayoutDashboard },
+    { id: "podcasts", label: "Podcasts", icon: Music },
+    { id: "articles", label: "Blog / Articles", icon: FileText },
+    { id: "sourates", label: "Saint Coran", icon: BookOpen },
+    { id: "grille", label: "Grille TV", icon: CalendarRange },
+    { id: "messages", label: "Messages", icon: Mail, badge: messages.filter(m => !m.is_read).length },
+    { id: "config", label: "Réglages", icon: Save },
+  ];
+
   return (
-    <div className="min-h-screen bg-[#0B0F19] flex items-center justify-center p-4">
-      <div className="bg-[#111827] p-8 md:p-12 rounded-3xl shadow-2xl w-full max-w-md border border-white/10">
-        <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-[#D4AF37]/10 text-[#D4AF37] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-            <Lock size={32} />
-          </div>
-          <h1 className="text-2xl font-['Cairo'] font-bold text-white">Administration</h1>
-          <p className="text-gray-500 text-sm mt-2">Zone sécurisée - Radio Iqra TV</p>
+    <div className="min-h-screen bg-[#070A11] text-white flex overflow-hidden">
+      <aside className="w-80 bg-[#0B0F19] border-r border-white/5 flex flex-col shrink-0">
+        <div className="p-10">
+           <h2 className="text-2xl font-black mb-10 tracking-tighter">IQRA <span className="text-[#D4AF37]">CMS</span></h2>
+           <nav className="space-y-4">
+              {menuItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveTab(item.id as any)}
+                  className={`w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all duration-500 group relative overflow-hidden ${activeTab === item.id ? 'bg-gradient-to-r from-[#D4AF37] to-[#B8962D] text-[#0B0F19] font-black shadow-[0_10px_30px_-5px_rgba(212,175,55,0.4)]' : 'text-gray-400 hover:bg-white/5 hover:text-white'}`}
+                >
+                  <div className="flex items-center gap-4 relative z-10">
+                    <item.icon size={20} className={`${activeTab === item.id ? 'text-[#0B0F19]' : 'text-[#D4AF37] group-hover:scale-110 transition-transform duration-500'}`} />
+                    <span className="text-[11px] uppercase tracking-[0.2em]">{item.label}</span>
+                  </div>
+                  {item.badge ? (
+                    <span className={`relative z-10 text-[10px] px-2.5 py-1 rounded-lg ${activeTab === item.id ? 'bg-white/20 text-[#0B0F19]' : 'bg-[#D4AF37]/10 text-[#D4AF37]'} font-black`}>
+                      {item.badge}
+                    </span>
+                  ) : null}
+                  {activeTab === item.id && (
+                    <motion.div 
+                      layoutId="sidebar-active"
+                      className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent"
+                      initial={false}
+                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                    />
+                  )}
+                </button>
+              ))}
+           </nav>
         </div>
+        <button onClick={() => supabase.auth.signOut()} className="mt-auto p-10 text-red-400 text-[10px] uppercase font-black tracking-widest hover:bg-red-500/5 transition-all flex items-center gap-3"><LogIn size={16} /> Déconnexion</button>
+      </aside>
 
-        <form onSubmit={handleLogin} className="space-y-6">
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Email</label>
-            <div className="relative">
-              <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600" size={18} />
-              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="votre@email.com" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-[#D4AF37] transition-all placeholder-gray-600" />
-            </div>
+      <main className="flex-1 overflow-y-auto p-12 relative">
+        <div className="max-w-6xl mx-auto space-y-10">
+          <header className="flex justify-between items-center mb-12">
+             <div>
+                <p className="text-[10px] text-gray-500 font-black uppercase tracking-[0.4em] mb-1">Administration</p>
+                <h1 className="text-4xl font-black tracking-tight">{menuItems.find(m => m.id === activeTab)?.label}</h1>
+             </div>
+             {activeTab !== "config" && activeTab !== "messages" && activeTab !== "dashboard" && (
+                <button onClick={() => { resetForm(); setIsFormOpen(true); }} className="px-8 py-4 bg-[#D4AF37] text-[#0B0F19] font-black rounded-2xl flex items-center gap-3 uppercase text-[10px] tracking-widest shadow-xl shadow-[#D4AF37]/20"><Plus size={18} /> Ajouter</button>
+             )}
+          </header>
+
+          <AnimatePresence mode="wait">
+            {activeTab === "dashboard" && (
+              <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
+                    {/* Stats Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                       {[
+                         { label: "Podcasts", value: podcasts.length, icon: Music, color: "text-emerald-400", bg: "bg-emerald-500/5", border: "border-emerald-500/10" },
+                         { label: "Articles", value: articles.length, icon: FileText, color: "text-[#D4AF37]", bg: "bg-[#D4AF37]/5", border: "border-[#D4AF37]/10" },
+                         { label: "Sourates", value: sourates.length, icon: BookOpen, color: "text-blue-400", bg: "bg-blue-500/5", border: "border-blue-500/10" },
+                         { label: "Messages", value: messages.length, icon: Mail, color: "text-purple-400", bg: "bg-purple-500/5", border: "border-purple-500/10" },
+                       ].map((stat, i) => (
+                         <motion.div 
+                           key={i}
+                           whileHover={{ y: -5 }}
+                           className={`glass-card p-10 rounded-[40px] ${stat.border} flex flex-col gap-6 group relative overflow-hidden bg-gradient-to-br from-white/[0.02] to-transparent`}
+                         >
+                            <div className={`w-16 h-16 rounded-2xl ${stat.bg} flex items-center justify-center ${stat.color} group-hover:scale-110 transition-transform duration-500 shadow-inner`}>
+                               <stat.icon size={32} />
+                            </div>
+                            <div>
+                               <p className="text-[10px] font-black text-gray-500 uppercase tracking-[0.3em] mb-2">{stat.label}</p>
+                               <h4 className="text-5xl font-black text-white tracking-tighter">{stat.value}</h4>
+                            </div>
+                            <div className={`absolute -right-4 -bottom-4 ${stat.color} opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-700`}>
+                               <stat.icon size={140} />
+                            </div>
+                         </motion.div>
+                       ))}
+                    </div>
+
+                    {/* Activity & Quick Actions */}
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                       <div className="lg:col-span-2 glass-card rounded-[48px] p-12 border-white/5 relative overflow-hidden bg-gradient-to-br from-[#0B0F19] to-transparent">
+                          <div className="flex items-center justify-between mb-12">
+                             <h3 className="text-2xl font-black text-white uppercase tracking-tight flex items-center gap-4">
+                                <Clock className="text-[#D4AF37]" size={24} /> Flux d'Activité
+                             </h3>
+                             <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 text-[9px] font-black text-gray-400 uppercase tracking-widest border border-white/5">
+                                Temps Réel <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                             </div>
+                          </div>
+                          <div className="space-y-6">
+                             {(podcasts.length > 0 ? podcasts : [1,2,3]).slice(0, 4).map((p: any, i) => (
+                               <motion.div 
+                                 key={p.id || i}
+                                 initial={{ opacity: 0, x: -20 }}
+                                 animate={{ opacity: 1, x: 0 }}
+                                 transition={{ delay: i * 0.1 }}
+                                 className="flex items-center justify-between p-6 rounded-[32px] bg-white/[0.01] border border-white/5 hover:border-[#D4AF37]/30 hover:bg-white/[0.03] transition-all group"
+                               >
+                                  <div className="flex items-center gap-6">
+                                     <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-[#D4AF37] group-hover:scale-110 transition-transform shadow-inner">
+                                        {p.title ? <Music size={24} /> : <div className="w-6 h-6 bg-white/10 rounded-full animate-pulse" />}
+                                     </div>
+                                     <div>
+                                        <h4 className="font-black text-white uppercase tracking-tight text-sm">{p.title || "Chargement..."}</h4>
+                                        <p className="text-[10px] font-bold text-gray-600 uppercase tracking-widest mt-1.5">
+                                           {p.category || "Système"} • {p.date || "Maintenant"}
+                                        </p>
+                                     </div>
+                                  </div>
+                                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-600 opacity-0 group-hover:opacity-100 transition-all">
+                                     <ChevronRight size={18} />
+                                  </div>
+                               </motion.div>
+                             ))}
+                          </div>
+                       </div>
+
+                       <div className="space-y-8">
+                          <div className="glass-card rounded-[48px] p-12 border-white/5 bg-gradient-to-b from-white/[0.03] to-transparent">
+                             <h3 className="text-xl font-black text-white uppercase tracking-tight mb-10">Raccourcis</h3>
+                             <div className="space-y-4">
+                                {[
+                                  { label: "Nouveau Podcast", tab: "podcasts", icon: Music, color: "emerald" },
+                                  { label: "Ajouter Article", tab: "articles", icon: FileText, color: "gold" },
+                                  { label: "Mise à jour Grille", tab: "grille", icon: CalendarRange, color: "blue" },
+                                ].map((btn, i) => (
+                                  <button 
+                                    key={i}
+                                    onClick={() => { setActiveTab(btn.tab as any); setIsFormOpen(true); }} 
+                                    className={`w-full py-5 rounded-[24px] font-black text-[10px] uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-4 group ${btn.color === 'emerald' ? 'bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20' : btn.color === 'gold' ? 'bg-[#D4AF37]/10 text-[#D4AF37] hover:bg-[#D4AF37]/20' : 'bg-blue-500/10 text-blue-400 hover:bg-blue-500/20'}`}
+                                  >
+                                     <btn.icon size={18} className="group-hover:rotate-12 transition-transform" /> {btn.label}
+                                  </button>
+                                ))}
+                             </div>
+                          </div>
+                          
+                          <div className="glass-card rounded-[48px] p-12 border-[#D4AF37]/10 bg-[#D4AF37]/5 relative overflow-hidden group">
+                             <div className="relative z-10">
+                                <h3 className="text-lg font-black text-white mb-3">Statut Serveur</h3>
+                                <div className="flex items-center gap-3 text-emerald-400 text-[10px] font-black uppercase tracking-widest mb-6">
+                                   <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" /> Cloud Sync Actif
+                                </div>
+                                <p className="text-gray-500 text-[10px] font-bold leading-relaxed uppercase tracking-widest">Dernière sauvegarde: il y a 5 min</p>
+                             </div>
+                             <div className="absolute -right-8 -bottom-8 text-white/[0.02] group-hover:scale-110 transition-transform duration-700">
+                                <Save size={160} />
+                             </div>
+                          </div>
+                       </div>
+                    </div>
+              </motion.div>
+            )}
+
+            {activeTab === "config" && (
+              <motion.form onSubmit={handleConfigSubmit} className="space-y-12">
+                 <div className="bg-[#0B0F19] p-12 rounded-[56px] border border-white/5 space-y-12 shadow-2xl">
+                    <section className="space-y-8">
+                       <h3 className="text-[#D4AF37] font-black uppercase text-xs tracking-[0.3em] flex items-center gap-4"><span className="w-8 h-px bg-[#D4AF37]/30" /> Branding & Identité</h3>
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                          <div className="space-y-3">
+                             <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Nom du Site</label>
+                             <input type="text" value={configFormData.site_name} onChange={e => setConfigFormData({...configFormData, site_name: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-white" />
+                          </div>
+                          <div className="grid grid-cols-2 gap-4">
+                             <div className="space-y-3">
+                                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Logo</label>
+                                <input type="file" onChange={e => e.target.files?.[0] && handleAssetUpload(e.target.files[0], 'logos')} className="hidden" id="logo-up" />
+                                <label htmlFor="logo-up" className="block w-full bg-white/5 border border-white/10 rounded-2xl py-4 text-center cursor-pointer text-[10px] font-black uppercase">Changer</label>
+                             </div>
+                             <div className="space-y-3">
+                                <label className="text-[10px] font-black text-gray-500 uppercase tracking-widest">Favicon</label>
+                                <input type="file" onChange={e => e.target.files?.[0] && handleAssetUpload(e.target.files[0], 'favicons')} className="hidden" id="fav-up" />
+                                <label htmlFor="fav-up" className="block w-full bg-white/5 border border-white/10 rounded-2xl py-4 text-center cursor-pointer text-[10px] font-black uppercase">Changer</label>
+                             </div>
+                          </div>
+                       </div>
+                    </section>
+
+                    <section className="space-y-8 pt-10 border-t border-white/5">
+                       <h3 className="text-[#D4AF37] font-black uppercase text-xs tracking-[0.3em] flex items-center gap-4"><span className="w-8 h-px bg-[#D4AF37]/30" /> Contenu Hero (Accueil)</h3>
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                          <input type="text" value={configFormData.hero_title_1} onChange={e => setConfigFormData({...configFormData, hero_title_1: e.target.value})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Titre 1" />
+                          <input type="text" value={configFormData.hero_title_2} onChange={e => setConfigFormData({...configFormData, hero_title_2: e.target.value})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Titre 2" />
+                          <textarea value={configFormData.hero_subtitle} onChange={e => setConfigFormData({...configFormData, hero_subtitle: e.target.value})} className="md:col-span-2 bg-white/5 border border-white/10 rounded-2xl py-4 px-6 h-32" placeholder="Sous-titre" />
+                          <input type="text" value={configFormData.hero_image_url} onChange={e => setConfigFormData({...configFormData, hero_image_url: e.target.value})} className="md:col-span-2 bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="URL Image de fond" />
+                       </div>
+                    </section>
+
+                    <section className="space-y-8 pt-10 border-t border-white/5">
+                       <h3 className="text-[#D4AF37] font-black uppercase text-xs tracking-[0.3em] flex items-center gap-4"><span className="w-8 h-px bg-[#D4AF37]/30" /> Page À Propos</h3>
+                       <div className="space-y-6">
+                          <textarea value={configFormData.about_history} onChange={e => setConfigFormData({...configFormData, about_history: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 h-40" placeholder="Notre Histoire" />
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                             <textarea value={configFormData.about_mission} onChange={e => setConfigFormData({...configFormData, about_mission: e.target.value})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6 h-32" placeholder="Mission" />
+                             <textarea value={configFormData.about_vision} onChange={e => setConfigFormData({...configFormData, about_vision: e.target.value})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6 h-32" placeholder="Vision" />
+                          </div>
+                       </div>
+                    </section>
+
+                    <section className="space-y-8 pt-10 border-t border-white/5">
+                       <h3 className="text-[#D4AF37] font-black uppercase text-xs tracking-[0.3em] flex items-center gap-4"><span className="w-8 h-px bg-[#D4AF37]/30" /> Citation & Spiritualité</h3>
+                       <div className="space-y-6">
+                          <textarea value={configFormData.daily_quote} onChange={e => setConfigFormData({...configFormData, daily_quote: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 h-24" placeholder="Citation du jour" />
+                          <input type="text" value={configFormData.daily_quote_author} onChange={e => setConfigFormData({...configFormData, daily_quote_author: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Auteur / Source" />
+                       </div>
+                    </section>
+
+                    <section className="space-y-8 pt-10 border-t border-white/5">
+                       <h3 className="text-[#D4AF37] font-black uppercase text-xs tracking-[0.3em] flex items-center gap-4"><span className="w-8 h-px bg-[#D4AF37]/30" /> Campagne de Dons & Localisation</h3>
+                       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                          <input type="text" value={configFormData.donation_title} onChange={e => setConfigFormData({...configFormData, donation_title: e.target.value})} className="md:col-span-3 bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Titre Campagne" />
+                          <input type="number" value={configFormData.donation_goal} onChange={e => setConfigFormData({...configFormData, donation_goal: parseInt(e.target.value)})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Objectif" />
+                          <input type="number" value={configFormData.donation_current} onChange={e => setConfigFormData({...configFormData, donation_current: parseInt(e.target.value)})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Actuel" />
+                          <input type="text" value={configFormData.prayer_location} onChange={e => setConfigFormData({...configFormData, prayer_location: e.target.value})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Ville (Horaires prière)" />
+                       </div>
+                    </section>
+
+                    <section className="space-y-8 pt-10 border-t border-white/5">
+                       <h3 className="text-[#D4AF37] font-black uppercase text-xs tracking-[0.3em] flex items-center gap-4"><span className="w-8 h-px bg-[#D4AF37]/30" /> Réseaux Sociaux</h3>
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                          <input type="text" value={configFormData.facebook_url} onChange={e => setConfigFormData({...configFormData, facebook_url: e.target.value})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Facebook URL" />
+                          <input type="text" value={configFormData.youtube_url} onChange={e => setConfigFormData({...configFormData, youtube_url: e.target.value})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="YouTube URL" />
+                          <input type="text" value={configFormData.whatsapp_number} onChange={e => setConfigFormData({...configFormData, whatsapp_number: e.target.value})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="WhatsApp Number" />
+                          <input type="text" value={configFormData.telegram_url} onChange={e => setConfigFormData({...configFormData, telegram_url: e.target.value})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Telegram URL" />
+                          <input type="text" value={configFormData.instagram_url} onChange={e => setConfigFormData({...configFormData, instagram_url: e.target.value})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Instagram URL" />
+                          <input type="text" value={configFormData.twitter_url} onChange={e => setConfigFormData({...configFormData, twitter_url: e.target.value})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Twitter URL" />
+                       </div>
+                    </section>
+
+                    <section className="space-y-8 pt-10 border-t border-white/5">
+                       <h3 className="text-[#D4AF37] font-black uppercase text-xs tracking-[0.3em] flex items-center gap-4"><span className="w-8 h-px bg-[#D4AF37]/30" /> Paramètres Techniques</h3>
+                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                          <input type="text" value={configFormData.radio_stream_url} onChange={e => setConfigFormData({...configFormData, radio_stream_url: e.target.value})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="URL Radio Stream" />
+                          <input type="password" value={configFormData.youtube_api_key} onChange={e => setConfigFormData({...configFormData, youtube_api_key: e.target.value})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="YouTube API Key" />
+                          <input type="text" value={configFormData.email} onChange={e => setConfigFormData({...configFormData, email: e.target.value})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Email contact" />
+                          <input type="text" value={configFormData.primary_phone} onChange={e => setConfigFormData({...configFormData, primary_phone: e.target.value})} className="bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Téléphone" />
+                       </div>
+                    </section>
+
+                    <button type="submit" disabled={formLoading} className="w-full py-6 bg-[#D4AF37] text-[#0B0F19] font-black rounded-3xl uppercase tracking-widest shadow-2xl shadow-[#D4AF37]/20 flex items-center justify-center gap-4 transition-all hover:scale-[1.02]">
+                       {formLoading ? <Loader2 className="animate-spin" /> : <Save />} Enregistrer les Modifications
+                    </button>
+                 </div>
+              </motion.form>
+            )}
+
+            {activeTab === "podcasts" && (
+              <div className="grid grid-cols-1 gap-4">
+                 {podcasts.map(p => (
+                   <div key={p.id} className="bg-[#0B0F19] p-6 rounded-3xl border border-white/5 flex items-center justify-between group">
+                      <div className="flex items-center gap-6">
+                         <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center"><Music size={20} /></div>
+                         <div><h4 className="font-black uppercase text-sm tracking-tight">{p.title}</h4><p className="text-[10px] text-gray-500 font-bold uppercase">{p.category} • {p.duration}</p></div>
+                      </div>
+                      <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                         <button onClick={() => handleEditPodcast(p)} className="p-3 bg-white/5 rounded-xl hover:text-blue-400"><Pencil size={16} /></button>
+                         <button onClick={() => handleDeletePodcast(p)} className="p-3 bg-white/5 rounded-xl hover:text-red-400"><Trash2 size={16} /></button>
+                      </div>
+                   </div>
+                 ))}
+              </div>
+            )}
+
+            {activeTab === "articles" && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                 {articles.map(a => (
+                   <div key={a.id} className="bg-[#0B0F19] p-6 rounded-[32px] border border-white/5 flex flex-col gap-4 group">
+                      {a.image_url && <img src={a.image_url} className="w-full h-48 object-cover rounded-2xl" alt="" />}
+                      <div className="flex justify-between items-start">
+                         <h4 className="font-black uppercase text-sm tracking-tight">{a.title}</h4>
+                         <div className="flex gap-2">
+                            <button onClick={() => handleEditArticle(a)} className="text-gray-500 hover:text-blue-400"><Pencil size={16} /></button>
+                            <button onClick={() => handleDeleteArticle(a)} className="text-gray-500 hover:text-red-400"><Trash2 size={16} /></button>
+                         </div>
+                      </div>
+                      <p className="text-xs text-gray-500 line-clamp-3">{a.content}</p>
+                   </div>
+                 ))}
+              </div>
+            )}
+
+            {activeTab === "sourates" && (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                 {sourates.map(s => (
+                   <div key={s.id} className="bg-[#0B0F19] p-8 rounded-[32px] border border-white/5 relative group">
+                      <div className="text-3xl font-black text-[#D4AF37] mb-4 text-right">{s.name_ar}</div>
+                      <h4 className="font-black uppercase text-sm">{s.name_fr}</h4>
+                      <div className="absolute top-4 left-4 flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                         <button onClick={() => handleEditSourate(s)} className="p-2 bg-white/5 rounded-lg"><Pencil size={14} /></button>
+                         <button onClick={() => handleDeleteSourate(s)} className="p-2 bg-white/5 rounded-lg"><Trash2 size={14} /></button>
+                      </div>
+                   </div>
+                 ))}
+              </div>
+            )}
+
+            {activeTab === "messages" && (
+              <div className="space-y-4">
+                 {messages.map(m => (
+                   <div key={m.id} className={`bg-[#0B0F19] p-8 rounded-[40px] border border-white/5 flex justify-between items-start ${!m.is_read ? 'border-l-4 border-l-[#D4AF37]' : ''}`}>
+                      <div className="space-y-4">
+                         <div className="flex items-center gap-4">
+                            <h4 className="text-xl font-black">{m.name}</h4>
+                            <span className="text-[10px] text-gray-600 font-bold uppercase">{new Date(m.created_at).toLocaleDateString()}</span>
+                         </div>
+                         <p className="text-[#D4AF37] font-black uppercase text-[10px] tracking-widest">Sujet: {m.subject}</p>
+                         <p className="text-gray-400 text-sm leading-relaxed">{m.message}</p>
+                         <p className="text-xs font-bold text-gray-500">{m.email}</p>
+                      </div>
+                      <div className="flex flex-col gap-2">
+                         {!m.is_read && <button onClick={() => markMessageAsRead(m.id)} className="p-4 bg-emerald-500/10 text-emerald-400 rounded-2xl"><CheckCircle2 size={20} /></button>}
+                         <button onClick={() => deleteMessage(m.id)} className="p-4 bg-red-500/10 text-red-400 rounded-2xl"><Trash2 size={20} /></button>
+                      </div>
+                   </div>
+                 ))}
+              </div>
+            )}
+          </AnimatePresence>
+        </div>
+      </main>
+
+      <AnimatePresence>
+        {isFormOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsFormOpen(false)} className="absolute inset-0 bg-[#070A11]/95 backdrop-blur-xl" />
+            <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} className="relative z-10 w-full max-w-4xl bg-[#0B0F19] rounded-[48px] border border-white/10 overflow-hidden flex flex-col max-h-[90vh]">
+              <div className="p-10 border-b border-white/5 flex justify-between items-center bg-white/[0.01]">
+                 <h3 className="text-3xl font-black uppercase tracking-tighter">{editingId ? "Éditer" : "Ajouter"} Contenu</h3>
+                 <button onClick={() => setIsFormOpen(false)} className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center"><X /></button>
+              </div>
+              <div className="p-10 overflow-y-auto custom-scrollbar">
+                 <form onSubmit={(e) => {
+                   if (activeTab === "podcasts") handlePodcastSubmit(e);
+                   else if (activeTab === "articles") handleArticleSubmit(e);
+                   else if (activeTab === "sourates") handleSourateSubmit(e);
+                   else if (activeTab === "grille") handleGrilleSubmit(e);
+                 }} className="space-y-8">
+                    {activeTab === "podcasts" && (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                         <input type="text" value={podcastFormData.title} onChange={e => setPodcastFormData({...podcastFormData, title: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Titre" required />
+                         <select value={podcastFormData.category} onChange={e => setPodcastFormData({...podcastFormData, category: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-white">
+                            {CATEGORIES.map(c => <option key={c} value={c} className="bg-[#0B0F19]">{c}</option>)}
+                         </select>
+                         <input type="text" value={podcastFormData.duration} onChange={e => setPodcastFormData({...podcastFormData, duration: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Durée (ex: 45:00)" required />
+                         <input type="date" value={podcastFormData.date} onChange={e => setPodcastFormData({...podcastFormData, date: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6" required />
+                         <div className="md:col-span-2">
+                            <label className="block text-[10px] font-black text-[#D4AF37] uppercase tracking-widest mb-4">Fichier MP3</label>
+                            <input type="file" onChange={e => setUploadFile(e.target.files?.[0] || null)} className="w-full bg-white/5 border border-dashed border-white/20 rounded-2xl p-8 text-center" />
+                         </div>
+                      </div>
+                    )}
+                    {activeTab === "articles" && (
+                      <div className="space-y-8">
+                         <input type="text" value={articleFormData.title} onChange={e => setArticleFormData({...articleFormData, title: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Titre Article" required />
+                         <textarea value={articleFormData.content} onChange={e => setArticleFormData({...articleFormData, content: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 h-64" placeholder="Contenu" required />
+                         <div>
+                            <label className="block text-[10px] font-black text-[#D4AF37] uppercase tracking-widest mb-4">Image de l'article</label>
+                            <input type="file" onChange={e => setUploadFile(e.target.files?.[0] || null)} className="w-full bg-white/5 border border-dashed border-white/20 rounded-2xl p-8 text-center" />
+                         </div>
+                      </div>
+                    )}
+                    {activeTab === "sourates" && (
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                         <input type="number" value={sourateFormData.number} onChange={e => setSourateFormData({...sourateFormData, number: parseInt(e.target.value)})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Numéro" required />
+                         <input type="text" value={sourateFormData.name_ar} onChange={e => setSourateFormData({...sourateFormData, name_ar: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-right font-cairo text-xl" placeholder="Nom Arabe" required />
+                         <input type="text" value={sourateFormData.name_fr} onChange={e => setSourateFormData({...sourateFormData, name_fr: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6" placeholder="Nom Français" required />
+                         <textarea value={sourateFormData.translation_fr} onChange={e => setSourateFormData({...sourateFormData, translation_fr: e.target.value})} className="md:col-span-2 bg-white/5 border border-white/10 rounded-2xl py-4 px-6 h-32" placeholder="Traduction" />
+                      </div>
+                    )}
+                    <button type="submit" disabled={formLoading} className="w-full py-5 bg-[#D4AF37] text-[#0B0F19] font-black rounded-2xl uppercase tracking-widest shadow-xl">
+                       {formLoading ? <Loader2 className="animate-spin mx-auto" /> : (editingId ? "Actualiser" : "Confirmer")}
+                    </button>
+                 </form>
+              </div>
+            </motion.div>
           </div>
-
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Mot de passe</label>
-            <div className="relative">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600" size={18} />
-              <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-[#D4AF37] transition-all placeholder-gray-600" />
-            </div>
-          </div>
-
-          {error && <div className="p-4 bg-red-500/10 text-red-400 text-xs font-semibold rounded-xl border border-red-500/20 text-center">{error}</div>}
-
-          <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-[#0B0F19] font-bold py-4 rounded-2xl shadow-lg hover:bg-[#D4AF37]/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
-            {loading ? <div className="w-5 h-5 border-2 border-[#0B0F19] border-t-transparent rounded-full animate-spin" /> : <><LogIn size={20} /> Se connecter</>}
-          </button>
-        </form>
-      </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
-

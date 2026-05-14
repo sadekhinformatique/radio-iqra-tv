@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import Layout from "./components/Layout";
-import Home from "./pages/Home";
+import Home from "./pages/premium/PremiumHome";
 import About from "./pages/About";
 import Radio from "./pages/Radio";
 import Contact from "./pages/Contact";

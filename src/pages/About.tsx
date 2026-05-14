@@ -25,7 +25,7 @@ export default function About() {
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-[100px] rounded-full" />
             
             <p className="text-2xl lg:text-3xl italic text-cream font-medium leading-relaxed text-center">
-              "{config.site_name} – La Voix de saint Coran. Basée au cœur du Burkina Faso, elle est une station islamique dédiée à la diffusion des enseignements authentiques de l'Islam..."
+              "{config.about_history || `${config.site_name} – La Voix de saint Coran. Basée au cœur du Burkina Faso, elle est une station islamique dédiée à la diffusion des enseignements authentiques de l'Islam...`}"
             </p>
 
             <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
@@ -34,13 +34,13 @@ export default function About() {
                <div className="space-y-6">
                   <h3 className="text-2xl font-black text-white uppercase tracking-tight">Notre Mission</h3>
                   <p className="text-gray-400 leading-relaxed text-lg">
-                    Notre mission est de porter la parole d'Allah et les enseignements du Prophète (PSL) jusque dans chaque foyer, en utilisant les technologies modernes pour promouvoir une compréhension juste et apaisée de notre belle religion.
+                    {config.about_mission || "Notre mission est de porter la parole d'Allah et les enseignements du Prophète (PSL) jusque dans chaque foyer, en utilisant les technologies modernes pour promouvoir une compréhension juste et apaisée de notre belle religion."}
                   </p>
                </div>
                <div className="space-y-6">
                   <h3 className="text-2xl font-black text-white uppercase tracking-tight">Notre Vision</h3>
                   <p className="text-gray-400 leading-relaxed text-lg">
-                    Situé au Burkina Faso, pays de dialogue et de tolérance, RADIO IQRA TV s'engage à être un pont entre les cultures et un phare pour ceux qui cherchent la guidée spirituelle.
+                    {config.about_vision || "Situé au Burkina Faso, pays de dialogue et de tolérance, RADIO IQRA TV s'engage à être un pont entre les cultures et un phare pour ceux qui cherchent la guidée spirituelle."}
                   </p>
                </div>
             </div>

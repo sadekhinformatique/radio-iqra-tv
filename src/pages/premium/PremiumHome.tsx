@@ -17,8 +17,15 @@ export default function PremiumHome() {
   const { config } = useSiteConfig();
   const [isPlaying, setIsPlaying] = useState(false);
   const [listeners, setListeners] = useState(12458);
+  const [grille, setGrille] = useState<any[]>([]);
 
   useEffect(() => {
+    const fetchGrille = async () => {
+      const { data } = await supabase.from('grille').select('*').limit(10);
+      if (data) setGrille(data);
+    };
+    fetchGrille();
+
     const interval = setInterval(() => setListeners(p => p + Math.floor(Math.random() * 5) - 2), 5000);
     return () => clearInterval(interval);
   }, []);
@@ -30,8 +37,8 @@ export default function PremiumHome() {
         {/* Background avec overlay progressif */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?q=80&w=2070&auto=format&fit=crop"
-            alt="Mosquée Moderne"
+            src={config.hero_image_url || "https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?q=80&w=2070&auto=format&fit=crop"}
+            alt="Hero Background"
             className="w-full h-full object-cover scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-night via-night/80 to-transparent" />
@@ -54,14 +61,12 @@ export default function PremiumHome() {
                 {listeners.toLocaleString()} PERSONNES EN DIRECT
               </div>
 
-              <h1 className="text-5xl lg:text-8xl font-cairo font-black text-white leading-[1.1] mb-6 tracking-tighter">
-                La Foi <span className="text-gold italic">Connectée</span>,<br />
-                Le Savoir <span className="text-emerald-400">Partagé</span>.
+              <h1 className="text-5xl lg:text-8xl font-cairo font-black text-white leading-[1.1] mb-6 tracking-tighter uppercase">
+                {config.hero_title_1 || "La Foi"} <span className="text-gold italic">{config.hero_title_2 || "Connectée"}</span>
               </h1>
 
               <p className="text-xl text-gray-300 leading-relaxed mb-10 max-w-2xl font-medium">
-                Découvrez une expérience spirituelle unique avec {config.site_name}. 
-                Streaming HD, podcasts exclusifs et enseignements authentiques.
+                {config.hero_subtitle || `Découvrez une expérience spirituelle unique avec ${config.site_name}. Streaming HD, podcasts exclusifs et enseignements authentiques.`}
               </p>
 
               <div className="flex flex-wrap gap-5">
@@ -90,7 +95,7 @@ export default function PremiumHome() {
                 <Radio size={28} className="text-gold" />
               </div>
               <div>
-                <h4 className="text-white font-black text-sm uppercase tracking-wider">Radio IQRA</h4>
+                <h4 className="text-white font-black text-sm uppercase tracking-wider">{config.site_name}</h4>
                 <p className="text-xs text-emerald-400 font-bold flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-red-500 live-pulse" /> EN DIRECT
                 </p>
@@ -102,6 +107,10 @@ export default function PremiumHome() {
                 <div key={i} className="flex-1 bg-gold/40 rounded-full audio-flow" style={{ animationDelay: `${i * 0.05}s` }} />
               ))}
             </div>
+
+            {config.radio_stream_url && isPlaying && (
+              <audio autoPlay src={config.radio_stream_url} />
+            )}
 
             <button 
               onClick={() => setIsPlaying(!isPlaying)}
@@ -147,33 +156,38 @@ export default function PremiumHome() {
         </div>
 
         <div className="flex gap-6 overflow-x-auto pb-8 no-scrollbar -mx-4 px-4 lg:mx-0 lg:px-0">
-          {[1, 2, 3, 4, 5].map((item) => (
-            <div key={item} className="flex-shrink-0 w-80 lg:w-[400px] glass-card rounded-3xl overflow-hidden group cursor-pointer">
+          {grille.length > 0 ? grille.map((item, i) => (
+            <div key={i} className="flex-shrink-0 w-80 lg:w-[400px] glass-card rounded-3xl overflow-hidden group cursor-pointer">
               <div className="aspect-video relative">
                 <img 
-                  src={`https://images.unsplash.com/photo-1584281723351-9d92ff3f8142?q=80&w=800&auto=format&fit=crop&sig=${item}`} 
+                  src={`https://images.unsplash.com/photo-1584281723351-9d92ff3f8142?q=80&w=800&auto=format&fit=crop&sig=${i}`} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                  alt="Program"
+                  alt={item.title}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-night via-transparent to-transparent" />
                 <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 glass rounded-full text-[10px] font-black text-white">
-                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 live-pulse" /> LIVE
-                </div>
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <div className="w-16 h-16 rounded-full glass flex items-center justify-center text-white scale-75 group-hover:scale-100 transition-transform duration-500">
-                    <Play size={32} fill="white" />
-                  </div>
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 live-pulse" /> {item.day.toUpperCase()}
                 </div>
               </div>
               <div className="p-6">
                 <div className="flex items-center gap-2 text-gold text-[10px] font-black uppercase tracking-widest mb-2">
-                  <Clock size={12} /> 21:00 - 22:30
+                  <Clock size={12} /> {item.start_time} - {item.end_time}
                 </div>
-                <h3 className="text-xl font-black text-white mb-2 leading-snug">L'Explication du Saint Coran par Cheikh Diop</h3>
-                <p className="text-sm text-gray-400 font-medium">Une analyse profonde des versets pour guider notre quotidien.</p>
+                <h3 className="text-xl font-black text-white mb-2 leading-snug">{item.title}</h3>
+                <p className="text-sm text-gray-400 font-medium line-clamp-1">{item.description}</p>
               </div>
             </div>
-          ))}
+          )) : (
+            [1, 2, 3].map((i) => (
+              <div key={i} className="flex-shrink-0 w-80 lg:w-[400px] glass-card rounded-3xl overflow-hidden animate-pulse">
+                <div className="aspect-video bg-white/5" />
+                <div className="p-6 space-y-4">
+                  <div className="w-24 h-4 bg-white/5 rounded" />
+                  <div className="w-full h-8 bg-white/5 rounded" />
+                </div>
+              </div>
+            ))
+          )}
         </div>
       </section>
 
@@ -184,8 +198,8 @@ export default function PremiumHome() {
           <div className="md:col-span-4 glass-card rounded-[40px] p-8">
             <div className="flex items-center justify-between mb-8">
               <h3 className="text-2xl font-cairo font-black text-white">Salat</h3>
-              <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-bold">
-                <MapPin size={14} /> DAKAR
+              <div className="flex items-center gap-1.5 text-xs text-emerald-400 font-bold uppercase tracking-widest">
+                <MapPin size={14} /> {config.prayer_location || "OUAGADOUGOU"}
               </div>
             </div>
             <div className="space-y-4">
@@ -235,9 +249,9 @@ export default function PremiumHome() {
                   <Star size={12} /> Citation Quotidienne
                 </div>
                 <blockquote className="text-2xl lg:text-3xl font-cairo font-bold text-white leading-tight mb-6">
-                  "Le meilleur d'entre vous est celui qui apprend le Coran et l'enseigne."
+                  "{config.daily_quote || "Le meilleur d'entre vous est celui qui apprend le Coran et l'enseigne."}"
                 </blockquote>
-                <cite className="text-gold font-black not-italic uppercase tracking-widest text-xs">— Rapporté par Al-Boukhari</cite>
+                <cite className="text-gold font-black not-italic uppercase tracking-widest text-xs">— {config.daily_quote_author || "Rapporté par Al-Boukhari"}</cite>
               </div>
               <div className="absolute -right-10 -bottom-10 opacity-10">
                 <BookOpen size={200} className="text-white" />
@@ -251,31 +265,32 @@ export default function PremiumHome() {
       <section className="max-w-7xl mx-auto px-4 lg:px-8 pb-24">
         <div className="glass-card rounded-[50px] p-8 lg:p-16 flex flex-col lg:flex-row items-center gap-12 border-emerald-500/10">
           <div className="flex-1">
-            <h2 className="text-4xl lg:text-6xl font-cairo font-black text-white mb-6">Unissez-vous pour le <span className="text-emerald-400">Savoir</span>.</h2>
+            <h2 className="text-4xl lg:text-6xl font-cairo font-black text-white mb-6 uppercase tracking-tighter">
+               {config.donation_title || "Unissez-vous pour le Savoir."}
+            </h2>
             <p className="text-xl text-gray-400 font-medium mb-10 leading-relaxed">
-              Votre soutien permet à {config.site_name} de continuer sa mission d'éducation 
-              et de partage spirituel à travers le monde. Chaque don compte.
+              {config.donation_description || `Votre soutien permet à ${config.site_name} de continuer sa mission d'éducation et de partage spirituel à travers le monde. Chaque don compte.`}
             </p>
             <div className="space-y-6 mb-10 max-w-md">
               <div className="flex justify-between text-sm font-black text-white mb-2 uppercase tracking-widest">
                 <span>Objectif 2026</span>
-                <span className="text-gold">75% Atteint</span>
+                <span className="text-gold">{Math.round((config.donation_current / (config.donation_goal || 1)) * 100)}% Atteint</span>
               </div>
               <div className="h-4 bg-white/5 rounded-full overflow-hidden p-1 border border-white/10">
-                <div className="h-full bg-gradient-to-r from-emerald-600 to-gold rounded-full" style={{ width: '75%' }} />
+                <div className="h-full bg-gradient-to-r from-emerald-600 to-gold rounded-full" style={{ width: `${(config.donation_current / (config.donation_goal || 1)) * 100}%` }} />
               </div>
-              <div className="flex justify-between text-xs text-gray-500 font-bold">
-                <span>15.000.000 FCFA récoltés</span>
-                <span>20.000.000 FCFA</span>
+              <div className="flex justify-between text-xs text-gray-500 font-bold uppercase tracking-widest">
+                <span>{config.donation_current?.toLocaleString()} FCFA récoltés</span>
+                <span>{config.donation_goal?.toLocaleString()} FCFA</span>
               </div>
             </div>
-            <Link to="/contact" className="inline-flex items-center gap-3 px-10 py-5 bg-gold text-night font-black rounded-3xl premium-shadow hover:-translate-y-1 transition-all uppercase tracking-widest">
+            <Link to="/contact" className="inline-flex items-center gap-3 px-12 py-5 bg-gold text-night font-black rounded-3xl premium-shadow hover:-translate-y-1 transition-all uppercase tracking-[0.2em] text-xs">
               <Heart size={20} fill="currentColor" /> FAIRE UN DON MAINTENANT
             </Link>
           </div>
           <div className="flex-1 relative hidden lg:block">
-            <div className="relative z-10 rounded-[40px] overflow-hidden glass-card p-4 gold-glow">
-               <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=800&auto=format&fit=crop" className="rounded-[30px]" alt="Donation" />
+            <div className="relative z-10 rounded-[40px] overflow-hidden glass-card p-4 gold-glow border-white/5">
+               <img src="https://images.unsplash.com/photo-1585032226651-759b368d7246?q=80&w=800&auto=format&fit=crop" className="rounded-[30px] w-full" alt="Donation" />
             </div>
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-emerald-500/20 blur-[80px] rounded-full" />
             <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-gold/20 blur-[80px] rounded-full" />
