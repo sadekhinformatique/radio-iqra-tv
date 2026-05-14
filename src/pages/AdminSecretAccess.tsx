@@ -663,29 +663,29 @@ export default function AdminSecretAccess() {
 
   if (user) {
     return (
-      <div className="min-h-screen bg-gray-50 flex flex-col p-4 md:p-8">
+      <div className="min-h-screen bg-[#0B0F19] flex flex-col p-4 md:p-8">
         <header className="max-w-6xl w-full mx-auto flex flex-col md:flex-row justify-between items-center mb-6 gap-6">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 bg-iqra-gold/10 text-iqra-gold rounded-2xl flex items-center justify-center shadow-sm">
+            <div className="w-12 h-12 bg-[#D4AF37]/10 text-[#D4AF37] rounded-2xl flex items-center justify-center shadow-sm">
               <LayoutDashboard size={24} />
             </div>
             <div>
-              <h1 className="text-3xl font-serif font-bold text-iqra-green">Dashboard Admin</h1>
-              <p className="text-gray-400 text-sm font-medium">{user.email}</p>
+              <h1 className="text-3xl font-['Cairo'] font-bold text-white">Dashboard Admin</h1>
+              <p className="text-gray-500 text-sm font-['Inter']">{user.email}</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
             {activeTab !== "config" && activeTab !== "messages" && (
               <button 
                 onClick={() => setIsFormOpen(true)}
-                className="px-6 py-3 bg-iqra-gold text-iqra-green font-bold rounded-2xl flex items-center gap-2 hover:scale-105 transition-all shadow-lg text-sm"
+                className="px-6 py-3 bg-[#D4AF37] text-[#0B0F19] font-bold rounded-2xl flex items-center gap-2 hover:scale-105 transition-all shadow-lg text-sm"
               >
                 <Plus size={18} /> Nouveau {activeTab === "podcasts" ? "Podcast" : activeTab === "articles" ? "Article" : activeTab === "sourates" ? "Sourate" : "Émission"}
               </button>
             )}
             <button 
               onClick={handleLogout}
-              className="px-4 py-2 text-gray-400 hover:text-red-500 font-bold uppercase tracking-widest text-[10px] transition-colors"
+              className="px-4 py-2 text-gray-500 hover:text-red-400 font-bold uppercase tracking-widest text-[10px] transition-colors"
             >
               Déconnexion
             </button>
@@ -693,11 +693,11 @@ export default function AdminSecretAccess() {
         </header>
 
         {/* Tab Navigation */}
-        <div className="max-w-6xl w-full mx-auto flex border-b border-gray-200 mb-8">
+        <div className="max-w-6xl w-full mx-auto flex border-b border-white/10 mb-8 overflow-x-auto">
           <button 
             onClick={() => setActiveTab("podcasts")}
-            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 ${
-              activeTab === "podcasts" ? "border-iqra-gold text-iqra-green" : "border-transparent text-gray-400"
+            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 shrink-0 ${
+              activeTab === "podcasts" ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-300"
             }`}
           >
             <div className="flex items-center gap-2">
@@ -706,8 +706,8 @@ export default function AdminSecretAccess() {
           </button>
           <button 
             onClick={() => setActiveTab("articles")}
-            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 ${
-              activeTab === "articles" ? "border-iqra-gold text-iqra-green" : "border-transparent text-gray-400"
+            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 shrink-0 ${
+              activeTab === "articles" ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-300"
             }`}
           >
             <div className="flex items-center gap-2">
@@ -716,8 +716,8 @@ export default function AdminSecretAccess() {
           </button>
           <button 
             onClick={() => setActiveTab("sourates")}
-            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 ${
-              activeTab === "sourates" ? "border-iqra-gold text-iqra-green" : "border-transparent text-gray-400"
+            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 shrink-0 ${
+              activeTab === "sourates" ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-300"
             }`}
           >
             <div className="flex items-center gap-2">
@@ -726,8 +726,8 @@ export default function AdminSecretAccess() {
           </button>
           <button 
             onClick={() => setActiveTab("grille")}
-            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 ${
-              activeTab === "grille" ? "border-iqra-gold text-iqra-green" : "border-transparent text-gray-400"
+            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 shrink-0 ${
+              activeTab === "grille" ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-300"
             }`}
           >
             <div className="flex items-center gap-2">
@@ -736,8 +736,8 @@ export default function AdminSecretAccess() {
           </button>
           <button 
             onClick={() => setActiveTab("config")}
-            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 ${
-              activeTab === "config" ? "border-iqra-gold text-iqra-green" : "border-transparent text-gray-400"
+            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 shrink-0 ${
+              activeTab === "config" ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-300"
             }`}
           >
             <div className="flex items-center gap-2">
@@ -746,8 +746,8 @@ export default function AdminSecretAccess() {
           </button>
           <button 
             onClick={() => setActiveTab("messages")}
-            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 ${
-              activeTab === "messages" ? "border-iqra-gold text-iqra-green" : "border-transparent text-gray-400"
+            className={`px-8 py-4 text-sm font-bold uppercase tracking-widest transition-all border-b-2 shrink-0 ${
+              activeTab === "messages" ? "border-[#D4AF37] text-[#D4AF37]" : "border-transparent text-gray-500 hover:text-gray-300"
             }`}
           >
             <div className="flex items-center gap-2">
@@ -763,18 +763,18 @@ export default function AdminSecretAccess() {
 
         <main className="max-w-6xl w-full mx-auto flex-grow">
           {statusMsg.text && (
-            <div className={`mb-8 p-4 rounded-2xl text-sm font-bold text-center border animate-in fade-in slide-in-from-top-4 duration-300 ${
-              statusMsg.type === "success" ? "bg-green-50 text-green-700 border-green-100" : "bg-red-50 text-red-700 border-red-100"
+            <div className={`mb-8 p-4 rounded-2xl text-sm font-bold text-center border backdrop-blur-xl ${
+              statusMsg.type === "success" ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20" : "bg-red-500/10 text-red-400 border-red-500/20"
             }`}>
               {statusMsg.text}
             </div>
           )}
 
           {activeTab === "podcasts" ? (
-            <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+            <div className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-xl overflow-hidden border border-white/10">
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
-                  <thead className="bg-gray-50/50">
+                  <thead className="bg-white/5">
                     <tr>
                       <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Podcast</th>
                       <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Catégorie</th>
@@ -782,27 +782,27 @@ export default function AdminSecretAccess() {
                       <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-50 font-medium text-gray-600">
+                  <tbody className="divide-y divide-white/5 font-medium text-gray-300">
                     {podcasts.map(podcast => (
-                      <tr key={podcast.id} className="hover:bg-gray-50/50 transition-colors">
+                      <tr key={podcast.id} className="hover:bg-white/5 transition-colors">
                         <td className="px-8 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-iqra-green/5 text-iqra-green rounded-lg flex items-center justify-center">
+                            <div className="w-8 h-8 bg-emerald-500/10 text-emerald-400 rounded-lg flex items-center justify-center">
                               <Music size={14} />
                             </div>
-                            <span className="text-iqra-green font-bold text-sm truncate max-w-[200px]">{podcast.title}</span>
+                            <span className="text-white font-bold text-sm truncate max-w-[200px]">{podcast.title}</span>
                           </div>
                         </td>
                         <td className="px-8 py-4">
-                          <span className="px-2 py-1 bg-gray-100 rounded-md text-[10px] font-bold text-gray-500 uppercase">{podcast.category}</span>
+                          <span className="px-2 py-1 bg-white/5 rounded-md text-[10px] font-bold text-gray-400 uppercase">{podcast.category}</span>
                         </td>
-                        <td className="px-8 py-4 text-xs font-mono">{podcast.date}</td>
+                        <td className="px-8 py-4 text-xs font-mono text-gray-400">{podcast.date}</td>
                         <td className="px-8 py-4 text-right">
                           <div className="flex items-center justify-end gap-2">
-                            <button onClick={() => handleEditPodcast(podcast)} className="p-2 text-gray-400 hover:text-iqra-green hover:bg-iqra-green/5 rounded-lg transition-all">
+                            <button onClick={() => handleEditPodcast(podcast)} className="p-2 text-gray-500 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-all">
                               <Pencil size={18} />
                             </button>
-                            <button onClick={() => handleDeletePodcast(podcast)} className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
+                            <button onClick={() => handleDeletePodcast(podcast)} className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all">
                               <Trash2 size={18} />
                             </button>
                           </div>
@@ -814,34 +814,34 @@ export default function AdminSecretAccess() {
               </div>
             </div>
           ) : activeTab === "articles" ? (
-            <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+            <div className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-xl overflow-hidden border border-white/10">
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
-                  <thead className="bg-gray-50/50">
+                  <thead className="bg-white/5">
                     <tr>
                       <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Article</th>
                       <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Date</th>
                       <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-50 font-medium text-gray-600">
+                  <tbody className="divide-y divide-white/5 font-medium text-gray-300">
                     {articles.map(article => (
-                      <tr key={article.id} className="hover:bg-gray-50/50 transition-colors">
+                      <tr key={article.id} className="hover:bg-white/5 transition-colors">
                         <td className="px-8 py-4">
                           <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
+                            <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-white/10">
                               <img src={article.image_url} alt="" className="w-full h-full object-cover" />
                             </div>
-                            <span className="text-iqra-green font-bold text-sm truncate max-w-[200px]">{article.title}</span>
+                            <span className="text-white font-bold text-sm truncate max-w-[200px]">{article.title}</span>
                           </div>
                         </td>
-                        <td className="px-8 py-4 text-xs font-mono">{article.date}</td>
+                        <td className="px-8 py-4 text-xs font-mono text-gray-400">{article.date}</td>
                         <td className="px-8 py-4 text-right">
                           <div className="flex items-center justify-end gap-2">
-                            <button onClick={() => handleEditArticle(article)} className="p-2 text-gray-400 hover:text-iqra-green hover:bg-iqra-green/5 rounded-lg transition-all">
+                            <button onClick={() => handleEditArticle(article)} className="p-2 text-gray-500 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-all">
                               <Pencil size={18} />
                             </button>
-                            <button onClick={() => handleDeleteArticle(article)} className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
+                            <button onClick={() => handleDeleteArticle(article)} className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all">
                               <Trash2 size={18} />
                             </button>
                           </div>
@@ -853,32 +853,32 @@ export default function AdminSecretAccess() {
               </div>
             </div>
           ) : activeTab === "sourates" ? (
-            <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+            <div className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-xl overflow-hidden border border-white/10">
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
-                  <thead className="bg-gray-50/50">
+                  <thead className="bg-white/5">
                     <tr>
                       <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Sourate</th>
                       <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">N°</th>
                       <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-50 font-medium text-gray-600">
+                  <tbody className="divide-y divide-white/5 font-medium text-gray-300">
                     {sourates.map(sourate => (
-                      <tr key={sourate.id} className="hover:bg-gray-50/50 transition-colors">
+                      <tr key={sourate.id} className="hover:bg-white/5 transition-colors">
                         <td className="px-8 py-4">
                           <div className="flex flex-col">
-                            <span className="text-iqra-green font-bold text-sm">{sourate.name_fr}</span>
-                            <span className="text-xs text-gray-400 font-serif" dir="rtl">{sourate.name_ar}</span>
+                            <span className="text-white font-bold text-sm">{sourate.name_fr}</span>
+                            <span className="text-xs text-gray-500 font-serif" dir="rtl">{sourate.name_ar}</span>
                           </div>
                         </td>
-                        <td className="px-8 py-4 text-xs font-mono">{sourate.number}</td>
+                        <td className="px-8 py-4 text-xs font-mono text-gray-400">{sourate.number}</td>
                         <td className="px-8 py-4 text-right">
                           <div className="flex items-center justify-end gap-2">
-                            <button onClick={() => handleEditSourate(sourate)} className="p-2 text-gray-400 hover:text-iqra-green hover:bg-iqra-green/5 rounded-lg transition-all">
+                            <button onClick={() => handleEditSourate(sourate)} className="p-2 text-gray-500 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-all">
                               <Pencil size={18} />
                             </button>
-                            <button onClick={() => handleDeleteSourate(sourate)} className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
+                            <button onClick={() => handleDeleteSourate(sourate)} className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all">
                               <Trash2 size={18} />
                             </button>
                           </div>
@@ -893,13 +893,13 @@ export default function AdminSecretAccess() {
             <div className="space-y-8 animate-in fade-in duration-500">
               {/* Assets Section */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 flex flex-col items-center gap-6">
-                   <h3 className="text-xl font-bold text-iqra-green">Logo du site</h3>
-                   <div className="w-48 h-48 bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 overflow-hidden">
+                <div className="bg-white/5 backdrop-blur-xl p-8 rounded-3xl shadow-xl border border-white/10 flex flex-col items-center gap-6">
+                   <h3 className="text-xl font-['Cairo'] font-bold text-white">Logo du site</h3>
+                   <div className="w-48 h-48 bg-white/5 rounded-2xl flex items-center justify-center border-2 border-dashed border-white/10 overflow-hidden">
                       {siteConfig?.logo_url ? (
                         <img src={siteConfig.logo_url} alt="Logo" className="max-w-full max-h-full object-contain" />
                       ) : (
-                        <ImageIcon size={48} className="text-gray-300" />
+                        <ImageIcon size={48} className="text-gray-600" />
                       )}
                    </div>
                    <input 
@@ -909,18 +909,18 @@ export default function AdminSecretAccess() {
                     className="hidden" 
                     id="logo-upload" 
                    />
-                   <label htmlFor="logo-upload" className="px-6 py-2 bg-iqra-gold text-iqra-green font-bold rounded-xl cursor-pointer hover:bg-iqra-gold/80 transition-colors text-sm">
+                   <label htmlFor="logo-upload" className="px-6 py-2 bg-[#D4AF37] text-[#0B0F19] font-bold rounded-xl cursor-pointer hover:bg-[#D4AF37]/80 transition-colors text-sm">
                      {formLoading ? "Chargement..." : "Changer le logo"}
                    </label>
                 </div>
 
-                <div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 flex flex-col items-center gap-6">
-                   <h3 className="text-xl font-bold text-iqra-green">Favicon</h3>
-                   <div className="w-24 h-24 bg-gray-50 rounded-2xl flex items-center justify-center border-2 border-dashed border-gray-200 overflow-hidden">
+                <div className="bg-white/5 backdrop-blur-xl p-8 rounded-3xl shadow-xl border border-white/10 flex flex-col items-center gap-6">
+                   <h3 className="text-xl font-['Cairo'] font-bold text-white">Favicon</h3>
+                   <div className="w-24 h-24 bg-white/5 rounded-2xl flex items-center justify-center border-2 border-dashed border-white/10 overflow-hidden">
                       {siteConfig?.favicon_url ? (
                         <img src={siteConfig.favicon_url} alt="Favicon" className="w-12 h-12 object-contain" />
                       ) : (
-                        <ImageIcon size={24} className="text-gray-300" />
+                        <ImageIcon size={24} className="text-gray-600" />
                       )}
                    </div>
                    <input 
@@ -930,96 +930,96 @@ export default function AdminSecretAccess() {
                     className="hidden" 
                     id="favicon-upload" 
                    />
-                   <label htmlFor="favicon-upload" className="px-6 py-2 bg-iqra-gold text-iqra-green font-bold rounded-xl cursor-pointer hover:bg-iqra-gold/80 transition-colors text-sm">
+                   <label htmlFor="favicon-upload" className="px-6 py-2 bg-[#D4AF37] text-[#0B0F19] font-bold rounded-xl cursor-pointer hover:bg-[#D4AF37]/80 transition-colors text-sm">
                      {formLoading ? "Chargement..." : "Changer le favicon"}
                    </label>
                 </div>
               </div>
 
               {/* Main Config Form */}
-              <div className="bg-white p-8 rounded-3xl shadow-xl border border-gray-100">
+              <div className="bg-white/5 backdrop-blur-xl p-8 rounded-3xl shadow-xl border border-white/10">
                 <form onSubmit={handleConfigSubmit} className="space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {/* General Info */}
                     <div className="md:col-span-2">
-                       <h3 className="text-sm font-bold text-iqra-gold uppercase tracking-widest mb-4 border-l-4 border-iqra-gold pl-4">Informations Générales</h3>
+                       <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-widest mb-4 border-l-4 border-[#D4AF37] pl-4">Informations Générales</h3>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Nom du site</label>
-                      <input type="text" value={configFormData.site_name} onChange={e => setConfigFormData({...configFormData, site_name: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Nom du site</label>
+                      <input type="text" value={configFormData.site_name} onChange={e => setConfigFormData({...configFormData, site_name: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Stream Radio URL</label>
-                      <input type="text" value={configFormData.radio_stream_url} onChange={e => setConfigFormData({...configFormData, radio_stream_url: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Stream Radio URL</label>
+                      <input type="text" value={configFormData.radio_stream_url} onChange={e => setConfigFormData({...configFormData, radio_stream_url: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Couleur Primaire</label>
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Couleur Primaire</label>
                       <div className="flex gap-4">
-                        <input type="color" value={configFormData.primary_color} onChange={e => setConfigFormData({...configFormData, primary_color: e.target.value})} className="w-12 h-12 rounded-lg cursor-pointer border-none" />
-                        <input type="text" value={configFormData.primary_color} onChange={e => setConfigFormData({...configFormData, primary_color: e.target.value})} className="flex-grow bg-gray-50 border border-gray-100 rounded-2xl px-4 text-xs font-mono" />
+                        <input type="color" value={configFormData.primary_color} onChange={e => setConfigFormData({...configFormData, primary_color: e.target.value})} className="w-12 h-12 rounded-lg cursor-pointer border-none bg-transparent" />
+                        <input type="text" value={configFormData.primary_color} onChange={e => setConfigFormData({...configFormData, primary_color: e.target.value})} className="flex-grow bg-white/5 border border-white/10 rounded-2xl px-4 text-xs font-mono text-white" />
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Couleur Secondaire</label>
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Couleur Secondaire</label>
                       <div className="flex gap-4">
-                        <input type="color" value={configFormData.secondary_color} onChange={e => setConfigFormData({...configFormData, secondary_color: e.target.value})} className="w-12 h-12 rounded-lg cursor-pointer border-none" />
-                        <input type="text" value={configFormData.secondary_color} onChange={e => setConfigFormData({...configFormData, secondary_color: e.target.value})} className="flex-grow bg-gray-50 border border-gray-100 rounded-2xl px-4 text-xs font-mono" />
+                        <input type="color" value={configFormData.secondary_color} onChange={e => setConfigFormData({...configFormData, secondary_color: e.target.value})} className="w-12 h-12 rounded-lg cursor-pointer border-none bg-transparent" />
+                        <input type="text" value={configFormData.secondary_color} onChange={e => setConfigFormData({...configFormData, secondary_color: e.target.value})} className="flex-grow bg-white/5 border border-white/10 rounded-2xl px-4 text-xs font-mono text-white" />
                       </div>
                     </div>
 
                     {/* Contact Info */}
                     <div className="md:col-span-2 pt-4">
-                       <h3 className="text-sm font-bold text-iqra-gold uppercase tracking-widest mb-4 border-l-4 border-iqra-gold pl-4">Coordonnées</h3>
+                       <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-widest mb-4 border-l-4 border-[#D4AF37] pl-4">Coordonnées</h3>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Téléphone Principal</label>
-                      <input type="text" value={configFormData.primary_phone} onChange={e => setConfigFormData({...configFormData, primary_phone: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Téléphone Principal</label>
+                      <input type="text" value={configFormData.primary_phone} onChange={e => setConfigFormData({...configFormData, primary_phone: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Téléphone Secondaire</label>
-                      <input type="text" value={configFormData.secondary_phone} onChange={e => setConfigFormData({...configFormData, secondary_phone: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Téléphone Secondaire</label>
+                      <input type="text" value={configFormData.secondary_phone} onChange={e => setConfigFormData({...configFormData, secondary_phone: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Email</label>
-                      <input type="email" value={configFormData.email} onChange={e => setConfigFormData({...configFormData, email: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Email</label>
+                      <input type="email" value={configFormData.email} onChange={e => setConfigFormData({...configFormData, email: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Adresse Physique</label>
-                      <input type="text" value={configFormData.address} onChange={e => setConfigFormData({...configFormData, address: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Adresse Physique</label>
+                      <input type="text" value={configFormData.address} onChange={e => setConfigFormData({...configFormData, address: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                     </div>
 
                     {/* Social networks */}
                     <div className="md:col-span-2 pt-4">
-                       <h3 className="text-sm font-bold text-iqra-gold uppercase tracking-widest mb-4 border-l-4 border-iqra-gold pl-4">Réseaux Sociaux</h3>
+                       <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-widest mb-4 border-l-4 border-[#D4AF37] pl-4">Réseaux Sociaux</h3>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Facebook URL</label>
-                      <input type="text" value={configFormData.facebook_url} onChange={e => setConfigFormData({...configFormData, facebook_url: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Facebook URL</label>
+                      <input type="text" value={configFormData.facebook_url} onChange={e => setConfigFormData({...configFormData, facebook_url: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">YouTube URL</label>
-                      <input type="text" value={configFormData.youtube_url} onChange={e => setConfigFormData({...configFormData, youtube_url: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">YouTube URL</label>
+                      <input type="text" value={configFormData.youtube_url} onChange={e => setConfigFormData({...configFormData, youtube_url: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">WhatsApp (Numéro)</label>
-                      <input type="text" value={configFormData.whatsapp_number} onChange={e => setConfigFormData({...configFormData, whatsapp_number: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">WhatsApp (Numéro)</label>
+                      <input type="text" value={configFormData.whatsapp_number} onChange={e => setConfigFormData({...configFormData, whatsapp_number: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Telegram URL</label>
-                      <input type="text" value={configFormData.telegram_url} onChange={e => setConfigFormData({...configFormData, telegram_url: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Telegram URL</label>
+                      <input type="text" value={configFormData.telegram_url} onChange={e => setConfigFormData({...configFormData, telegram_url: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">YouTube API Key (v3)</label>
-                      <input type="password" value={configFormData.youtube_api_key} onChange={e => setConfigFormData({...configFormData, youtube_api_key: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">YouTube API Key (v3)</label>
+                      <input type="password" value={configFormData.youtube_api_key} onChange={e => setConfigFormData({...configFormData, youtube_api_key: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                     </div>
 
                     {/* Theme & UI Options */}
                     <div className="md:col-span-2 pt-4">
-                       <h3 className="text-sm font-bold text-iqra-gold uppercase tracking-widest mb-4 border-l-4 border-iqra-gold pl-4">Apparence (Nouveau Design)</h3>
+                       <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-widest mb-4 border-l-4 border-[#D4AF37] pl-4">Apparence (Nouveau Design)</h3>
                     </div>
                     <div className="md:col-span-2 space-y-2">
                        <label className="flex items-center gap-4 cursor-pointer">
-                         <div className={`w-14 h-8 rounded-full p-1 transition-colors ${configFormData.use_modern_ui ? 'bg-iqra-green' : 'bg-gray-200'}`}>
+                         <div className={`w-14 h-8 rounded-full p-1 transition-colors ${configFormData.use_modern_ui ? 'bg-emerald-500' : 'bg-white/10'}`}>
                            <div className={`w-6 h-6 bg-white rounded-full transition-transform shadow-sm ${configFormData.use_modern_ui ? 'translate-x-6' : 'translate-x-0'}`} />
                          </div>
                          <input 
@@ -1029,24 +1029,24 @@ export default function AdminSecretAccess() {
                            onChange={(e) => setConfigFormData({...configFormData, use_modern_ui: e.target.checked})} 
                          />
                          <div>
-                           <span className="font-bold text-gray-700 block text-sm">Activer le Nouveau Design du Lecteur (Option 1 & 2 & 3)</span>
-                           <span className="text-xs text-gray-400">Si activé, le bouton Play/Pause et l'interface du lecteur utiliseront les nouvelles propriétés Tailwind (Glassmorphism, glow effect, etc.).</span>
+                           <span className="font-bold text-gray-200 block text-sm">Activer le Nouveau Design du Lecteur (Option 1 & 2 & 3)</span>
+                           <span className="text-xs text-gray-500">Si activé, le bouton Play/Pause et l'interface du lecteur utiliseront les nouvelles propriétés Tailwind (Glassmorphism, glow effect, etc.).</span>
                          </div>
                        </label>
                     </div>
 
                     {/* Footer */}
                     <div className="md:col-span-2 pt-4">
-                       <h3 className="text-sm font-bold text-iqra-gold uppercase tracking-widest mb-4 border-l-4 border-iqra-gold pl-4">Pied de page</h3>
+                       <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-widest mb-4 border-l-4 border-[#D4AF37] pl-4">Pied de page</h3>
                     </div>
                     <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Texte du footer</label>
-                      <textarea rows={4} value={configFormData.footer_text} onChange={e => setConfigFormData({...configFormData, footer_text: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all resize-none" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Texte du footer</label>
+                      <textarea rows={4} value={configFormData.footer_text} onChange={e => setConfigFormData({...configFormData, footer_text: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all resize-none placeholder-gray-600" />
                     </div>
                   </div>
 
-                  <div className="flex justify-end gap-4 p-4 bg-gray-50 rounded-3xl">
-                     <button type="submit" disabled={formLoading} className="px-8 py-4 bg-iqra-green text-white font-bold rounded-2xl shadow-xl hover:bg-iqra-green/90 transition-all flex items-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
+                  <div className="flex justify-end gap-4 p-4 bg-white/5 rounded-3xl">
+                     <button type="submit" disabled={formLoading} className="px-8 py-4 bg-[#D4AF37] text-[#0B0F19] font-bold rounded-2xl shadow-xl hover:bg-[#D4AF37]/90 transition-all flex items-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
                         {formLoading ? <Loader2 className="animate-spin" size={20} /> : <><Save size={20} /> Enregistrer la configuration</>}
                      </button>
                   </div>
@@ -1056,23 +1056,23 @@ export default function AdminSecretAccess() {
           ) : activeTab === "messages" ? (
             <div className="space-y-6 animate-in fade-in duration-500">
                {messages.length === 0 ? (
-                 <div className="bg-white p-12 rounded-3xl text-center shadow-xl border border-gray-100">
-                    <Mail size={48} className="mx-auto text-gray-200 mb-4" />
-                    <p className="text-gray-400 font-bold uppercase tracking-widest text-sm">Aucun message reçu pour le moment</p>
+                 <div className="bg-white/5 backdrop-blur-xl p-12 rounded-3xl text-center shadow-xl border border-white/10">
+                    <Mail size={48} className="mx-auto text-gray-600 mb-4" />
+                    <p className="text-gray-500 font-bold uppercase tracking-widest text-sm">Aucun message reçu pour le moment</p>
                  </div>
                ) : (
                  <div className="grid grid-cols-1 gap-4">
                    {messages.map((msg) => (
-                     <div key={msg.id} className={`bg-white p-6 rounded-3xl shadow-lg border-l-8 ${msg.is_read ? 'border-gray-100' : 'border-iqra-gold'} flex flex-col md:flex-row justify-between gap-4`}>
+                     <div key={msg.id} className={`bg-white/5 backdrop-blur-xl p-6 rounded-3xl shadow-lg border-l-8 ${msg.is_read ? 'border-white/5' : 'border-[#D4AF37]'} flex flex-col md:flex-row justify-between gap-4`}>
                         <div className="flex-grow">
                            <div className="flex items-center gap-3 mb-2">
-                              <h4 className="font-bold text-iqra-green text-lg">{msg.name}</h4>
-                              <span className="text-xs text-gray-400 font-mono">{new Date(msg.created_at).toLocaleString('fr-FR')}</span>
-                              {!msg.is_read && <span className="text-[10px] bg-iqra-gold text-iqra-green font-bold px-2 py-0.5 rounded-full uppercase">Nouveau</span>}
+                              <h4 className="font-bold text-white text-lg">{msg.name}</h4>
+                              <span className="text-xs text-gray-500 font-mono">{new Date(msg.created_at).toLocaleString('fr-FR')}</span>
+                              {!msg.is_read && <span className="text-[10px] bg-[#D4AF37] text-[#0B0F19] font-bold px-2 py-0.5 rounded-full uppercase">Nouveau</span>}
                            </div>
-                           <p className="text-xs font-bold text-gray-400 uppercase mb-3 px-2 py-1 bg-gray-50 rounded-lg inline-block">Sujet: {msg.subject}</p>
-                           <p className="text-gray-600 text-sm leading-relaxed italic border-l-2 border-gray-100 pl-4 py-1">{msg.message}</p>
-                           <div className="mt-4 flex items-center gap-2 text-xs text-iqra-green font-bold italic">
+                           <p className="text-xs font-bold text-gray-500 uppercase mb-3 px-2 py-1 bg-white/5 rounded-lg inline-block">Sujet: {msg.subject}</p>
+                           <p className="text-gray-300 text-sm leading-relaxed italic border-l-2 border-white/10 pl-4 py-1">{msg.message}</p>
+                           <div className="mt-4 flex items-center gap-2 text-xs text-emerald-400 font-bold italic">
                               <Mail size={14} /> {msg.email}
                            </div>
                         </div>
@@ -1080,7 +1080,7 @@ export default function AdminSecretAccess() {
                            {!msg.is_read && (
                              <button 
                                onClick={() => markMessageAsRead(msg.id)}
-                               className="p-3 bg-green-50 text-green-600 rounded-xl hover:bg-green-100 transition-colors"
+                               className="p-3 bg-emerald-500/10 text-emerald-400 rounded-xl hover:bg-emerald-500/20 transition-colors"
                                title="Marquer comme lu"
                              >
                                <CheckCircle2 size={20} />
@@ -1088,7 +1088,7 @@ export default function AdminSecretAccess() {
                            )}
                            <button 
                              onClick={() => deleteMessage(msg.id)}
-                             className="p-3 bg-red-50 text-red-600 rounded-xl hover:bg-red-100 transition-colors"
+                             className="p-3 bg-red-500/10 text-red-400 rounded-xl hover:bg-red-500/20 transition-colors"
                              title="Supprimer"
                            >
                              <Trash2 size={20} />
@@ -1100,10 +1100,10 @@ export default function AdminSecretAccess() {
                )}
             </div>
           ) : (
-            <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+            <div className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-xl overflow-hidden border border-white/10">
               <div className="overflow-x-auto">
                 <table className="w-full text-left">
-                  <thead className="bg-gray-50/50">
+                  <thead className="bg-white/5">
                     <tr>
                       <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Émission</th>
                       <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest">Jour</th>
@@ -1111,24 +1111,24 @@ export default function AdminSecretAccess() {
                       <th className="px-8 py-5 text-[10px] font-bold text-gray-400 uppercase tracking-widest text-right">Actions</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-gray-50 font-medium text-gray-600">
+                  <tbody className="divide-y divide-white/5 font-medium text-gray-300">
                     {grilleItems.map(item => (
-                      <tr key={item.id} className="hover:bg-gray-50/50 transition-colors">
+                      <tr key={item.id} className="hover:bg-white/5 transition-colors">
                         <td className="px-8 py-4">
-                          <span className="text-iqra-green font-bold text-sm">{item.title}</span>
+                          <span className="text-white font-bold text-sm">{item.title}</span>
                         </td>
                         <td className="px-8 py-4">
-                          <span className="text-xs">{item.day}</span>
+                          <span className="text-xs text-gray-400">{item.day}</span>
                         </td>
-                        <td className="px-8 py-4 text-xs font-mono">
+                        <td className="px-8 py-4 text-xs font-mono text-gray-400">
                           {item.start_time} - {item.end_time}
                         </td>
                         <td className="px-8 py-4 text-right">
                           <div className="flex items-center justify-end gap-2">
-                            <button onClick={() => handleEditGrille(item)} className="p-2 text-gray-400 hover:text-iqra-green hover:bg-iqra-green/5 rounded-lg transition-all">
+                            <button onClick={() => handleEditGrille(item)} className="p-2 text-gray-500 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-all">
                               <Pencil size={18} />
                             </button>
-                            <button onClick={() => handleDeleteGrille(item)} className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all">
+                            <button onClick={() => handleDeleteGrille(item)} className="p-2 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all">
                               <Trash2 size={18} />
                             </button>
                           </div>
@@ -1144,13 +1144,13 @@ export default function AdminSecretAccess() {
 
         {/* Modal Form */}
         {isFormOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-iqra-green/20 backdrop-blur-sm animate-in fade-in duration-300">
-            <div className="bg-white w-full max-w-xl rounded-3xl shadow-2xl p-8 animate-in zoom-in-95 duration-300 overflow-y-auto max-h-[90vh]">
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+            <div className="bg-[#111827] w-full max-w-xl rounded-3xl shadow-2xl p-8 border border-white/10 animate-in zoom-in-95 duration-300 overflow-y-auto max-h-[90vh]">
               <div className="flex justify-between items-center mb-8">
-                <h2 className="text-2xl font-serif font-bold text-iqra-green">
+                <h2 className="text-2xl font-['Cairo'] font-bold text-white">
                   {editingId ? "Modifier" : "Ajouter"} {activeTab === "podcasts" ? "un podcast" : activeTab === "articles" ? "un article" : activeTab === "sourates" ? "une sourate" : "une émission"}
                 </h2>
-                <button onClick={resetForm} className="text-gray-400 hover:text-gray-600 transition-colors">
+                <button onClick={resetForm} className="text-gray-500 hover:text-gray-300 transition-colors">
                   <X size={24} />
                 </button>
               </div>
@@ -1159,53 +1159,53 @@ export default function AdminSecretAccess() {
                 <form onSubmit={handlePodcastSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Titre</label>
-                      <input type="text" required value={podcastFormData.title} onChange={e => setPodcastFormData({...podcastFormData, title: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Titre</label>
+                      <input type="text" required value={podcastFormData.title} onChange={e => setPodcastFormData({...podcastFormData, title: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Catégorie</label>
-                      <select value={podcastFormData.category} onChange={e => setPodcastFormData({...podcastFormData, category: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all">
-                        {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Catégorie</label>
+                      <select value={podcastFormData.category} onChange={e => setPodcastFormData({...podcastFormData, category: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all">
+                        {CATEGORIES.map(c => <option key={c} value={c} className="bg-[#111827]">{c}</option>)}
                       </select>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Date</label>
-                      <input type="date" required value={podcastFormData.date} onChange={e => setPodcastFormData({...podcastFormData, date: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Date</label>
+                      <input type="date" required value={podcastFormData.date} onChange={e => setPodcastFormData({...podcastFormData, date: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Durée (ex: 25:10)</label>
-                      <input type="text" required value={podcastFormData.duration} onChange={e => setPodcastFormData({...podcastFormData, duration: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Durée (ex: 25:10)</label>
+                      <input type="text" required value={podcastFormData.duration} onChange={e => setPodcastFormData({...podcastFormData, duration: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                     </div>
                     <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Fichier MP3</label>
-                      <input type="file" accept="audio/*" ref={fileInputRef} onChange={e => setUploadFile(e.target.files?.[0] || null)} className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-iqra-gold/10 file:text-iqra-gold hover:file:bg-iqra-gold/20" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Fichier MP3</label>
+                      <input type="file" accept="audio/*" ref={fileInputRef} onChange={e => setUploadFile(e.target.files?.[0] || null)} className="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-[#D4AF37]/10 file:text-[#D4AF37] hover:file:bg-[#D4AF37]/20" />
                     </div>
                   </div>
-                  <button type="submit" disabled={formLoading} className="w-full bg-iqra-green text-white font-bold py-4 rounded-2xl shadow-xl hover:bg-iqra-green/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
+                  <button type="submit" disabled={formLoading} className="w-full bg-[#D4AF37] text-[#0B0F19] font-bold py-4 rounded-2xl shadow-xl hover:bg-[#D4AF37]/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
                     {formLoading ? <Loader2 className="animate-spin" size={20} /> : <><Save size={20} /> Enregistrer</>}
                   </button>
                 </form>
               ) : activeTab === "articles" ? (
                 <form onSubmit={handleArticleSubmit} className="space-y-6">
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Titre</label>
-                    <input type="text" required value={articleFormData.title} onChange={e => setArticleFormData({...articleFormData, title: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Titre</label>
+                    <input type="text" required value={articleFormData.title} onChange={e => setArticleFormData({...articleFormData, title: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Contenu</label>
-                    <textarea required rows={5} value={articleFormData.content} onChange={e => setArticleFormData({...articleFormData, content: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all resize-none" />
+                    <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Contenu</label>
+                    <textarea required rows={5} value={articleFormData.content} onChange={e => setArticleFormData({...articleFormData, content: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all resize-none placeholder-gray-600" />
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Date</label>
-                      <input type="date" required value={articleFormData.date} onChange={e => setArticleFormData({...articleFormData, date: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Date</label>
+                      <input type="date" required value={articleFormData.date} onChange={e => setArticleFormData({...articleFormData, date: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Image</label>
-                      <input type="file" accept="image/*" ref={fileInputRef} onChange={e => setUploadFile(e.target.files?.[0] || null)} className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-iqra-gold/10 file:text-iqra-gold hover:file:bg-iqra-gold/20" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Image</label>
+                      <input type="file" accept="image/*" ref={fileInputRef} onChange={e => setUploadFile(e.target.files?.[0] || null)} className="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-[#D4AF37]/10 file:text-[#D4AF37] hover:file:bg-[#D4AF37]/20" />
                     </div>
                   </div>
-                  <button type="submit" disabled={formLoading} className="w-full bg-iqra-green text-white font-bold py-4 rounded-2xl shadow-xl hover:bg-iqra-green/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
+                  <button type="submit" disabled={formLoading} className="w-full bg-[#D4AF37] text-[#0B0F19] font-bold py-4 rounded-2xl shadow-xl hover:bg-[#D4AF37]/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
                     {formLoading ? <Loader2 className="animate-spin" size={20} /> : <><Save size={20} /> Enregistrer</>}
                   </button>
                 </form>
@@ -1213,31 +1213,31 @@ export default function AdminSecretAccess() {
                 <form onSubmit={handleSourateSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Numéro</label>
-                      <input type="number" required value={sourateFormData.number} onChange={e => setSourateFormData({...sourateFormData, number: parseInt(e.target.value)})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Numéro</label>
+                      <input type="number" required value={sourateFormData.number} onChange={e => setSourateFormData({...sourateFormData, number: parseInt(e.target.value)})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Nom Arabe</label>
-                      <input type="text" required value={sourateFormData.name_ar} dir="rtl" onChange={e => setSourateFormData({...sourateFormData, name_ar: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all font-serif" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Nom Arabe</label>
+                      <input type="text" required value={sourateFormData.name_ar} dir="rtl" onChange={e => setSourateFormData({...sourateFormData, name_ar: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all font-serif" />
                     </div>
                     <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Nom Français</label>
-                      <input type="text" required value={sourateFormData.name_fr} onChange={e => setSourateFormData({...sourateFormData, name_fr: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Nom Français</label>
+                      <input type="text" required value={sourateFormData.name_fr} onChange={e => setSourateFormData({...sourateFormData, name_fr: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                     </div>
                     <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Texte Arabe</label>
-                      <textarea required rows={4} dir="rtl" value={sourateFormData.text_ar} onChange={e => setSourateFormData({...sourateFormData, text_ar: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all resize-none font-serif text-xl" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Texte Arabe</label>
+                      <textarea required rows={4} dir="rtl" value={sourateFormData.text_ar} onChange={e => setSourateFormData({...sourateFormData, text_ar: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all resize-none font-serif text-xl" />
                     </div>
                     <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Traduction Française</label>
-                      <textarea required rows={4} value={sourateFormData.translation_fr} onChange={e => setSourateFormData({...sourateFormData, translation_fr: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all resize-none" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Traduction Française</label>
+                      <textarea required rows={4} value={sourateFormData.translation_fr} onChange={e => setSourateFormData({...sourateFormData, translation_fr: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all resize-none placeholder-gray-600" />
                     </div>
                     <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Fichier Audio</label>
-                      <input type="file" accept="audio/*" ref={fileInputRef} onChange={e => setUploadFile(e.target.files?.[0] || null)} className="w-full text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-iqra-gold/10 file:text-iqra-gold hover:file:bg-iqra-gold/20" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Fichier Audio</label>
+                      <input type="file" accept="audio/*" ref={fileInputRef} onChange={e => setUploadFile(e.target.files?.[0] || null)} className="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-[#D4AF37]/10 file:text-[#D4AF37] hover:file:bg-[#D4AF37]/20" />
                     </div>
                   </div>
-                  <button type="submit" disabled={formLoading} className="w-full bg-iqra-green text-white font-bold py-4 rounded-2xl shadow-xl hover:bg-iqra-green/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
+                  <button type="submit" disabled={formLoading} className="w-full bg-[#D4AF37] text-[#0B0F19] font-bold py-4 rounded-2xl shadow-xl hover:bg-[#D4AF37]/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
                     {formLoading ? <Loader2 className="animate-spin" size={20} /> : <><Save size={20} /> Enregistrer</>}
                   </button>
                 </form>
@@ -1245,29 +1245,29 @@ export default function AdminSecretAccess() {
                 <form onSubmit={handleGrilleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Jour</label>
-                      <select value={grilleFormData.day} onChange={e => setGrilleFormData({...grilleFormData, day: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all">
-                        {DAYS.map(d => <option key={d} value={d}>{d}</option>)}
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Jour</label>
+                      <select value={grilleFormData.day} onChange={e => setGrilleFormData({...grilleFormData, day: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all">
+                        {DAYS.map(d => <option key={d} value={d} className="bg-[#111827]">{d}</option>)}
                       </select>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Titre</label>
-                      <input type="text" required value={grilleFormData.title} onChange={e => setGrilleFormData({...grilleFormData, title: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Titre</label>
+                      <input type="text" required value={grilleFormData.title} onChange={e => setGrilleFormData({...grilleFormData, title: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all placeholder-gray-600" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Début (ex: 08:00)</label>
-                      <input type="time" required value={grilleFormData.start_time} onChange={e => setGrilleFormData({...grilleFormData, start_time: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Début (ex: 08:00)</label>
+                      <input type="time" required value={grilleFormData.start_time} onChange={e => setGrilleFormData({...grilleFormData, start_time: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all" />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Fin (ex: 09:30)</label>
-                      <input type="time" required value={grilleFormData.end_time} onChange={e => setGrilleFormData({...grilleFormData, end_time: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Fin (ex: 09:30)</label>
+                      <input type="time" required value={grilleFormData.end_time} onChange={e => setGrilleFormData({...grilleFormData, end_time: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all" />
                     </div>
                     <div className="md:col-span-2 space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest pl-1">Description</label>
-                      <textarea rows={3} value={grilleFormData.description} onChange={e => setGrilleFormData({...grilleFormData, description: e.target.value})} className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-3 px-4 focus:ring-2 focus:ring-iqra-gold outline-none transition-all resize-none" />
+                      <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest pl-1">Description</label>
+                      <textarea rows={3} value={grilleFormData.description} onChange={e => setGrilleFormData({...grilleFormData, description: e.target.value})} className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-4 text-white focus:ring-2 focus:ring-[#D4AF37] outline-none transition-all resize-none placeholder-gray-600" />
                     </div>
                   </div>
-                  <button type="submit" disabled={formLoading} className="w-full bg-iqra-green text-white font-bold py-4 rounded-2xl shadow-xl hover:bg-iqra-green/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
+                  <button type="submit" disabled={formLoading} className="w-full bg-[#D4AF37] text-[#0B0F19] font-bold py-4 rounded-2xl shadow-xl hover:bg-[#D4AF37]/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
                     {formLoading ? <Loader2 className="animate-spin" size={20} /> : <><Save size={20} /> Enregistrer</>}
                   </button>
                 </form>
@@ -1280,37 +1280,37 @@ export default function AdminSecretAccess() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white p-8 md:p-12 rounded-3xl shadow-2xl w-full max-w-md border border-gray-100">
+    <div className="min-h-screen bg-[#0B0F19] flex items-center justify-center p-4">
+      <div className="bg-[#111827] p-8 md:p-12 rounded-3xl shadow-2xl w-full max-w-md border border-white/10">
         <div className="text-center mb-10">
-          <div className="w-16 h-16 bg-iqra-gold text-iqra-green rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+          <div className="w-16 h-16 bg-[#D4AF37]/10 text-[#D4AF37] rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
             <Lock size={32} />
           </div>
-          <h1 className="text-2xl font-serif font-bold text-iqra-green">Administration</h1>
-          <p className="text-gray-400 text-sm mt-2">Zone sécurisée - Radio Iqra TV</p>
+          <h1 className="text-2xl font-['Cairo'] font-bold text-white">Administration</h1>
+          <p className="text-gray-500 text-sm mt-2">Zone sécurisée - Radio Iqra TV</p>
         </div>
 
         <form onSubmit={handleLogin} className="space-y-6">
           <div className="space-y-2">
             <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Email</label>
             <div className="relative">
-              <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300" size={18} />
-              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="votre@email.com" className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-iqra-gold transition-all" />
+              <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600" size={18} />
+              <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="votre@email.com" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-[#D4AF37] transition-all placeholder-gray-600" />
             </div>
           </div>
 
           <div className="space-y-2">
             <label className="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Mot de passe</label>
             <div className="relative">
-              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300" size={18} />
-              <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" className="w-full bg-gray-50 border border-gray-100 rounded-2xl py-4 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-iqra-gold transition-all" />
+              <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600" size={18} />
+              <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-[#D4AF37] transition-all placeholder-gray-600" />
             </div>
           </div>
 
-          {error && <div className="p-4 bg-red-50 text-red-600 text-xs font-semibold rounded-xl border border-red-100 text-center">{error}</div>}
+          {error && <div className="p-4 bg-red-500/10 text-red-400 text-xs font-semibold rounded-xl border border-red-500/20 text-center">{error}</div>}
 
-          <button type="submit" disabled={loading} className="w-full bg-iqra-green text-white font-bold py-4 rounded-2xl shadow-lg hover:bg-iqra-green/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
-            {loading ? <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" /> : <><LogIn size={20} /> Se connecter</>}
+          <button type="submit" disabled={loading} className="w-full bg-[#D4AF37] text-[#0B0F19] font-bold py-4 rounded-2xl shadow-lg hover:bg-[#D4AF37]/90 transition-all flex items-center justify-center gap-2 disabled:opacity-50 uppercase tracking-widest text-sm">
+            {loading ? <div className="w-5 h-5 border-2 border-[#0B0F19] border-t-transparent rounded-full animate-spin" /> : <><LogIn size={20} /> Se connecter</>}
           </button>
         </form>
       </div>
