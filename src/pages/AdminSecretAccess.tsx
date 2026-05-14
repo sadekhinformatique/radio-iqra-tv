@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from "motion/react";
 import { 
   Lock, LogIn, LayoutDashboard, Plus, Pencil, Trash2, X, Music, 
   Save, Loader2, FileText, BookOpen, Clock, 
-  CalendarRange, Mail, CheckCircle2, ChevronRight, AlertCircle
+  CalendarRange, Mail, CheckCircle2, ChevronRight, AlertCircle,
+  GraduationCap
 } from "lucide-react";
 
 // Types
@@ -18,6 +19,7 @@ const CATEGORIES = ["Prêche", "Tafsir", "Hadith", "Conseils", "Émission cultur
 const DAYS = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
 
 export default function AdminSecretAccess() {
+  useEffect(() => { console.log("Admin Dashboard Initialized"); }, []);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
