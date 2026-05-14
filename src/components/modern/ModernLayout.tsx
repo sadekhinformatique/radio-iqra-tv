@@ -1,44 +1,34 @@
-import React, { useEffect } from 'react';
+import { useEffect, type CSSProperties } from 'react';
 import { Outlet } from 'react-router-dom';
-import ModernHeader from './ModernHeader';
-import ModernFooter from './ModernFooter';
-import ModernFloatingPlayer from './ModernFloatingPlayer';
-import { useSiteConfig, useTheme, applySiteTheme } from '../../hooks/useSiteConfig';
+import PremiumHeader from '../premium/PremiumHeader';
+import PremiumFooter from '../premium/PremiumFooter';
+import PremiumFloatingPlayer from '../premium/PremiumFloatingPlayer';
+import { useSiteConfig } from '../../hooks/useSiteConfig';
 
 export default function ModernLayout() {
   const { config, loading } = useSiteConfig();
-  const { theme } = useTheme();
 
   useEffect(() => {
-    const stored = localStorage.getItem('site_theme');
-    if (stored) applySiteTheme(stored);
+    document.documentElement.classList.add('dark');
+    return () => {};
   }, []);
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme === 'auto' 
-      ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-      : theme
-    );
-  }, [theme]);
 
   if (loading || !config) return null;
 
   return (
-    <div 
-      className="site-wrapper min-h-screen flex flex-col w-full overflow-x-hidden"
+    <div
+      className="bg-night-900 text-gray-100 min-h-screen flex flex-col w-full overflow-x-hidden font-inter"
       style={{
-        background: 'var(--site-bg, #faf8f2)',
-        color: 'var(--site-text, #1a1a2e)',
-        '--color-modern-primary-var': config.primary_color,
-        '--color-modern-gold-var': config.secondary_color,
-      } as React.CSSProperties}
+        '--iqra-green': config.primary_color,
+        '--iqra-gold': config.secondary_color,
+      } as CSSProperties}
     >
-      <ModernHeader />
+      <PremiumHeader />
       <div className="flex-grow">
         <Outlet />
       </div>
-      <ModernFooter />
-      <ModernFloatingPlayer />
+      <PremiumFooter />
+      <PremiumFloatingPlayer />
     </div>
   );
 }

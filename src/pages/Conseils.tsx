@@ -1,4 +1,4 @@
-import { MessageSquare, Calendar, ChevronRight, User, X, Clock, Share2 } from "lucide-react";
+﻿import { MessageSquare, Calendar, ChevronRight, User, X, Clock, Share2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 import EmptyListPage from "../components/EmptyListPage";
@@ -22,27 +22,16 @@ export default function Conseils() {
 
   useEffect(() => {
     async function fetchArticles() {
-      if (!supabase) {
-        setLoading(false);
-        return;
-      }
+      if (!supabase) { setLoading(false); return; }
       try {
-        const { data, error } = await supabase
-          .from('articles')
-          .select('*');
-
-        if (error) {
-          setErrorMsg(error.message);
-          throw error;
-        }
-        
-        const sortedData = (data || []).sort((a: any, b: any) => {
-          const dateA = a.created_at || a.date || a.id;
-          const dateB = b.created_at || b.date || b.id;
-          return dateB > dateA ? 1 : -1;
+        const { data, error } = await supabase.from("articles").select("*");
+        if (error) { setErrorMsg(error.message); throw error; }
+        const sorted = (data || []).sort((a: any, b: any) => {
+          const dA = a.created_at || a.date || a.id;
+          const dB = b.created_at || b.date || b.id;
+          return dB > dA ? 1 : -1;
         });
-
-        setArticles(sortedData);
+        setArticles(sorted);
       } catch (err) {
         console.error("Error fetching articles:", err);
       } finally {
@@ -52,209 +41,171 @@ export default function Conseils() {
     fetchArticles();
   }, []);
 
-  // Prevent scroll when article is open
   useEffect(() => {
     if (selectedArticle) {
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = "unset";
     }
-    return () => { document.body.style.overflow = 'unset'; };
+    return () => { document.body.style.overflow = "unset"; };
   }, [selectedArticle]);
 
   if (loading) {
-    return (
-      <div className="py-20 flex justify-center">
-        <div className="w-12 h-12 border-4 border-iqra-gold border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+    return <div className="min-h-screen pt-28 flex justify-center"><div className="w-10 h-10 border-2 border-gold-500 border-t-transparent rounded-full animate-spin" /></div>;
   }
 
   if (errorMsg) {
     return (
-      <div className="py-20 px-4 text-center">
-        <p className="text-red-500 font-bold mb-2">Erreur : {errorMsg}</p>
-        <p className="text-gray-500 text-sm">Vérifiez les politiques RLS de votre table "articles".</p>
+      <div className="min-h-screen pt-28 px-4 text-center">
+        <p className="text-red-400 font-bold mb-2">Erreur : {errorMsg}</p>
+        <p className="text-gray-500 text-sm">Vérifiez les politiques RLS de votre table articles.</p>
       </div>
     );
   }
 
   if (articles.length === 0) {
-    return (
-      <EmptyListPage 
-        title="Conseils & Fatwas"
-        subtitle="Une encyclopédie de conseils religieux pour éclairer votre quotidien dans la lumière de l'Islam."
-        icon={MessageSquare}
-        category="Conseil"
-      />
-    );
+    return <EmptyListPage title="Conseils & Fatwas" subtitle="Une encyclopedie de conseils religieux pour eclairer votre quotidien." icon={MessageSquare} category="Conseil" />;
   }
 
   return (
-    <div className="py-12 px-4 md:px-8 max-w-5xl mx-auto">
-      <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-14 h-14 bg-iqra-gold/10 text-iqra-gold rounded-2xl mb-4">
-          <MessageSquare size={28} />
+    <div className="min-h-screen pt-28 pb-20 px-4 lg:px-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gold-500/10 text-gold-400 mb-6">
+            <MessageSquare size={40} />
+          </div>
+          <h1 className="text-4xl lg:text-5xl font-cairo font-bold text-white mb-4">Conseils & Fatwas</h1>
+          <p className="text-gray-400">L'Islam au quotidien pour eclairer votre chemin.</p>
         </div>
-        <h1 className="text-2xl md:text-4xl font-serif font-bold text-iqra-green mb-3">Conseils & Fatwas</h1>
-        <p className="text-gray-500 max-w-xl mx-auto font-medium">L'Islam au quotidien pour éclairer votre chemin.</p>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {articles.map((article) => (
-          <motion.div 
-            key={article.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -5 }}
-            className="bg-white rounded-[2rem] overflow-hidden shadow-xl border border-gray-100 flex flex-col group hover:border-iqra-gold/50 transition-all duration-500 cursor-pointer"
-            onClick={() => setSelectedArticle(article)}
-          >
-            {article.image_url && (
-              <div className="h-64 overflow-hidden relative">
-                <img 
-                  src={article.image_url} 
-                  alt={article.title} 
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-iqra-green/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-iqra-green uppercase tracking-widest shadow-sm">
-                  {article.category || 'Conseil'}
-                </div>
-              </div>
-            )}
-            <div className="p-8 flex flex-col gap-4 flex-grow">
-              <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                <span className="flex items-center gap-1">
-                  <Calendar size={12} /> 
-                  {new Date(article.date || (article as any).created_at || Date.now()).toLocaleDateString('fr-FR', {
-                    day: 'numeric',
-                    month: 'long'
-                  })}
-                </span>
-                <span>•</span>
-                <span className="flex items-center gap-1">
-                  <Clock size={12} />
-                  {Math.ceil((article.content?.length || 0) / 1000) || 1} min lecture
-                </span>
-              </div>
-              <h3 className="text-xl font-bold text-iqra-green group-hover:text-iqra-gold transition-colors line-clamp-2 leading-tight">{article.title}</h3>
-              <p className="text-gray-500 leading-relaxed line-clamp-3 text-sm">{(article as any).description || article.content}</p>
-              
-              <div className="mt-auto pt-6 border-t border-gray-50 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-iqra-green/5 text-iqra-green rounded-full flex items-center justify-center">
-                    <User size={14} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {articles.map((article) => (
+            <motion.div
+              key={article.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -4 }}
+              className="glass-card rounded-2xl overflow-hidden group cursor-pointer hover:border-emerald-500/30 transition-all duration-500"
+              onClick={() => setSelectedArticle(article)}
+            >
+              {article.image_url && (
+                <div className="h-56 overflow-hidden relative">
+                  <img src={article.image_url} alt={article.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-night-900 via-transparent to-transparent" />
+                  <div className="absolute top-4 right-4 glass-light px-3 py-1 rounded-full text-[10px] font-bold text-gold-400 uppercase tracking-wider">
+                    {article.category || "Conseil"}
                   </div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-500">{article.author || 'Rédaction'}</span>
                 </div>
-                <button className="text-iqra-gold font-bold text-[10px] uppercase tracking-widest flex items-center gap-1 group-hover:gap-2 transition-all">
-                  Lire la suite <ChevronRight size={14} />
-                </button>
+              )}
+              <div className="p-6">
+                <div className="flex items-center gap-3 text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-3">
+                  <span className="flex items-center gap-1">
+                    <Calendar size={12} />
+                    {new Date(article.date || (article as any).created_at || Date.now()).toLocaleDateString("fr-FR", { day: "numeric", month: "long" })}
+                  </span>
+                  <span>•</span>
+                  <span className="flex items-center gap-1">
+                    <Clock size={12} />
+                    {Math.ceil((article.content?.length || 0) / 1000) || 1} min
+                  </span>
+                </div>
+                <h3 className="text-xl font-bold text-white line-clamp-2 group-hover:text-gold-400 transition-colors mb-2">
+                  {article.title}
+                </h3>
+                <p className="text-gray-400 text-sm line-clamp-2">{(article as any).description || article.content}</p>
+                <div className="mt-4 pt-4 border-t border-white/5 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-full bg-emerald-600/10 text-emerald-400 flex items-center justify-center">
+                      <User size={12} />
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500">{article.author || "Rédaction"}</span>
+                  </div>
+                  <span className="text-gold-400 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1 group-hover:gap-2 transition-all">
+                    Lire <ChevronRight size={12} />
+                  </span>
+                </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          ))}
+        </div>
       </div>
 
-      {/* Modern Article Overlay */}
       <AnimatePresence>
         {selectedArticle && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-iqra-green/95 backdrop-blur-xl p-4 md:p-8"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-night-900/95 backdrop-blur-2xl p-4 lg:p-8"
           >
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.9, y: 40 }}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 40 }}
-              className="bg-white w-full max-w-4xl max-h-[85vh] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col relative"
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="bg-night-800 w-full max-w-4xl max-h-[90vh] rounded-3xl shadow-2xl overflow-hidden flex flex-col relative border border-white/5"
             >
-              {/* Close Button */}
-              <button 
+              <button
                 onClick={() => setSelectedArticle(null)}
-                className="absolute top-6 right-6 z-20 w-12 h-12 bg-white/20 hover:bg-white/40 backdrop-blur-md text-white rounded-2xl flex items-center justify-center transition-all group active:scale-95"
+                className="absolute top-4 right-4 z-20 w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md text-white flex items-center justify-center hover:bg-white/20 transition-all"
               >
-                <X size={24} className="group-hover:rotate-90 transition-transform duration-300" />
+                <X size={20} />
               </button>
 
-              <div className="overflow-y-auto overflow-x-hidden flex-grow scrollbar-hide">
-                {/* Header Image */}
-                <div className="relative h-[25vh] md:h-[35vh] w-full">
+              <div className="overflow-y-auto flex-grow">
+                <div className="relative h-[40vh] md:h-[50vh] w-full">
                   {selectedArticle.image_url ? (
-                    <img 
-                      src={selectedArticle.image_url} 
-                      alt={selectedArticle.title} 
-                      className="w-full h-full object-cover"
-                    />
+                    <img src={selectedArticle.image_url} alt={selectedArticle.title} className="w-full h-full object-cover" />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-iqra-green/10 to-iqra-gold/10 flex items-center justify-center">
-                      <span className="text-6xl opacity-20">📖</span>
-                    </div>
+                    <div className="w-full h-full bg-gradient-to-br from-emerald-900/30 to-night-800" />
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent" />
-                  
-                  <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full">
-                    <div className="flex flex-wrap items-center gap-4 mb-6">
-                      <span className="bg-iqra-gold text-iqra-green text-[10px] font-bold px-4 py-1.5 rounded-full uppercase tracking-tighter shadow-lg">
-                        {selectedArticle.category || 'Conseil'}
+                  <div className="absolute inset-0 bg-gradient-to-t from-night-800 via-night-800/40 to-transparent" />
+                  <div className="absolute bottom-0 left-0 p-8 lg:p-12 w-full">
+                    <div className="flex flex-wrap items-center gap-3 mb-4">
+                      <span className="bg-gold-500/10 text-gold-400 text-[10px] font-bold px-3 py-1.5 rounded-full uppercase border border-gold-500/20">
+                        {selectedArticle.category || "Conseil"}
                       </span>
-                      <div className="flex items-center gap-2 text-[10px] font-bold text-gray-500 uppercase tracking-widest bg-white/80 backdrop-blur-sm px-4 py-1.5 rounded-full shadow-sm">
-                        <Calendar size={12} className="text-iqra-gold" />
-                        {new Date(selectedArticle.date || (selectedArticle as any).created_at || Date.now()).toLocaleDateString('fr-FR', {
-                          day: 'numeric',
-                          month: 'long',
-                          year: 'numeric'
-                        })}
-                      </div>
+                      <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest flex items-center gap-1 bg-night-900/60 px-3 py-1.5 rounded-full">
+                        <Calendar size={12} />
+                        {new Date(selectedArticle.date || Date.now()).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" })}
+                      </span>
                     </div>
-                    <h2 className="text-2xl md:text-3xl font-serif font-bold text-iqra-green leading-tight max-w-3xl">
+                    <h2 className="text-3xl lg:text-4xl font-cairo font-bold text-white leading-tight max-w-3xl">
                       {selectedArticle.title}
                     </h2>
                   </div>
                 </div>
 
-                {/* Content Container */}
-                <div className="px-8 md:px-24 pb-20 -mt-2 relative">
-                  <div className="flex items-center justify-between py-8 border-b border-gray-100 mb-10">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-iqra-green/5 text-iqra-green rounded-2xl flex items-center justify-center shadow-inner">
-                        <User size={24} />
+                <div className="px-8 lg:px-16 pb-16">
+                  <div className="flex items-center justify-between py-6 border-b border-white/5 mb-8">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-emerald-600/10 text-emerald-400 flex items-center justify-center">
+                        <User size={20} />
                       </div>
                       <div>
-                        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">Auteur</p>
-                        <p className="text-sm font-bold text-iqra-green">{selectedArticle.author || 'Rédaction Voix de Saint Coran'}</p>
+                        <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Auteur</p>
+                        <p className="text-sm font-bold text-white">{selectedArticle.author || "Rédaction"}</p>
                       </div>
                     </div>
-                    
-                    <button className="flex items-center gap-2 text-iqra-gold hover:text-iqra-green transition-colors px-4 py-2 rounded-xl bg-iqra-gold/5 border border-iqra-gold/10">
-                      <Share2 size={18} />
+                    <button className="flex items-center gap-2 text-gold-400 hover:text-gold-300 transition-colors px-3 py-2 rounded-xl bg-gold-500/5 border border-gold-500/10">
+                      <Share2 size={16} />
                       <span className="text-xs font-bold uppercase tracking-widest">Partager</span>
                     </button>
                   </div>
 
-                  {/* Article Body */}
-                  <div className="prose prose-lg max-w-none">
-                    <p className="text-gray-600 leading-[1.8] text-lg whitespace-pre-wrap font-medium font-sans">
-                      {selectedArticle.content}
-                    </p>
+                  <div className="text-gray-300 leading-[1.8] text-base whitespace-pre-wrap">
+                    {selectedArticle.content}
                   </div>
 
-                  {/* Closing Footer */}
-                  <div className="mt-16 pt-10 border-t border-gray-100 text-center">
-                    <p className="text-gray-400 text-sm italic font-serif opacity-70">
-                      "Certes, dans le rappel (le Coran) il y a une guérison pour les poitrines."
+                  <div className="mt-12 pt-8 border-t border-white/5 text-center">
+                    <p className="text-gray-500 text-sm italic">
+                      "Certes, dans le rappel il y a une guerison pour les poitrines."
                     </p>
-                    <div className="mt-8 flex justify-center">
-                      <button 
-                        onClick={() => setSelectedArticle(null)}
-                        className="bg-iqra-green text-white px-8 py-4 rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-iqra-gold hover:text-iqra-green transition-all shadow-xl active:scale-95"
-                      >
-                        Retour aux articles
-                      </button>
-                    </div>
+                    <button
+                      onClick={() => setSelectedArticle(null)}
+                      className="mt-6 px-8 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl transition-all"
+                    >
+                      Retour aux articles
+                    </button>
                   </div>
                 </div>
               </div>

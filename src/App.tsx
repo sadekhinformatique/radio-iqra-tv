@@ -6,8 +6,6 @@ import About from "./pages/About";
 import Radio from "./pages/Radio";
 import Contact from "./pages/Contact";
 import Coran from "./pages/Coran";
-import Tafsir from "./pages/Tafsir";
-import TafsirDetail from "./pages/TafsirDetail";
 import Podcasts from "./pages/Podcasts";
 import Conseils from "./pages/Conseils";
 import ModernLayout from "./components/modern/ModernLayout";
@@ -44,8 +42,6 @@ function AppContent() {
           <Route path="/" element={<ModernHome />} />
           <Route path="/listen-live" element={<ModernListenLive />} />
           <Route path="/coran" element={<Coran />} />
-          <Route path="/tafsir" element={<Tafsir />} />
-          <Route path="/tafsir/:slug" element={<TafsirDetail />} />
           <Route path="/apprentissage" element={<LearningProgram />} />
           <Route path="/coran-apprentissage" element={<ModernCoranLearning />} />
           <Route path="/youtube" element={<YouTube />} />
@@ -81,8 +77,6 @@ function AppContent() {
         <Route path="/youtube" element={<YouTube />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/coran" element={<Coran />} />
-        <Route path="/tafsir" element={<Tafsir />} />
-        <Route path="/tafsir/:slug" element={<TafsirDetail />} />
         <Route path="/apprentissage" element={<LearningProgram />} />
         <Route path="/coran-apprentissage" element={<ModernCoranLearning />} />
         <Route path="/podcasts" element={<Podcasts />} />

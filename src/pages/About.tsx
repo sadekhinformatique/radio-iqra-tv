@@ -1,54 +1,61 @@
-import { motion } from "motion/react";
-import { useSiteConfig } from "../hooks/useSiteConfig";
+import { motion } from 'motion/react';
+import { useSiteConfig } from '../hooks/useSiteConfig';
+import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function About() {
   const { config } = useSiteConfig();
 
   return (
-    <div className="py-12 px-4 md:px-8 max-w-3xl mx-auto">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        <h1 className="text-iqra-gold font-bold uppercase tracking-[0.3em] text-xs mb-3">Notre Histoire</h1>
-        <h2 className="text-2xl md:text-4xl font-serif font-bold text-iqra-green mb-8">{config.site_name} — La Voix du Saint Coran</h2>
-        
-        <div className="prose prose-lg text-gray-700 font-serif leading-loose space-y-8">
-          <p className="text-xl italic text-iqra-green">
-            "{config.site_name} – La Voix de saint Coran Basée au cœur du Burkina Faso, {config.site_name} est une station islamique dédiée à la diffusion des enseignements authentiques de l'Islam, dans un esprit de paix, de fraternité et d'éducation spirituelle..."
-          </p>
-          
-          <p>
-            Notre mission est de porter la parole d'Allah et les enseignements du Prophète (PSL) 
-            jusque dans chaque foyer, en utilisant les technologies modernes pour promouvoir 
-            une compréhension juste et apaisée de notre belle religion.
-          </p>
-
-          <div className="bg-gray-50 p-8 rounded-2xl border-l-4 border-iqra-gold">
-            <h3 className="font-sans font-bold text-iqra-green uppercase tracking-wider text-sm mb-4">Nos Valeurs</h3>
-            <ul className="list-none space-y-4 font-sans text-base">
-              <li className="flex gap-3">
-                <span className="text-iqra-gold font-bold">01.</span>
-                <span><strong>Paix :</strong> Œuvrer pour la concorde sociale et le vivre-ensemble.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-iqra-gold font-bold">02.</span>
-                <span><strong>Fraternité :</strong> Renforcer les liens entre les croyants et toutes les communautés.</span>
-              </li>
-              <li className="flex gap-3">
-                <span className="text-iqra-gold font-bold">03.</span>
-                <span><strong>Éducation :</strong> Transmettre le savoir religieux avec rigueur et bienveillance.</span>
-              </li>
-            </ul>
+    <div className="min-h-screen pt-28 pb-20 px-4 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-400 text-xs font-semibold mb-6">
+            Notre Histoire
           </div>
 
-          <p>
-            Situé au Burkina Faso, pays de dialogue et de tolérance, RADIO IQRA TV s'engage 
-            à être un pont entre les cultures et un phare pour ceux qui cherchent la guidée spirituelle.
-          </p>
-        </div>
-      </motion.div>
+          <h1 className="text-4xl lg:text-6xl font-cairo font-black text-white mb-6 leading-tight">
+            {config.site_name}
+            <span className="block text-gradient-gold">La Voix du Saint Coran</span>
+          </h1>
+
+          <div className="glass-card rounded-2xl p-8 lg:p-10 space-y-8">
+            <p className="text-xl italic text-gray-300 font-medium leading-relaxed">
+              "{config.site_name} – La Voix de saint Coran. Basée au cœur du Burkina Faso, {config.site_name} est une station islamique dédiée à la diffusion des enseignements authentiques de l'Islam, dans un esprit de paix, de fraternité et d'éducation spirituelle..."
+            </p>
+
+            <p className="text-gray-400 leading-relaxed">
+              Notre mission est de porter la parole d'Allah et les enseignements du Prophète (PSL) jusque dans chaque foyer, en utilisant les technologies modernes pour promouvoir une compréhension juste et apaisée de notre belle religion.
+            </p>
+
+            <div className="glass rounded-xl p-6 border-l-4 border-gold-500">
+              <h3 className="font-cairo font-bold text-gold-400 text-sm mb-4 uppercase tracking-wider">Nos Valeurs</h3>
+              <ul className="space-y-4">
+                {[
+                  { num: '01', title: 'Paix', desc: 'Œuvrer pour la concorde sociale et le vivre-ensemble.' },
+                  { num: '02', title: 'Fraternité', desc: 'Renforcer les liens entre les croyants et toutes les communautés.' },
+                  { num: '03', title: 'Éducation', desc: 'Transmettre le savoir religieux avec rigueur et bienveillance.' },
+                ].map((v) => (
+                  <li key={v.num} className="flex gap-3">
+                    <span className="text-gold-500 font-bold text-sm">{v.num}.</span>
+                    <span className="text-gray-300"><strong className="text-white">{v.title} :</strong> {v.desc}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <p className="text-gray-400 leading-relaxed">
+              Situé au Burkina Faso, pays de dialogue et de tolérance, RADIO IQRA TV s'engage à être un pont entre les cultures et un phare pour ceux qui cherchent la guidée spirituelle.
+            </p>
+          </div>
+
+          <div className="mt-8 text-center">
+            <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-gold-500/10 border border-gold-500/20 text-gold-400 font-semibold rounded-full text-sm hover:bg-gold-500/20 transition-all">
+              Nous contacter <ArrowRight size={16} />
+            </Link>
+          </div>
+        </motion.div>
+      </div>
     </div>
   );
 }

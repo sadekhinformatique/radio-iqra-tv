@@ -1,4 +1,4 @@
-import { LucideIcon, Search } from "lucide-react";
+﻿import { LucideIcon, Search } from "lucide-react";
 import { motion } from "motion/react";
 
 interface EmptyListProps {
@@ -10,41 +10,39 @@ interface EmptyListProps {
 
 export default function EmptyListPage({ title, subtitle, icon: Icon, category }: EmptyListProps) {
   return (
-    <div className="py-12 px-4 md:px-8 max-w-5xl mx-auto">
-      <div className="text-center mb-10">
-        <div className="inline-flex items-center justify-center w-14 h-14 bg-iqra-gold/10 text-iqra-gold rounded-2xl mb-4">
-          <Icon size={28} />
+    <div className="min-h-screen pt-28 pb-20 px-4 lg:px-8 max-w-6xl mx-auto">
+      <div className="text-center mb-16">
+        <div className="inline-flex items-center justify-center w-20 h-20 bg-gold-500/10 text-gold-400 rounded-2xl mb-6">
+          <Icon size={40} />
         </div>
-        <h1 className="text-2xl md:text-4xl font-serif font-bold text-iqra-green mb-3">{title}</h1>
-        <p className="text-gray-500 max-w-xl mx-auto font-medium">{subtitle}</p>
+        <h1 className="text-4xl lg:text-5xl font-cairo font-bold text-white mb-4">{title}</h1>
+        <p className="text-gray-400 max-w-xl mx-auto">{subtitle}</p>
       </div>
 
-      {/* Search Placeholder */}
-      <div className="mb-12 max-w-2xl mx-auto flex gap-4">
-        <div className="relative flex-grow">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
-          <input 
-            type="text" 
-            placeholder={`Rechercher un ${category.toLowerCase()}...`}
-            className="w-full pl-12 pr-4 py-4 rounded-full bg-gray-50 border border-gray-100 focus:bg-white focus:border-iqra-gold transition-all outline-none"
+      <div className="mb-10 max-w-xl mx-auto flex gap-3">
+        <div className="relative flex-1">
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" size={18} />
+          <input
+            type="text"
+            placeholder={"Rechercher un " + category.toLowerCase() + "..."}
+            className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-emerald-500 transition-all"
           />
         </div>
-        <button className="px-8 py-4 bg-iqra-green text-white font-bold rounded-full uppercase tracking-widest text-xs shadow-lg hover:bg-iqra-green/90 transition-all">
+        <button className="px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-xl transition-all text-xs uppercase tracking-wider">
           Filtrer
         </button>
       </div>
 
-      {/* Empty State */}
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.9 }}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        className="bg-white border-2 border-dashed border-gray-100 py-32 rounded-3xl flex flex-col items-center justify-center text-center px-6"
+        className="glass-card rounded-2xl py-24 flex flex-col items-center justify-center text-center px-6"
       >
-        <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-6">
-          <Icon className="text-gray-200" size={32} />
+        <div className="w-16 h-16 rounded-xl bg-white/5 flex items-center justify-center mb-6">
+          <Icon className="text-gray-600" size={32} />
         </div>
-        <h3 className="text-xl font-serif font-bold text-gray-400 mb-2">Aucun contenu disponible pour le moment</h3>
-        <p className="text-gray-400 text-sm italic">Revenez bientôt pour découvrir nos nouveautés.</p>
+        <h3 className="text-xl font-cairo font-bold text-gray-500 mb-2">Aucun contenu disponible</h3>
+        <p className="text-gray-600 text-sm italic">Revenez bientot pour decouvrir nos nouveautes.</p>
       </motion.div>
     </div>
   );
